@@ -4,24 +4,12 @@ import com.google.gson.reflect.TypeToken
 import jp.annict.rest.interfaces.RequestQuery
 import jp.annict.rest.v1.AnnictClient
 import jp.annict.rest.interfaces.ResponseBody
+import jp.annict.rest.v1.models.Episode
 import jp.annict.rest.utils.JsonUtil
-import jp.annict.rest.v1.type.Order
+import jp.annict.rest.v1.enums.Order
 import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
-import java.io.File.separator
-
-data class Episode (
-    val id: Int,
-    val number: Int,
-    val number_text   : String,
-    val sort_number   : Int,
-    val title: String,
-    val records_count : Int,
-    val work: Work,
-    val prev_episode  : Episode?,
-    val next_episode  : Episode?
-)
 
 data class EpisodesRequestQuery (
     val fields           : Array<String>?,
@@ -42,8 +30,9 @@ data class EpisodesRequestQuery (
             if(filter_work_id != null) { addQueryParameter("filter_work_id", filter_work_id.toString()) }
             if(page != null) { addQueryParameter("page", page.toString()) }
             if(per_page != null) { addQueryParameter("per_page", per_page.toString()) }
-            if(sort_id != null) { addQueryParameter("sort_id", sort_id.value) }
-            if(sort_sort_number != null) { addQueryParameter("sort_sort_number", sort_sort_number.value) }
+            if(sort_id != null) { addQueryParameter("sort_id", sort_id.name) }
+            if(sort_sort_number != null) { addQueryParameter("sort_sort_number", sort_sort_number.name) }
+
 
         }.build()
     }
@@ -62,5 +51,7 @@ data class EpisodesResponse(
 
 class EpisodesService(val client: AnnictClient) {
 
-    fun get(query: EpisodesRequestQuery) : EpisodesResponse { this.client.apply { return EpisodesResponse().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) } }
+    fun get(query: EpisodesRequestQuery) : EpisodesResponse {
+        this.client.apply { return EpisodesResponse().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
+    }
 }
