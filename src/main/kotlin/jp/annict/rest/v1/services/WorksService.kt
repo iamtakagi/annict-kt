@@ -51,9 +51,9 @@ data class WorksRequestQuery (
             if(filter_title != null) { addQueryParameter("filter_title", filter_title.toString()) }
             if(page != null) { addQueryParameter("page", page.toString()) }
             if(per_page != null) { addQueryParameter("per_page", per_page.toString()) }
-            if(sort_id != null) { addQueryParameter("sort_id", sort_id.name) }
-            if(sort_season != null) { addQueryParameter("sort_season", sort_season.name) }
-            if(sort_watchers_count != null) { addQueryParameter("sort_watchers_count", sort_watchers_count.name) }
+            if(sort_id != null) { addQueryParameter("sort_id", sort_id.value) }
+            if(sort_season != null) { addQueryParameter("sort_season", sort_season.value) }
+            if(sort_watchers_count != null) { addQueryParameter("sort_watchers_count", sort_watchers_count.value) }
 
         }.build()
     }

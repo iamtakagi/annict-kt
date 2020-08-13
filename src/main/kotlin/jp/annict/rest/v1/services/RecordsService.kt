@@ -55,8 +55,8 @@ data class RecordsRequestQuery (
             if(filter_has_record_comment != null) { addQueryParameter("filter_has_record_comment", filter_has_record_comment.toString()) }
             if(page != null) { addQueryParameter("page", page.toString()) }
             if(per_page != null) { addQueryParameter("per_page", per_page.toString()) }
-            if(sort_id != null) { addQueryParameter("sort_id", sort_id.name) }
-            if(sort_likes_count != null) { addQueryParameter("sort_likes_count", sort_likes_count.name) }
+            if(sort_id != null) { addQueryParameter("sort_id", sort_id.value) }
+            if(sort_likes_count != null) { addQueryParameter("sort_likes_count", sort_likes_count.value) }
 
         }.build()
     }
