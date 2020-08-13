@@ -1,5 +1,5 @@
 package jp.annict.rest.v1.type
 
-enum class Order {
-    asc, desc
+enum class Order(val value: String) {
+    ASC("asc"), DESC("desc")
 }
