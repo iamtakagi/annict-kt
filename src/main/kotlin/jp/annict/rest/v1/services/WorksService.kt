@@ -29,8 +29,8 @@ data class WorksRequestQuery (
 
             if(fields != null && fields.isNotEmpty()) { addQueryParameter("fields", fields.joinToString(separator = ",")) }
             if(filter_ids != null && filter_ids.isNotEmpty()) { addQueryParameter("filter_ids", filter_ids.joinToString(separator = ",")) }
-            if(filter_season != null) { addQueryParameter("filter_season", filter_season.toString()) }
-            if(filter_title != null) { addQueryParameter("filter_title", filter_title.toString()) }
+            if(filter_season != null && filter_season.isNotEmpty()) { addQueryParameter("filter_season", filter_season.toString()) }
+            if(filter_title != null && filter_title.isNotEmpty()) { addQueryParameter("filter_title", filter_title.toString()) }
             if(page != null) { addQueryParameter("page", page.toString()) }
             if(per_page != null) { addQueryParameter("per_page", per_page.toString()) }
             if(sort_id != null) { addQueryParameter("sort_id", sort_id.name) }
