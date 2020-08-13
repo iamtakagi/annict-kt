@@ -2,13 +2,10 @@ package jp.annict.rest.v1
 
 import com.google.gson.Gson
 import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaType
 
 class AnnictClient(val token: String) {
 
     val client: OkHttpClient = OkHttpClient()
-
-    val GSON = Gson()
 
     fun getUrlBuilder() : HttpUrl.Builder {
         return HttpUrl.Builder()
