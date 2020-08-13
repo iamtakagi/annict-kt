@@ -40,7 +40,7 @@ class AuthorizationService(val client: AnnictClient) {
      */
     fun info(): Response {
         this.client.apply {
-            return request(Request.Builder().url(getUrlBuilder().addPathSegments("/oauth/token/info").build()))
+            return request(Request.Builder().url(getUrlBuilder().addPathSegments("oauth/token/info").build()))
         }
     }
 
