@@ -36,27 +36,13 @@ data class EpisodesRequestQuery (
        return builer.apply {
             addPathSegment("episodes")
 
-            if(fields != null) {
-                addQueryParameter("fields", fields)
-            }
-            if(filter_ids != null) {
-                addQueryParameter("filter_ids", filter_ids)
-            }
-            if(filter_work_id != null) {
-                addQueryParameter("filter_work_id", filter_work_id.toString())
-            }
-            if(page != null) {
-                addQueryParameter("page", page.toString())
-            }
-            if(per_page != null) {
-                addQueryParameter("per_page", per_page.toString())
-            }
-            if(sort_id != null) {
-                addQueryParameter("sort_id", sort_id.name)
-            }
-            if(sort_sort_number != null) {
-                addQueryParameter("sort_sort_number", sort_sort_number.name)
-            }
+            if(fields != null) { addQueryParameter("fields", fields) }
+            if(filter_ids != null) { addQueryParameter("filter_ids", filter_ids) }
+            if(filter_work_id != null) { addQueryParameter("filter_work_id", filter_work_id.toString()) }
+            if(page != null) { addQueryParameter("page", page.toString()) }
+            if(per_page != null) { addQueryParameter("per_page", per_page.toString()) }
+            if(sort_id != null) { addQueryParameter("sort_id", sort_id.name) }
+            if(sort_sort_number != null) { addQueryParameter("sort_sort_number", sort_sort_number.name) }
         }.build()
     }
 }
@@ -68,22 +54,11 @@ data class EpisodesResponse(
     constructor() : this(null)
 
     override fun toDataClass(response: Response): EpisodesResponse {
-        response.apply {
-            JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply {
-                return EpisodesResponse (
-                    JsonUtil.GSON.fromJson(getAsJsonArray("episodes"), object : TypeToken<Array<Episode>>() {}.type)
-                )
-            }
-        }
+        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return EpisodesResponse (JsonUtil.GSON.fromJson(getAsJsonArray("episodes"), object : TypeToken<Array<Episode>>() {}.type)) } }
     }
 }
 
 class EpisodesService(val client: AnnictClient) {
 
-    fun get(query: EpisodesRequestQuery) : EpisodesResponse {
-        this.client.apply {
-            val res = request(Request.Builder().url(query.url(getUrlBuilder())))
-            return EpisodesResponse().toDataClass(res)
-        }
-    }
+    fun get(query: EpisodesRequestQuery) : EpisodesResponse { this.client.apply { return EpisodesResponse().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) } }
 }
