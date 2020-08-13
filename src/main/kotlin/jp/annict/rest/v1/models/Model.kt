@@ -120,6 +120,9 @@ data class Activity (
     val record     : Record?
 )
 
+/**
+ * シリーズ情報
+ */
 data class Series (
     val id      : Int?,
     val name    : String?,
