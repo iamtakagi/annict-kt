@@ -1,6 +1,6 @@
 package jp.annict.rest.v1.services
 
-import com.google.gson.JsonArray
+import com.google.gson.reflect.TypeToken
 import jp.annict.rest.interfaces.RequestQuery
 import jp.annict.rest.v1.AnnictClient
 import jp.annict.rest.interfaces.ResponseData
@@ -62,22 +62,16 @@ data class EpisodesRequestQuery (
 }
 
 data class EpisodesResponse(
-    val episodes: Array<Episode>?,
-    val total_count: Int?,
-    val next_page: Int?,
-    val prev_page: Int?
+    val episodes: Array<Episode>?
 ) : ResponseData<EpisodesResponse> {
 
-    constructor() : this(null, null,null,null)
+    constructor() : this(null)
 
     override fun toDataClass(response: Response): EpisodesResponse {
         response.apply {
             JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply {
                 return EpisodesResponse (
-                    JsonUtil.GSON.fromJson(getAsJsonArray("total_count"), Array<Episode>::class.java),
-                    getAsJsonObject("total_count").asInt,
-                    getAsJsonObject("next_page").asInt,
-                    getAsJsonObject("prev_page").asInt
+                    JsonUtil.GSON.fromJson(getAsJsonArray("episodes"), object : TypeToken<Array<Episode>>() {}.type)
                 )
             }
         }
@@ -88,7 +82,8 @@ class EpisodesService(val client: AnnictClient) {
 
     fun get(query: EpisodesRequestQuery) : EpisodesResponse {
         this.client.apply {
-            return EpisodesResponse().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
+            val res = request(Request.Builder().url(query.url(getUrlBuilder())))
+            return EpisodesResponse().toDataClass(res)
         }
     }
 }
