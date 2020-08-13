@@ -3,12 +3,13 @@ package jp.annict.rest.v1.services
 import com.google.gson.reflect.TypeToken
 import jp.annict.rest.interfaces.RequestQuery
 import jp.annict.rest.v1.AnnictClient
-import jp.annict.rest.interfaces.ResponseData
+import jp.annict.rest.interfaces.ResponseBody
 import jp.annict.rest.utils.JsonUtil
 import jp.annict.rest.v1.type.Order
 import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
+import java.io.File.separator
 
 data class Episode (
     val id: Int,
@@ -23,8 +24,8 @@ data class Episode (
 )
 
 data class EpisodesRequestQuery (
-    val fields           : String?,
-    val filter_ids       : String?,
+    val fields           : Array<String>?,
+    val filter_ids       : Array<Int>?,
     val filter_work_id   : Int?,
     val page             : Int?,
     val per_page         : Int?,
@@ -32,24 +33,25 @@ data class EpisodesRequestQuery (
     val sort_sort_number : Order?
 ) : RequestQuery {
 
-    override fun url(builer: HttpUrl.Builder) : HttpUrl {
-       return builer.apply {
+    override fun url(builder: HttpUrl.Builder) : HttpUrl {
+       return builder.apply {
             addPathSegment("episodes")
 
-            if(fields != null) { addQueryParameter("fields", fields) }
-            if(filter_ids != null) { addQueryParameter("filter_ids", filter_ids) }
+            if(fields != null && fields.isNotEmpty()) { addQueryParameter("fields", fields.joinToString(separator = ",")) }
+            if(filter_ids != null && filter_ids.isNotEmpty()) { addQueryParameter("filter_ids", filter_ids.joinToString(separator = ",")) }
             if(filter_work_id != null) { addQueryParameter("filter_work_id", filter_work_id.toString()) }
             if(page != null) { addQueryParameter("page", page.toString()) }
             if(per_page != null) { addQueryParameter("per_page", per_page.toString()) }
             if(sort_id != null) { addQueryParameter("sort_id", sort_id.name) }
             if(sort_sort_number != null) { addQueryParameter("sort_sort_number", sort_sort_number.name) }
+
         }.build()
     }
 }
 
 data class EpisodesResponse(
     val episodes: Array<Episode>?
-) : ResponseData<EpisodesResponse> {
+) : ResponseBody<EpisodesResponse> {
 
     constructor() : this(null)
 
