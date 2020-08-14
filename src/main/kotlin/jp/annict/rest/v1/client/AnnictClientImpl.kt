@@ -3,7 +3,7 @@ package jp.annict.rest.v1.client
 import jp.annict.rest.bases.BaseAnnictClient
 import okhttp3.*
 
-class AnnictClient(val token: String, httpClient: OkHttpClient) : BaseAnnictClient(httpClient) {
+class AnnictClientImpl(val token: String, httpClient: OkHttpClient) : BaseAnnictClient(httpClient) {
 
     override fun getUrlBuilder() : HttpUrl.Builder {
         return HttpUrl.Builder()
