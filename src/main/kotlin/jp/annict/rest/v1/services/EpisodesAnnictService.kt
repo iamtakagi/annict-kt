@@ -39,20 +39,20 @@ data class EpisodesRequestQuery (
     }
 }
 
-data class EpisodesResponse(
+data class EpisodesResponseData (
     val episodes: Array<Episode>?
-) : ResponseData<EpisodesResponse> {
+) : ResponseData<EpisodesResponseData> {
 
     constructor() : this(null)
 
-    override fun toDataClass(response: Response): EpisodesResponse {
-        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return EpisodesResponse (JsonUtil.GSON.fromJson(getAsJsonArray("episodes"), object : TypeToken<Array<Episode>>() {}.type)) } }
+    override fun toDataClass(response: Response): EpisodesResponseData {
+        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return EpisodesResponseData (JsonUtil.GSON.fromJson(getAsJsonArray("episodes"), object : TypeToken<Array<Episode>>() {}.type)) } }
     }
 }
 
 class EpisodesAnnictService(client: AnnictClient) : BaseAnnictService(client) {
 
-    fun get(query: EpisodesRequestQuery) : EpisodesResponse {
-        this.client.apply { return EpisodesResponse().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
+    fun get(query: EpisodesRequestQuery) : EpisodesResponseData {
+        this.client.apply { return EpisodesResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
     }
 }

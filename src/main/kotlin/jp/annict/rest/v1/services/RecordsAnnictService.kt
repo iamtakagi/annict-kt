@@ -40,16 +40,16 @@ data class RecordsRequestQuery (
     }
 }
 
-data class RecordsResponse (
+data class RecordsResponseData (
     val records     : Array<Record>?
-) : ResponseData<RecordsResponse> {
+) : ResponseData<RecordsResponseData> {
 
     constructor() : this(null)
 
-    override fun toDataClass(response: Response): RecordsResponse {
+    override fun toDataClass(response: Response): RecordsResponseData {
         response.apply {
             JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply {
-                return RecordsResponse(
+                return RecordsResponseData(
                     JsonUtil.GSON.fromJson(getAsJsonArray("records"), object : TypeToken<Array<Record>>() {}.type)
                 )
             }
@@ -59,9 +59,9 @@ data class RecordsResponse (
 
 class RecordsAnnictService(client: AnnictClient) : BaseAnnictService(client){
 
-    fun get(query: RecordsRequestQuery) : RecordsResponse {
+    fun get(query: RecordsRequestQuery) : RecordsResponseData {
          this.client.apply {
-             return RecordsResponse().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
+             return RecordsResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
          }
     }
 }

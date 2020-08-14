@@ -42,16 +42,16 @@ data class WorksRequestQuery (
     }
 }
 
-data class WorksResponse (
+data class WorksResponseData (
     val works: Array<Work>?
-) : ResponseData<WorksResponse> {
+) : ResponseData<WorksResponseData> {
 
     constructor() : this(null)
 
-    override fun toDataClass(response: Response): WorksResponse {
+    override fun toDataClass(response: Response): WorksResponseData {
         response.apply {
             JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply {
-                return WorksResponse(
+                return WorksResponseData(
                     JsonUtil.GSON.fromJson(getAsJsonArray("works"), object : TypeToken<Array<Work>>() {}.type)
                 )
             }
@@ -61,9 +61,9 @@ data class WorksResponse (
 
 class WorksAnnictService(client: AnnictClient) : BaseAnnictService(client) {
 
-    fun get(query: WorksRequestQuery) : WorksResponse {
+    fun get(query: WorksRequestQuery) : WorksResponseData {
         this.client.apply {
-            return WorksResponse().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
+            return WorksResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
         }
     }
 }

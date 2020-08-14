@@ -36,21 +36,21 @@ data class ActivitiesRequestQuery (
     }
 }
 
-data class ActivitiesResponse(
+data class ActivitiesResponseData(
     val activities: Array<Activity>?
-) : ResponseData<ActivitiesResponse> {
+) : ResponseData<ActivitiesResponseData> {
 
     constructor() : this(null)
 
-    override fun toDataClass(response: Response): ActivitiesResponse {
-        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return ActivitiesResponse (
+    override fun toDataClass(response: Response): ActivitiesResponseData {
+        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return ActivitiesResponseData (
             JsonUtil.GSON.fromJson(getAsJsonArray("activities"), object : TypeToken<Array<Activity>>() {}.type)) } }
     }
 }
 
 class ActivitiesAnnictService(client: AnnictClient) : BaseAnnictService(client){
 
-    fun get(query: ActivitiesRequestQuery) : ActivitiesResponse {
-        this.client.apply { return ActivitiesResponse().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
+    fun get(query: ActivitiesRequestQuery) : ActivitiesResponseData {
+        this.client.apply { return ActivitiesResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
     }
 }
