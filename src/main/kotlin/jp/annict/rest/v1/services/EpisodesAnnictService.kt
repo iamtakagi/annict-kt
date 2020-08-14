@@ -1,9 +1,10 @@
 package jp.annict.rest.v1.services
 
 import com.google.gson.reflect.TypeToken
+import jp.annict.rest.bases.BaseAnnictService
+import jp.annict.rest.interfaces.AnnictClient
 import jp.annict.rest.interfaces.RequestQuery
-import jp.annict.rest.v1.AnnictClient
-import jp.annict.rest.interfaces.ResponseBody
+import jp.annict.rest.interfaces.ResponseData
 import jp.annict.rest.v1.models.Episode
 import jp.annict.rest.utils.JsonUtil
 import jp.annict.rest.v1.enums.Order
@@ -40,7 +41,7 @@ data class EpisodesRequestQuery (
 
 data class EpisodesResponse(
     val episodes: Array<Episode>?
-) : ResponseBody<EpisodesResponse> {
+) : ResponseData<EpisodesResponse> {
 
     constructor() : this(null)
 
@@ -49,7 +50,7 @@ data class EpisodesResponse(
     }
 }
 
-class EpisodesService(val client: AnnictClient) {
+class EpisodesAnnictService(client: AnnictClient) : BaseAnnictService(client) {
 
     fun get(query: EpisodesRequestQuery) : EpisodesResponse {
         this.client.apply { return EpisodesResponse().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }

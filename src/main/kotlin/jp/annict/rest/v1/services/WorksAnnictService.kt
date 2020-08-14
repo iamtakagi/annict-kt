@@ -1,11 +1,12 @@
 package jp.annict.rest.v1.services
 
 import com.google.gson.reflect.TypeToken
+import jp.annict.rest.bases.BaseAnnictService
+import jp.annict.rest.interfaces.AnnictClient
 import jp.annict.rest.interfaces.RequestQuery
-import jp.annict.rest.interfaces.ResponseBody
+import jp.annict.rest.interfaces.ResponseData
 import jp.annict.rest.v1.models.Work
 import jp.annict.rest.utils.JsonUtil
-import jp.annict.rest.v1.AnnictClient
 import jp.annict.rest.v1.enums.Order
 import okhttp3.HttpUrl
 import okhttp3.Request
@@ -43,7 +44,7 @@ data class WorksRequestQuery (
 
 data class WorksResponse (
     val works: Array<Work>?
-) : ResponseBody<WorksResponse> {
+) : ResponseData<WorksResponse> {
 
     constructor() : this(null)
 
@@ -58,7 +59,7 @@ data class WorksResponse (
     }
 }
 
-class WorksService(val client: AnnictClient) {
+class WorksAnnictService(client: AnnictClient) : BaseAnnictService(client) {
 
     fun get(query: WorksRequestQuery) : WorksResponse {
         this.client.apply {
