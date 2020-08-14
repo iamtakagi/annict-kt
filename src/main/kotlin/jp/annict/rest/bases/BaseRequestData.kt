@@ -8,7 +8,7 @@ import okhttp3.RequestBody
 /**
  * GET以外のリクエストに利用できる
  */
-abstract class RequestData(val method: String) {
+abstract class BaseRequestData(val method: String) {
 
     abstract fun toRequestBody() : RequestBody
 
