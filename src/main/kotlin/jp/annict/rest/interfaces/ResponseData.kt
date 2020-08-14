@@ -6,6 +6,6 @@ import okhttp3.ResponseBody
 /**
  * Response を data class として提供させる
  */
-interface ResponseBody<T> {
+interface ResponseData<T> {
     fun toDataClass(response: Response) : T
 }
