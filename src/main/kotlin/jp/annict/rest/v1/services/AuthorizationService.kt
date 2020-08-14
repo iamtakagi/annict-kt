@@ -1,55 +1,62 @@
 package jp.annict.rest.v1.services
 
-import com.google.gson.JsonObject
+import jp.annict.rest.bases.BaseAnnictService
+import jp.annict.rest.bases.BaseRequestData
+import jp.annict.rest.interfaces.AnnictClient
 import jp.annict.rest.utils.JsonUtil
-import jp.annict.rest.v1.AnnictClient
-import okhttp3.MediaType
+import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.Request
-import okhttp3.RequestBody
-import okhttp3.Response
 
-data class TokenRequestBody (
+data class TokenBaseRequestData (
     val client_id: String,
     val client_secret: String,
     val grant_type: String,
     val redirect_uri: String,
     val code: String
-)
+) : BaseRequestData("post") {
+    override fun toRequestBody(): RequestBody {
+        return RequestBody.create("application/json; charset=utf-8".toMediaType(), JsonUtil.GSON.toJson(this))
+    }
 
-data class RevokeTokenRequestBody (
+    override fun url(client: AnnictClient): HttpUrl {
+        return client.getUrlBuilder().addPathSegments("oauth/token").build()
+    }
+}
+
+data class RevokeTokenBaseRequestData (
     val client_id: String,
     val client_secret: String,
     val token: String
-)
+) : BaseRequestData("post") {
+    override fun toRequestBody(): RequestBody {
+        return RequestBody.create("application/json; charset=utf-8".toMediaType(), JsonUtil.GSON.toJson(this))
+    }
 
-class AuthorizationService(val client: AnnictClient) {
+    override fun url(client: AnnictClient): HttpUrl {
+        return client.getUrlBuilder().addPathSegments("oauth/revoke").build()
+    }
+}
 
+class AuthorizationAnnictService(client: AnnictClient) : BaseAnnictService(client) {
 
     /**
      * アクセストークンを取得する
      */
-    fun token(body: TokenRequestBody) : Response {
-        this.client.apply {
-            return request(Request.Builder().post(RequestBody.create("application/json; charset=utf-8".toMediaType(), JsonUtil.GSON.toJson(body))).url(getUrlBuilder().addPathSegments("/oauth/token").build()))
-        }
+    fun token(data: TokenBaseRequestData) : Response {
+        return client.request(data.toRequestBuilder(client))
     }
 
     /**
      * 認証ユーザの情報を取得する
      */
     fun info(): Response {
-        this.client.apply {
-            return request(Request.Builder().url(getUrlBuilder().addPathSegments("oauth/token/info").build()))
-        }
+        return client.request(Request.Builder().url(client.getUrlBuilder().addPathSegments("oauth/token/info").build()))
     }
 
     /**
      * トークンを失効させる
      */
-    fun revoke(body: RevokeTokenRequestBody) : Response {
-        this.client.apply {
-            return request(Request.Builder().post(RequestBody.create("application/json; charset=utf-8".toMediaType(), JsonUtil.GSON.toJson(body))).url(getUrlBuilder().addPathSegments("oauth/revoke").build()))
-        }
+    fun revoke(data: RevokeTokenBaseRequestData) : Response {
+        return client.request(data.toRequestBuilder(client))
     }
 }
