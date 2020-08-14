@@ -1,12 +1,12 @@
 package jp.annict.rest.v1.services
 
 import com.google.gson.reflect.TypeToken
-import jp.annict.rest.bases.BaseAnnictService
+import jp.annict.rest.bases.BaseService
 import jp.annict.rest.interfaces.AnnictClient
 import jp.annict.rest.interfaces.RequestQuery
 import jp.annict.rest.interfaces.ResponseData
-import jp.annict.rest.v1.models.Record
 import jp.annict.rest.utils.JsonUtil
+import jp.annict.rest.v1.models.Record
 import jp.annict.rest.v1.enums.Order
 import okhttp3.HttpUrl
 import okhttp3.Request
@@ -57,7 +57,7 @@ data class RecordsResponseData (
     }
 }
 
-class RecordsAnnictService(client: AnnictClient) : BaseAnnictService(client){
+class RecordsService(client: AnnictClient) : BaseService(client){
 
     fun get(query: RecordsRequestQuery) : RecordsResponseData {
          this.client.apply {

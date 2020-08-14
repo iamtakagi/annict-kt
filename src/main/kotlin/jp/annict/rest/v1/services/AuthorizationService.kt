@@ -1,7 +1,7 @@
 package jp.annict.rest.v1.services
 
 import com.google.gson.reflect.TypeToken
-import jp.annict.rest.bases.BaseAnnictService
+import jp.annict.rest.bases.BaseService
 import jp.annict.rest.bases.BaseRequestData
 import jp.annict.rest.interfaces.AnnictClient
 import jp.annict.rest.interfaces.ResponseData
@@ -37,7 +37,10 @@ data class TokenResponseData (
 
     override fun toDataClass(response: Response): TokenResponseData {
         response.apply {
-            return JsonUtil.GSON.fromJson(JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject, object : TypeToken<TokenResponseData>() {}.type)
+            return JsonUtil.GSON.fromJson(
+                JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject,
+                object : TypeToken<TokenResponseData>() {}.type
+            )
         }
     }
 }
@@ -73,7 +76,7 @@ data class TokenInfoResponseData (
     }
 }
 
-class AuthorizationAnnictService(client: AnnictClient) : BaseAnnictService(client) {
+class AuthorizationService(client: AnnictClient) : BaseService(client) {
 
     /**
      * アクセストークンを取得する

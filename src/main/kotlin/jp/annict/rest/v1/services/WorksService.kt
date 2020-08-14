@@ -1,12 +1,12 @@
 package jp.annict.rest.v1.services
 
 import com.google.gson.reflect.TypeToken
-import jp.annict.rest.bases.BaseAnnictService
+import jp.annict.rest.bases.BaseService
 import jp.annict.rest.interfaces.AnnictClient
 import jp.annict.rest.interfaces.RequestQuery
 import jp.annict.rest.interfaces.ResponseData
-import jp.annict.rest.v1.models.Work
 import jp.annict.rest.utils.JsonUtil
+import jp.annict.rest.v1.models.Work
 import jp.annict.rest.v1.enums.Order
 import okhttp3.HttpUrl
 import okhttp3.Request
@@ -57,9 +57,10 @@ data class WorksResponseData (
             }
         }
     }
+
 }
 
-class WorksAnnictService(client: AnnictClient) : BaseAnnictService(client) {
+class WorksService(client: AnnictClient) : BaseService(client) {
 
     fun get(query: WorksRequestQuery) : WorksResponseData {
         this.client.apply {
