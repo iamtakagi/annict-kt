@@ -1,5 +1,6 @@
 package jp.annict.rest.interfaces
 
+import jp.annict.rest.bases.BaseAnnictClient
 import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
