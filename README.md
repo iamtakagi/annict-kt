@@ -1,4 +1,4 @@
-# annict-kotlin-rest (Annict Kotlin Rest Client Library)
+# annict-kotlin
 
 Kotlinに移植してクライアントライブラリ化したい。
 
