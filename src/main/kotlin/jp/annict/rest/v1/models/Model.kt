@@ -135,6 +135,7 @@ data class Series (
  */
 data class Character (
     val id                        : Long?,
+    val name                      : String?,
     val name_kana                 : String?,
     val name_en                   : String?,
     val nickname                  : String?,
@@ -199,7 +200,7 @@ data class Cast (
     val id          : Long?,
     val name        : String?,
     val name_en     : String?,
-    val sort_number : Int?,
+    val sort_number : Long?,
     val work        : Work?,
     val character   : Character?,
     val person      : Person?
