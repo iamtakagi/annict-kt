@@ -60,7 +60,7 @@ data class RevokeTokenRequestData (
 }
 
 data class TokenInfoResponseData (
-    val resource_owner_id: Int?,
+    val resource_owner_id: Long?,
     val scopes: Array<String>?,
     val expires_in_seconds: String?,
     val application: Application?,
