@@ -14,10 +14,10 @@ import okhttp3.Response
 
 data class EpisodesRequestQuery (
     val fields           : Array<String>?,
-    val filter_ids       : Array<Int>?,
-    val filter_work_id   : Int?,
-    val page             : Int?,
-    val per_page         : Int?,
+    val filter_ids       : Array<Long>?,
+    val filter_work_id   : Long?,
+    val page             : Long?,
+    val per_page         : Long?,
     val sort_id          : Order?,
     val sort_sort_number : Order?
 ) : RequestQuery {
@@ -34,25 +34,32 @@ data class EpisodesRequestQuery (
             if(sort_id != null) { addQueryParameter("sort_id", sort_id.name) }
             if(sort_sort_number != null) { addQueryParameter("sort_sort_number", sort_sort_number.name) }
 
-
         }.build()
     }
 }
 
 data class EpisodesResponseData (
-    val episodes: Array<Episode>?
+    val episodes: Array<Episode>?,
+    val total_count: Long?,
+    val next_page: Long?,
+    val prev_page: Long?
 ) : ResponseData<EpisodesResponseData> {
 
-    constructor() : this(null)
+    constructor() : this(null, null, null, null)
 
     override fun toDataClass(response: Response): EpisodesResponseData {
-        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return EpisodesResponseData (JsonUtil.GSON.fromJson(getAsJsonArray("episodes"), object : TypeToken<Array<Episode>>() {}.type)) } }
+        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return EpisodesResponseData (JsonUtil.GSON.fromJson(getAsJsonArray("episodes"), object : TypeToken<Array<Episode>>() {}.type),
+            if (get("total_count").isJsonNull) null else get("total_count").asLong,
+            if (get("next_page").isJsonNull) null else get("next_page").asLong,
+            if (get("prev_page").isJsonNull) null else get("prev_page").asLong
+        ) } }
     }
 }
 
 class EpisodesService(client: AnnictClient) : BaseService(client) {
 
     fun get(query: EpisodesRequestQuery) : EpisodesResponseData {
-        this.client.apply { return EpisodesResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
+        this.client.apply {
+            return EpisodesResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
     }
 }

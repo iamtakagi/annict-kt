@@ -14,11 +14,11 @@ import okhttp3.Response
 
 data class WorksRequestQuery (
     val fields           : Array<String>?,
-    val filter_ids       : Array<Int>?,
+    val filter_ids       : Array<Long>?,
     val filter_season       : String?,
     val filter_title        : String?,
-    val page                : Int?,
-    val per_page            : Int?,
+    val page                : Long?,
+    val per_page            : Long?,
     val sort_id             : Order?,
     val sort_season         : Order?,
     val sort_watchers_count : Order?
@@ -43,16 +43,22 @@ data class WorksRequestQuery (
 }
 
 data class WorksResponseData (
-    val works: Array<Work>?
+    val works: Array<Work>?,
+    val total_count: Long?,
+    val next_page: Long?,
+    val prev_page: Long?
 ) : ResponseData<WorksResponseData> {
 
-    constructor() : this(null)
+    constructor() : this(null, null, null, null)
 
     override fun toDataClass(response: Response): WorksResponseData {
         response.apply {
             JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply {
                 return WorksResponseData(
-                    JsonUtil.GSON.fromJson(getAsJsonArray("works"), object : TypeToken<Array<Work>>() {}.type)
+                    JsonUtil.GSON.fromJson(getAsJsonArray("works"), object : TypeToken<Array<Work>>() {}.type),
+                    if (get("total_count").isJsonNull) null else get("total_count").asLong,
+                    if (get("next_page").isJsonNull) null else get("next_page").asLong,
+                    if (get("prev_page").isJsonNull) null else get("prev_page").asLong
                 )
             }
         }

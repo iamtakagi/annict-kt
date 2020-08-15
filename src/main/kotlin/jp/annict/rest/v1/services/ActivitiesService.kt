@@ -14,10 +14,10 @@ import okhttp3.Response
 
 data class ActivitiesRequestQuery (
     val fields           : Array<String>?,
-    val filter_user_id       : Int?,
+    val filter_user_id       : Long?,
     val filter_username   : String?,
-    val page             : Int?,
-    val per_page         : Int?,
+    val page             : Long?,
+    val per_page         : Long?,
     val sort_id          : Order?
 ) : RequestQuery {
 
@@ -37,14 +37,23 @@ data class ActivitiesRequestQuery (
 }
 
 data class ActivitiesResponseData(
-    val activities: Array<Activity>?
+    val activities: Array<Activity>?,
+    val total_count: Long?,
+    val next_page: Long?,
+    val prev_page: Long?
 ) : ResponseData<ActivitiesResponseData> {
 
-    constructor() : this(null)
+    constructor() : this(null, null, null, null)
 
     override fun toDataClass(response: Response): ActivitiesResponseData {
         response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return ActivitiesResponseData (
-            JsonUtil.GSON.fromJson(getAsJsonArray("activities"), object : TypeToken<Array<Activity>>() {}.type)) } }
+            JsonUtil.GSON.fromJson(getAsJsonArray("activities"), object : TypeToken<Array<Activity>>() {}.type),
+            if (get("total_count").isJsonNull) null else get("total_count").asLong,
+            if (get("next_page").isJsonNull) null else get("next_page").asLong,
+            if (get("prev_page").isJsonNull) null else get("prev_page").asLong
+        )
+        }
+        }
     }
 }
 
