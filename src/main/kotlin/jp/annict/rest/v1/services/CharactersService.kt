@@ -7,13 +7,13 @@ import jp.annict.rest.interfaces.RequestQuery
 import jp.annict.rest.interfaces.ResponseData
 import jp.annict.rest.utils.JsonUtil
 import jp.annict.rest.v1.enums.Order
-import jp.annict.rest.v1.models.Cast
 import jp.annict.rest.v1.models.Character
 import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
-data class CharactersRequestQuery(val fields           : Array<String>?,
+data class CharactersRequestQuery(
+                             val fields           : Array<String>?,
                              val filter_ids       : Array<Long>?,
                              val filter_work_id   : Long?,
                              val page             : Long?,
@@ -57,8 +57,6 @@ class CharactersService(client: AnnictClient) : BaseService(client) {
 
     fun get(query: CharactersRequestQuery) : CharactersResponseData {
         this.client.apply {
-            val a = request(Request.Builder().url(query.url(getUrlBuilder())))
-            println(a.body?.string())
             return CharactersResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
         }
     }
