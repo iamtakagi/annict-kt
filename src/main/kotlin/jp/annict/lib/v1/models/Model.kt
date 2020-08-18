@@ -300,7 +300,11 @@ data class Review (
     val modified_at            : Date?,
     val created_at             : Date?,
     val user                   : User?,
-    val work                   : Work?
+    val work                   : Work?,
+    val episodes_count: Long?,
+    val watchers_count: Long?,
+    val season_name: String?,
+    val season_name_text: String?
 )
 
 data class Application(val uid: String?)
