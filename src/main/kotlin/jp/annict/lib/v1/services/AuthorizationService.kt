@@ -16,17 +16,9 @@ data class TokenRequestData (
     val grant_type: String?,
     val redirect_uri: String?,
     val code: String?
-) : BaseRequestData("post") {
-    override fun toRequestBody(): RequestBody {
-        return RequestBody.create("application/json; charset=utf-8".toMediaType(), JsonUtil.GSON.toJson(this))
-    }
+) : BaseRequestData("post", "application/json; charset=utf-8".toMediaType(), "oauth/token")
 
-    override fun url(client: AnnictClient): HttpUrl {
-        return client.getUrlBuilder().addPathSegments("oauth/token").build()
-    }
-}
-
-data class TokenResponseData (
+data class TokenResponseData(
     val access_token: String?,
     val token_Type: String?,
     val scope: String?,
@@ -45,21 +37,13 @@ data class TokenResponseData (
     }
 }
 
-data class RevokeTokenRequestData (
+data class RevokeTokenRequestData(
     val client_id: String,
     val client_secret: String,
     val token: String
-) : BaseRequestData("post") {
-    override fun toRequestBody(): RequestBody {
-        return RequestBody.create("application/json; charset=utf-8".toMediaType(), JsonUtil.GSON.toJson(this))
-    }
+) : BaseRequestData("post", "application/json; charset=utf-8".toMediaType(), "oauth/revoke")
 
-    override fun url(client: AnnictClient): HttpUrl {
-        return client.getUrlBuilder().addPathSegments("oauth/revoke").build()
-    }
-}
-
-data class TokenInfoResponseData (
+data class TokenInfoResponseData(
     val resource_owner_id: Long?,
     val scopes: Array<String>?,
     val expires_in_seconds: String?,
@@ -71,7 +55,10 @@ data class TokenInfoResponseData (
 
     override fun toDataClass(response: Response): TokenInfoResponseData {
         response.apply {
-            return JsonUtil.GSON.fromJson(JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject, object : TypeToken<TokenInfoResponseData>() {}.type)
+            return JsonUtil.GSON.fromJson(
+                JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject,
+                object : TypeToken<TokenInfoResponseData>() {}.type
+            )
         }
     }
 }
@@ -81,7 +68,7 @@ class AuthorizationService(client: AnnictClient) : BaseService(client) {
     /**
      * アクセストークンを取得する
      */
-    fun token(data: TokenRequestData) : TokenResponseData {
+    fun token(data: TokenRequestData): TokenResponseData {
         this.client.apply {
             return TokenResponseData().toDataClass(request(Request.Builder().url(data.url(this))))
         }
@@ -92,15 +79,19 @@ class AuthorizationService(client: AnnictClient) : BaseService(client) {
      */
     fun info(): TokenInfoResponseData {
         this.client.apply {
-            return TokenInfoResponseData().toDataClass(request(Request.Builder().url(getUrlBuilder().addEncodedPathSegments("oauth/token/info").build())))
+            return TokenInfoResponseData().toDataClass(
+                request(
+                    Request.Builder().url(getUrlBuilder().addEncodedPathSegments("oauth/token/info").build())
+                )
+            )
         }
     }
 
     /**
      * トークンを失効させる
      */
-    fun revoke(data: RevokeTokenRequestData) : Response {
-         this.client.apply {
+    fun revoke(data: RevokeTokenRequestData): Response {
+        this.client.apply {
             return request(Request.Builder().url(data.url(this)))
         }
     }
