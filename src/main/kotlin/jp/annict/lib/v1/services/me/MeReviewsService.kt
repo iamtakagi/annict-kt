@@ -59,33 +59,99 @@ data class MeReviewsPostResponseData(val review: Review?) : ResponseData<MeRevie
             object : TypeToken<Review>() {}.type)
         )
     }
+}
+
+data class MeReviewsPatchRequestQuery(
+    val work_id: Long?,
+    val title: String?,
+    val body: String?,
+    val rating_animation_state: RatingState?,
+    val rating_music_state: RatingState?,
+    val rating_story_state: RatingState?,
+    val rating_character_state: RatingState?,
+    val rating_overall_state: RatingState?,
+    val share_twitter: Boolean?,
+    val share_facebook: Boolean?) : RequestQuery {
+
+    override fun url(builder: HttpUrl.Builder): HttpUrl {
+        return builder.apply {
+            addPathSegment("/me/reviews")
+
+            if(work_id != null) { addQueryParameter("work_id", work_id.toString()) }
+            if(title != null && title.isNotEmpty()) { addQueryParameter("title", title) }
+            if(body != null && body.isNotEmpty()) { addQueryParameter("body", body) }
+            if(rating_animation_state != null) { addQueryParameter("rating_animation_state", rating_animation_state.name) }
+            if(rating_music_state != null) { addQueryParameter("rating_music_state", rating_music_state.name) }
+            if(rating_story_state != null) { addQueryParameter("rating_story_state", rating_story_state.name) }
+            if(rating_character_state != null) { addQueryParameter("rating_character_state", rating_character_state.name) }
+            if(rating_overall_state != null) { addQueryParameter("rating_overall_state", rating_overall_state.name) }
+            if(share_twitter != null) { addQueryParameter("share_twitter", share_twitter.toString()) }
+            if(share_facebook != null) { addQueryParameter("share_facebook", share_facebook.toString()) }
+
+        }.build()
+    }
+}
+
+data class MeReviewsPatchResponseData(val review: Review?) : ResponseData<MeReviewsPatchResponseData> {
+
+    constructor() : this(null)
+
+    override fun toDataClass(response: Response): MeReviewsPatchResponseData {
+        return MeReviewsPatchResponseData(JsonUtil.GSON.fromJson(
+            JsonUtil.JSON_PARSER.parse(response.body?.string()).asJsonObject,
+            object : TypeToken<Review>() {}.type)
+        )
+    }
+}
+
+data class MeReviewsDeleteQuery(val id: Long) : RequestQuery {
+
+    override fun url(builder: HttpUrl.Builder): HttpUrl {
+        return builder.apply {
+            addPathSegment("/me/reviews/${id}")
+        }.build()
+    }
 
 }
 
-
 class MeReviewsService (client: AnnictClient) : BaseService(client) {
 
+
+
+
     /**
-     * レビュー投稿
+     * レビュー投稿 [write scope]
      */
-    fun post(query: MeReviewsPostRequestQuery) : MeReviewsPostResponseData {
+    fun post(query: MeReviewsPostRequestQuery): MeReviewsPostResponseData {
         this.client.apply {
-            return MeReviewsPostResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())).method("post", null)))
+            return MeReviewsPostResponseData().toDataClass(
+                request(
+                    Request.Builder().url(query.url(getUrlBuilder())).method("post", null)
+                )
+            )
         }
     }
 
     /**
-     * レビュー編集
+     * レビュー編集 [write scope]
      */
-    fun patch() {
-
+    fun patch(query: MeReviewsPatchRequestQuery): MeReviewsPatchResponseData {
+        this.client.apply {
+            return MeReviewsPatchResponseData().toDataClass(
+                request(
+                    Request.Builder().url(query.url(getUrlBuilder())).method("patch", null)
+                )
+            )
+        }
     }
 
     /**
-     * レビュー削除
+     * レビュー削除 [write scope]
      */
-    fun delete() {
-
+    fun delete(query: MeReviewsDeleteQuery): Boolean {
+        this.client.apply {
+            return (request(Request.Builder().url(query.url(getUrlBuilder())).method("delete", null)).code == 204)
+        }
     }
 
 
