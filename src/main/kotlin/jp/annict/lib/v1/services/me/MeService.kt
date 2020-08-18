@@ -6,10 +6,7 @@ import jp.annict.lib.interfaces.AnnictClient
 import jp.annict.lib.interfaces.RequestQuery
 import jp.annict.lib.interfaces.ResponseData
 import jp.annict.lib.utils.JsonUtil
-import jp.annict.lib.v1.models.Activity
 import jp.annict.lib.v1.models.User
-import jp.annict.lib.v1.services.ActivitiesRequestQuery
-import jp.annict.lib.v1.services.ActivitiesResponseData
 import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
