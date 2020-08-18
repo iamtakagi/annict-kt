@@ -1,5 +1,6 @@
 package jp.annict.lib.v1.services
 
+import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import jp.annict.lib.bases.BaseService
 import jp.annict.lib.bases.BaseRequestData
@@ -16,7 +17,18 @@ data class TokenRequestData (
     val grant_type: String?,
     val redirect_uri: String?,
     val code: String?
-) : BaseRequestData("post", "application/json; charset=utf-8".toMediaType(), "oauth/token")
+) : BaseRequestData("post", "application/json; charset=utf-8", "/oauth/token") {
+
+    override fun toJsonObject(): JsonObject {
+        return JsonObject().apply {
+            addProperty("client_id", client_id)
+            addProperty("client_secret", client_id)
+            addProperty("grant_type", grant_type)
+            addProperty("redirect_uri", redirect_uri)
+            addProperty("code", code)
+        }
+    }
+}
 
 data class TokenResponseData(
     val access_token: String?,
@@ -41,7 +53,16 @@ data class RevokeTokenRequestData(
     val client_id: String,
     val client_secret: String,
     val token: String
-) : BaseRequestData("post", "application/json; charset=utf-8".toMediaType(), "oauth/revoke")
+) : BaseRequestData("post", "application/json; charset=utf-8", "oauth/revoke") {
+
+    override fun toJsonObject(): JsonObject {
+        return JsonObject().apply {
+            addProperty("client_id", client_id)
+            addProperty("client_secret", client_id)
+            addProperty("token", token)
+        }
+    }
+}
 
 data class TokenInfoResponseData(
     val resource_owner_id: Long?,
@@ -70,7 +91,8 @@ class AuthorizationService(client: AnnictClient) : BaseService(client) {
      */
     fun token(data: TokenRequestData): TokenResponseData {
         this.client.apply {
-            return TokenResponseData().toDataClass(request(Request.Builder().url(data.url(this))))
+            println(request(data.toRequestBuilder(this)).body?.string())
+            return TokenResponseData().toDataClass(request(data.toRequestBuilder(this)))
         }
     }
 
@@ -81,7 +103,7 @@ class AuthorizationService(client: AnnictClient) : BaseService(client) {
         this.client.apply {
             return TokenInfoResponseData().toDataClass(
                 request(
-                    Request.Builder().url(getUrlBuilder().addEncodedPathSegments("oauth/token/info").build())
+                    Request.Builder().url(getUrlBuilder().addEncodedPathSegments("/oauth/token/info").build())
                 )
             )
         }
