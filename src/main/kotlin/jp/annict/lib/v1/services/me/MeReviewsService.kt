@@ -116,9 +116,6 @@ data class MeReviewsDeleteQuery(val id: Long) : RequestQuery {
 
 class MeReviewsService (client: AnnictClient) : BaseService(client) {
 
-
-
-
     /**
      * レビュー投稿 [write scope]
      */
