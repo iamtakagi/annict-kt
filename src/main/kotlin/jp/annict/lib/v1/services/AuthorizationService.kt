@@ -91,7 +91,6 @@ class AuthorizationService(client: AnnictClient) : BaseService(client) {
      */
     fun token(data: TokenRequestData): TokenResponseData {
         this.client.apply {
-            println(request(data.toRequestBuilder(this)).body?.string())
             return TokenResponseData().toDataClass(request(data.toRequestBuilder(this)))
         }
     }
