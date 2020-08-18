@@ -6,4 +6,4 @@ Kotlinに移植してクライアントライブラリ化したい。
 
 - 看板 / Board: https://github.com/riptakagi/annict-kotlin-rest/projects/1
 
-プルリク待ってます
+未完成です。プルリク待ってます。
