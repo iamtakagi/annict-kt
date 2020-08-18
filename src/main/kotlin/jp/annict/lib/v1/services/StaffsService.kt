@@ -6,7 +6,6 @@ import jp.annict.lib.interfaces.AnnictClient
 import jp.annict.lib.interfaces.RequestQuery
 import jp.annict.lib.interfaces.ResponseData
 import jp.annict.lib.utils.JsonUtil
-import jp.annict.lib.v1.models.Episode
 import jp.annict.lib.v1.enums.Order
 import jp.annict.lib.v1.models.Staff
 import okhttp3.HttpUrl
