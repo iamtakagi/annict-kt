@@ -52,28 +52,33 @@ data class Status(val kind: Status?)
 /**
  * 作品情報
  */
-data class Work (
-    val id                : Long?,
-    val title             : String?,
-    val title_kana        : String?,
-    val media             : String?,
-    val media_text        : String?,
-    val season_name       : String?,
-    val season_name_text  : String?,
-    val released_on       : Date?,
-    val released_on_about : Date?,
-    val official_site_url : String?,
-    val wikipedia_url     : String?,
-    val twitter_username  : String?,
-    val twitter_hashtag   : String?,
-    val episodes_count    : Long?,
-    val watchers_count    : Long?,
-    val reviews_count     : Long?,
-    val syobocal_tid      : Long?,
-    val mal_anime_id      : Long?,
-    val images            : Images?,
-    val no_episodes       : Boolean?
+open class Work (
+    val id                : Long? = null,
+    val title             : String? = null,
+    val title_kana        : String? = null,
+    val media             : String? = null,
+    val media_text        : String? = null,
+    val season_name       : String? = null,
+    val season_name_text  : String? = null,
+    val released_on       : String? = null,
+    val released_on_about : String? = null,
+    val official_site_url : String? = null,
+    val wikipedia_url     : String? = null,
+    val twitter_username  : String? = null,
+    val twitter_hashtag   : String? = null,
+    val episodes_count    : Long? = null,
+    val watchers_count    : Long? = null,
+    val reviews_count     : Long? = null,
+    val syobocal_tid      : Long? = null,
+    val mal_anime_id      : Long? = null,
+    val images            : Images? = null,
+    val no_episodes       : Boolean? = null
 )
+
+/***
+ * 自分の見た作品情報
+ */
+data class MeWork(val kind: Status) : Work()
 
 /**
  * エピソード情報
