@@ -12,7 +12,7 @@ import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
-data class RecordsRequestQuery (
+data class RecordsGetRequestQuery (
     val fields           : Array<String>?,
     val filter_ids       : Array<Long>?,
     val filter_episode_id : Long?,
@@ -40,19 +40,19 @@ data class RecordsRequestQuery (
     }
 }
 
-data class RecordsResponseData (
+data class RecordsGetResponseData (
     val records     : Array<Record>?,
     val total_count: Long?,
     val next_page: Long?,
     val prev_page: Long?
-) : ResponseData<RecordsResponseData> {
+) : ResponseData<RecordsGetResponseData> {
 
     constructor() : this(null, null, null, null)
 
-    override fun toDataClass(response: Response): RecordsResponseData {
+    override fun toDataClass(response: Response): RecordsGetResponseData {
         response.apply {
             JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply {
-                return RecordsResponseData(
+                return RecordsGetResponseData(
                     JsonUtil.GSON.fromJson(getAsJsonArray("records"), object : TypeToken<Array<Record>>() {}.type),
                     if (get("total_count").isJsonNull) null else get("total_count").asLong,
                     if (get("next_page").isJsonNull) null else get("next_page").asLong,
@@ -65,9 +65,9 @@ data class RecordsResponseData (
 
 class RecordsService(client: AnnictClient) : BaseService(client){
 
-    fun get(query: RecordsRequestQuery) : RecordsResponseData {
+    fun get(query: RecordsGetRequestQuery) : RecordsGetResponseData {
          this.client.apply {
-             return RecordsResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
+             return RecordsGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
          }
     }
 }

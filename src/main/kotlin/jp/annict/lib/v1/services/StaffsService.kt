@@ -12,7 +12,7 @@ import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
-data class StaffsRequestQuery (
+data class StaffsGetRequestQuery (
     val fields           : Array<String>?,
     val filter_ids       : Array<Long>?,
     val filter_work_id   : Long?,
@@ -38,17 +38,17 @@ data class StaffsRequestQuery (
     }
 }
 
-data class StaffsResponseData (
+data class StaffsGetResponseData (
     val staffs: Array<Staff>?,
     val total_count: Long?,
     val next_page: Long?,
     val prev_page: Long?
-) : ResponseData<StaffsResponseData> {
+) : ResponseData<StaffsGetResponseData> {
 
     constructor() : this(null, null, null, null)
 
-    override fun toDataClass(response: Response): StaffsResponseData {
-        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return StaffsResponseData (JsonUtil.GSON.fromJson(getAsJsonArray("staffs"), object : TypeToken<Array<Staff>>() {}.type),
+    override fun toDataClass(response: Response): StaffsGetResponseData {
+        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return StaffsGetResponseData (JsonUtil.GSON.fromJson(getAsJsonArray("staffs"), object : TypeToken<Array<Staff>>() {}.type),
             if (get("total_count").isJsonNull) null else get("total_count").asLong,
             if (get("next_page").isJsonNull) null else get("next_page").asLong,
             if (get("prev_page").isJsonNull) null else get("prev_page").asLong
@@ -58,8 +58,8 @@ data class StaffsResponseData (
 
 class StaffsService(client: AnnictClient) : BaseService(client) {
 
-    fun get(query: StaffsRequestQuery) : StaffsResponseData {
+    fun get(query: StaffsGetRequestQuery) : StaffsGetResponseData {
         this.client.apply {
-            return StaffsResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
+            return StaffsGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
     }
 }

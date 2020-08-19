@@ -9,11 +9,9 @@ import jp.annict.lib.interfaces.RequestQuery
 import jp.annict.lib.interfaces.ResponseData
 import jp.annict.lib.utils.JsonUtil
 import jp.annict.lib.v1.models.Application
-import jp.annict.lib.v1.services.me.MeResponseData
 import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaType
 
-data class TokenRequestQuery (
+data class TokenGetRequestQuery (
     val client_id: String?,
     val client_secret: String?,
     val grant_type: String?,
@@ -36,26 +34,26 @@ data class TokenRequestQuery (
 
 }
 
-data class TokenResponseData(
+data class TokenGetResponseData(
     val access_token: String?,
     val token_Type: String?,
     val scope: String?,
     val created_at: Long?
-) : ResponseData<TokenResponseData> {
+) : ResponseData<TokenGetResponseData> {
 
     constructor() : this(null, null, null, null)
 
-    override fun toDataClass(response: Response): TokenResponseData {
+    override fun toDataClass(response: Response): TokenGetResponseData {
         response.apply {
             return JsonUtil.GSON.fromJson(
                 JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject,
-                object : TypeToken<TokenResponseData>() {}.type
+                object : TypeToken<TokenGetResponseData>() {}.type
             )
         }
     }
 }
 
-data class RevokeTokenRequestData(
+data class RevokeTokenPostRequestData (
     val client_id: String,
     val client_secret: String,
     val token: String
@@ -70,21 +68,21 @@ data class RevokeTokenRequestData(
     }
 }
 
-data class TokenInfoResponseData(
+data class TokenInfoGetResponseData(
     val resource_owner_id: Long?,
     val scopes: Array<String>?,
     val expires_in_seconds: String?,
     val application: Application?,
     val created_at: Long?
-) : ResponseData<TokenInfoResponseData> {
+) : ResponseData<TokenInfoGetResponseData> {
 
     constructor() : this(null, null, null, null, null)
 
-    override fun toDataClass(response: Response): TokenInfoResponseData {
+    override fun toDataClass(response: Response): TokenInfoGetResponseData {
         response.apply {
             return JsonUtil.GSON.fromJson(
                 JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject,
-                object : TypeToken<TokenInfoResponseData>() {}.type
+                object : TypeToken<TokenInfoGetResponseData>() {}.type
             )
         }
     }
@@ -95,18 +93,18 @@ class AuthorizationService(client: AnnictClient) : BaseService(client) {
     /**
      * アクセストークンを取得する
      */
-    fun token(query: TokenRequestQuery): TokenResponseData {
+        fun postToken(query: TokenGetRequestQuery): TokenGetResponseData {
         this.client.apply {
             println(request(Request.Builder().url(query.url(getUrlBuilder())).method("post", null)).body?.string())
-            return TokenResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())).method("post", null))) }
+            return TokenGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())).method("post", null))) }
     }
 
     /**
      * 認証ユーザの情報を取得する
      */
-    fun info(): TokenInfoResponseData {
+    fun getInfo(): TokenInfoGetResponseData {
         this.client.apply {
-            return TokenInfoResponseData().toDataClass(
+            return TokenInfoGetResponseData().toDataClass(
                 request(
                     Request.Builder().url(getUrlBuilder().addEncodedPathSegments("/oauth/token/info").build())
                 )
@@ -117,9 +115,9 @@ class AuthorizationService(client: AnnictClient) : BaseService(client) {
     /**
      * トークンを失効させる
      */
-    fun revoke(data: RevokeTokenRequestData): Response {
+    fun postRevoke(data: RevokeTokenPostRequestData): Boolean {
         this.client.apply {
-            return request(Request.Builder().url(data.url(this)))
+            return (request(data.toRequestBuilder(client)).code == 200)
         }
     }
 }

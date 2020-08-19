@@ -7,7 +7,7 @@ import jp.annict.lib.v1.enums.Status
 import okhttp3.HttpUrl
 import okhttp3.Request
 
-data class MeStatuesRequestQuery(val work_id: Long?, val kind: Status?) : RequestQuery {
+data class MeStatuesPostRequestQuery(val work_id: Long?, val kind: Status?) : RequestQuery {
 
     override fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
@@ -22,7 +22,7 @@ data class MeStatuesRequestQuery(val work_id: Long?, val kind: Status?) : Reques
 
 class MeStatusesService(client: AnnictClient) : BaseService(client) {
 
-    fun post(query: MeStatuesRequestQuery) : Boolean {
+    fun post(query: MeStatuesPostRequestQuery) : Boolean {
         this.client.apply {
             return (request(Request.Builder().url(query.url(getUrlBuilder())).method("post", null)).code == 204)
         }

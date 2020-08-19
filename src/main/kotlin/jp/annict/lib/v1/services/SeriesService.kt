@@ -12,7 +12,7 @@ import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
-data class SeriesRequestQuery(
+data class SeriesGetRequestQuery(
     val fields           : Array<String>?,
     val filter_ids       : Array<Long>?,
     val filter_name   : String?,
@@ -35,17 +35,17 @@ data class SeriesRequestQuery(
     }
 }
 
-data class SeriesResponseData(
+data class SeriesGetResponseData (
     val organizations: Array<Series>?,
     val total_count: Long?,
     val next_page: Long?,
     val prev_page: Long?
-) : ResponseData<SeriesResponseData> {
+) : ResponseData<SeriesGetResponseData> {
 
     constructor() : this(null, null, null, null)
 
-    override fun toDataClass(response: Response): SeriesResponseData {
-        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return SeriesResponseData (
+    override fun toDataClass(response: Response): SeriesGetResponseData {
+        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return SeriesGetResponseData (
             JsonUtil.GSON.fromJson(getAsJsonArray("organizations"), object : TypeToken<Array<Series>>() {}.type),
             if (get("total_count").isJsonNull) null else get("total_count").asLong,
             if (get("next_page").isJsonNull) null else get("next_page").asLong,
@@ -57,9 +57,9 @@ data class SeriesResponseData(
 
 class SeriesService(client: AnnictClient) : BaseService(client) {
 
-    fun get(query: SeriesRequestQuery) : SeriesResponseData {
+    fun get(query: SeriesGetRequestQuery) : SeriesGetResponseData {
         this.client.apply {
-            return SeriesResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
+            return SeriesGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
         }
     }
 

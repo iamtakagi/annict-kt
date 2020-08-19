@@ -12,7 +12,7 @@ import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
-data class WorksRequestQuery (
+data class WorksGetRequestQuery (
     val fields           : Array<String>?,
     val filter_ids       : Array<Long>?,
     val filter_season       : String?,
@@ -42,19 +42,19 @@ data class WorksRequestQuery (
     }
 }
 
-data class WorksResponseData (
+data class WorksGetResponseData (
     val works: Array<Work>?,
     val total_count: Long?,
     val next_page: Long?,
     val prev_page: Long?
-) : ResponseData<WorksResponseData> {
+) : ResponseData<WorksGetResponseData> {
 
     constructor() : this(null, null, null, null)
 
-    override fun toDataClass(response: Response): WorksResponseData {
+    override fun toDataClass(response: Response): WorksGetResponseData {
         response.apply {
             JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply {
-                return WorksResponseData(
+                return WorksGetResponseData(
                     JsonUtil.GSON.fromJson(getAsJsonArray("works"), object : TypeToken<Array<Work>>() {}.type),
                     if (get("total_count").isJsonNull) null else get("total_count").asLong,
                     if (get("next_page").isJsonNull) null else get("next_page").asLong,
@@ -68,9 +68,9 @@ data class WorksResponseData (
 
 class WorksService(client: AnnictClient) : BaseService(client) {
 
-    fun get(query: WorksRequestQuery) : WorksResponseData {
+    fun get(query: WorksGetRequestQuery) : WorksGetResponseData {
         this.client.apply {
-            return WorksResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
+            return WorksGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
         }
     }
 }

@@ -12,7 +12,7 @@ import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
-data class OrganizationsRequestQuery(
+data class OrganizationsGetRequestQuery(
     val fields           : Array<String>?,
     val filter_ids       : Array<Long>?,
     val filter_work_id   : Long?,
@@ -35,17 +35,17 @@ data class OrganizationsRequestQuery(
     }
 }
 
-data class OrganizationsResponseData(
+data class OrganizationsGetResponseData(
     val organizations: Array<Organization>?,
     val total_count: Long?,
     val next_page: Long?,
     val prev_page: Long?
-) : ResponseData<OrganizationsResponseData> {
+) : ResponseData<OrganizationsGetResponseData> {
 
     constructor() : this(null, null, null, null)
 
-    override fun toDataClass(response: Response): OrganizationsResponseData {
-        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return OrganizationsResponseData (
+    override fun toDataClass(response: Response): OrganizationsGetResponseData {
+        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return OrganizationsGetResponseData (
             JsonUtil.GSON.fromJson(getAsJsonArray("organizations"), object : TypeToken<Array<Organization>>() {}.type),
             if (get("total_count").isJsonNull) null else get("total_count").asLong,
             if (get("next_page").isJsonNull) null else get("next_page").asLong,
@@ -57,9 +57,9 @@ data class OrganizationsResponseData(
 
 class OrganizationsService(client: AnnictClient) : BaseService(client) {
 
-    fun get(query: OrganizationsRequestQuery) : OrganizationsResponseData {
+    fun get(query: OrganizationsGetRequestQuery) : OrganizationsGetResponseData {
         this.client.apply {
-            return OrganizationsResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
+            return OrganizationsGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
         }
     }
 

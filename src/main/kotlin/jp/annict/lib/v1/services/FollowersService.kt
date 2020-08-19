@@ -13,7 +13,7 @@ import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
-data class FollowersRequestQuery (
+data class FollowersGetRequestQuery (
     val fields           : Array<String>?,
     val filter_user_id       : Long?,
     val filter_username   : String?,
@@ -37,19 +37,19 @@ data class FollowersRequestQuery (
     }
 }
 
-data class FollowersResponseData (
+data class FollowersGetResponseData (
     val users: Array<User>?,
     val total_count: Long?,
     val next_page: Long?,
     val prev_page: Long?
-) : ResponseData<FollowersResponseData> {
+) : ResponseData<FollowersGetResponseData> {
 
     constructor() : this(null, null, null, null)
 
-    override fun toDataClass(response: Response): FollowersResponseData {
+    override fun toDataClass(response: Response): FollowersGetResponseData {
         response.apply {
             JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply {
-                return FollowersResponseData(
+                return FollowersGetResponseData(
                     JsonUtil.GSON.fromJson(getAsJsonArray("users"), object : TypeToken<Array<User>>() {}.type),
                     if (get("total_count").isJsonNull) null else get("total_count").asLong,
                     if (get("next_page").isJsonNull) null else get("next_page").asLong,
@@ -62,9 +62,9 @@ data class FollowersResponseData (
 
 class FollowersService(client: AnnictClient) : BaseService(client) {
 
-    fun get(query: FollowersRequestQuery): FollowersResponseData {
+    fun get(query: FollowersGetRequestQuery): FollowersGetResponseData {
         this.client.apply {
-            return FollowersResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
+            return FollowersGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
         }
 
     }

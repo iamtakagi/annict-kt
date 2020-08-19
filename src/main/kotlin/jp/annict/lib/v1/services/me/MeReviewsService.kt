@@ -1,8 +1,6 @@
 package jp.annict.lib.v1.services.me
 
-import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
-import jp.annict.lib.bases.BaseRequestData
 import jp.annict.lib.bases.BaseService
 import jp.annict.lib.interfaces.AnnictClient
 import jp.annict.lib.interfaces.RequestQuery
@@ -10,12 +8,8 @@ import jp.annict.lib.interfaces.ResponseData
 import jp.annict.lib.utils.JsonUtil
 import jp.annict.lib.v1.enums.RatingState
 import jp.annict.lib.v1.models.Review
-import jp.annict.lib.v1.models.User
-import jp.annict.lib.v1.services.TokenResponseData
 import okhttp3.HttpUrl
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Request
-import okhttp3.RequestBody
 import okhttp3.Response
 
 data class MeReviewsPostRequestQuery(

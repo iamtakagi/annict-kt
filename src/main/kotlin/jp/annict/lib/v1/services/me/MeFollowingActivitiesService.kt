@@ -9,13 +9,11 @@ import jp.annict.lib.utils.JsonUtil
 import jp.annict.lib.v1.enums.Action
 import jp.annict.lib.v1.enums.Order
 import jp.annict.lib.v1.models.Activity
-import jp.annict.lib.v1.services.ActivitiesRequestQuery
-import jp.annict.lib.v1.services.ActivitiesResponseData
 import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
-data class MeFollowingActivitiesRequestQuery (
+data class MeFollowingActivitiesGetRequestQuery (
     val fields: Array<String>?,
     val filter_actions: Array<Action>?,
     val filter_muted: Boolean?,
@@ -39,18 +37,18 @@ data class MeFollowingActivitiesRequestQuery (
     }
 }
 
-data class MeFollowingActivitiesResponseData(
+data class MeFollowingActivitiesGetResponseData(
     val activities: Array<Activity>?,
     val total_count: Long?,
     val next_page: Long?,
     val prev_page: Long?
-) : ResponseData<MeFollowingActivitiesResponseData> {
+) : ResponseData<MeFollowingActivitiesGetResponseData> {
 
     constructor() : this(null, null, null, null)
 
-    override fun toDataClass(response: Response): MeFollowingActivitiesResponseData {
+    override fun toDataClass(response: Response): MeFollowingActivitiesGetResponseData {
         response.apply {
-            JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return MeFollowingActivitiesResponseData (
+            JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return MeFollowingActivitiesGetResponseData (
             JsonUtil.GSON.fromJson(getAsJsonArray("activities"), object : TypeToken<Array<Activity>>() {}.type),
             if (get("total_count").isJsonNull) null else get("total_count").asLong,
             if (get("next_page").isJsonNull) null else get("next_page").asLong,
@@ -62,8 +60,8 @@ data class MeFollowingActivitiesResponseData(
 
 class MeFollowingActivitiesService(client: AnnictClient) : BaseService(client) {
 
-    fun get(query: MeFollowingActivitiesRequestQuery) : MeFollowingActivitiesResponseData {
-        this.client.apply { return MeFollowingActivitiesResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
+    fun get(query: MeFollowingActivitiesGetRequestQuery) : MeFollowingActivitiesGetResponseData {
+        this.client.apply { return MeFollowingActivitiesGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
     }
 
 }

@@ -7,13 +7,12 @@ import jp.annict.lib.interfaces.RequestQuery
 import jp.annict.lib.interfaces.ResponseData
 import jp.annict.lib.utils.JsonUtil
 import jp.annict.lib.v1.enums.Order
-import jp.annict.lib.v1.models.Activity
 import jp.annict.lib.v1.models.Program
 import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
-class MeProgramsRequestQuery(
+class MeProgramsGetRequestQuery(
     val fields: Array<String>?,
     val filter_ids: Array<Long>?,
     val filter_channel_ids: Array<Long>?,
@@ -51,18 +50,18 @@ class MeProgramsRequestQuery(
     }
 }
 
-data class MeProgramsResponseData(
+data class MeProgramsGetResponseData(
     val programs: Array<Program>?,
     val total_count: Long?,
     val next_page: Long?,
     val prev_page: Long?
-) : ResponseData<MeProgramsResponseData> {
+) : ResponseData<MeProgramsGetResponseData> {
 
     constructor() : this(null, null, null, null)
 
-    override fun toDataClass(response: Response): MeProgramsResponseData {
+    override fun toDataClass(response: Response): MeProgramsGetResponseData {
         response.apply {
-            JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return MeProgramsResponseData (
+            JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return MeProgramsGetResponseData (
                 JsonUtil.GSON.fromJson(getAsJsonArray("activities"), object : TypeToken<Array<Program>>() {}.type),
                 if (get("total_count").isJsonNull) null else get("total_count").asLong,
                 if (get("next_page").isJsonNull) null else get("next_page").asLong,
@@ -74,7 +73,7 @@ data class MeProgramsResponseData(
 
 class MeProgramsService(client: AnnictClient) : BaseService(client) {
 
-    fun get(query: MeProgramsRequestQuery) : MeProgramsResponseData {
-        this.client.apply { return MeProgramsResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
+    fun get(query: MeProgramsGetRequestQuery) : MeProgramsGetResponseData {
+        this.client.apply { return MeProgramsGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
     }
 }

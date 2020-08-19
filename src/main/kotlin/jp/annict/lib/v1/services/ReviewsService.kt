@@ -12,7 +12,7 @@ import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
-data class ReviewsRequestQuery (
+data class ReviewsGetRequestQuery (
     val fields           : Array<String>?,
     val filter_ids       : Array<Long>?,
     val filter_work_id       : Long?,
@@ -40,19 +40,19 @@ data class ReviewsRequestQuery (
     }
 }
 
-data class ReviewsResponseData (
+data class ReviewsGetResponseData (
     val reviews: Array<Review>?,
     val total_count: Long?,
     val next_page: Long?,
     val prev_page: Long?
-) : ResponseData<ReviewsResponseData> {
+) : ResponseData<ReviewsGetResponseData> {
 
     constructor() : this(null, null, null, null)
 
-    override fun toDataClass(response: Response): ReviewsResponseData {
+    override fun toDataClass(response: Response): ReviewsGetResponseData {
         response.apply {
             JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply {
-                return ReviewsResponseData(
+                return ReviewsGetResponseData(
                     JsonUtil.GSON.fromJson(getAsJsonArray("reviews"), object : TypeToken<Array<Review>>() {}.type),
                     if (get("total_count").isJsonNull) null else get("total_count").asLong,
                     if (get("next_page").isJsonNull) null else get("next_page").asLong,
@@ -66,9 +66,9 @@ data class ReviewsResponseData (
 
 class ReviewsService(client: AnnictClient) : BaseService(client) {
 
-    fun get(query: ReviewsRequestQuery) : ReviewsResponseData {
+    fun get(query: ReviewsGetRequestQuery) : ReviewsGetResponseData {
         this.client.apply {
-            return ReviewsResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
+            return ReviewsGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
         }
     }
 }

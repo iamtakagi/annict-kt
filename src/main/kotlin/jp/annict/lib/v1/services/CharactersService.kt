@@ -12,7 +12,7 @@ import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
-data class CharactersRequestQuery(
+data class CharactersGetRequestQuery(
                              val fields           : Array<String>?,
                              val filter_ids       : Array<Long>?,
                              val filter_work_id   : Long?,
@@ -35,15 +35,15 @@ data class CharactersRequestQuery(
     }
 }
 
-data class CharactersResponseData(val characters: Array<Character>?,
-                                  val total_count: Long?,
-                                  val next_page: Long?,
-                                  val prev_page: Long?) : ResponseData<CharactersResponseData> {
+data class CharactersGetResponseData(val characters: Array<Character>?,
+                                     val total_count: Long?,
+                                     val next_page: Long?,
+                                     val prev_page: Long?) : ResponseData<CharactersGetResponseData> {
 
     constructor() : this(null, null, null, null)
 
-    override fun toDataClass(response: Response): CharactersResponseData {
-        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return CharactersResponseData (
+    override fun toDataClass(response: Response): CharactersGetResponseData {
+        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return CharactersGetResponseData (
             JsonUtil.GSON.fromJson(getAsJsonArray("characters"), object : TypeToken<Array<Character>>() {}.type),
             if (get("total_count").isJsonNull) null else get("total_count").asLong,
             if (get("next_page").isJsonNull) null else get("next_page").asLong,
@@ -55,9 +55,9 @@ data class CharactersResponseData(val characters: Array<Character>?,
 
 class CharactersService(client: AnnictClient) : BaseService(client) {
 
-    fun get(query: CharactersRequestQuery) : CharactersResponseData {
+    fun get(query: CharactersGetRequestQuery) : CharactersGetResponseData {
         this.client.apply {
-            return CharactersResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
+            return CharactersGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
         }
     }
 

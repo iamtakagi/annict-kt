@@ -12,13 +12,13 @@ import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
-data class CastsRequestQuery(val fields           : Array<String>?,
-                             val filter_ids       : Array<Long>?,
-                             val filter_work_id   : Long?,
-                             val page             : Long?,
-                             val per_page         : Long?,
-                             val sort_id          : Order?,
-                             val sort_sort_number : Order?) : RequestQuery {
+data class CastsGetRequestQuery(val fields           : Array<String>?,
+                                val filter_ids       : Array<Long>?,
+                                val filter_work_id   : Long?,
+                                val page             : Long?,
+                                val per_page         : Long?,
+                                val sort_id          : Order?,
+                                val sort_sort_number : Order?) : RequestQuery {
 
     override fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
@@ -36,15 +36,15 @@ data class CastsRequestQuery(val fields           : Array<String>?,
     }
 }
 
-data class CastsResponseData(val casts: Array<Cast>?,
-                             val total_count: Long?,
-                             val next_page: Long?,
-                             val prev_page: Long?) : ResponseData<CastsResponseData> {
+data class CastsGetResponseData(val casts: Array<Cast>?,
+                                val total_count: Long?,
+                                val next_page: Long?,
+                                val prev_page: Long?) : ResponseData<CastsGetResponseData> {
 
     constructor() : this(null, null, null, null)
 
-    override fun toDataClass(response: Response): CastsResponseData {
-        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return CastsResponseData (
+    override fun toDataClass(response: Response): CastsGetResponseData {
+        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return CastsGetResponseData (
             JsonUtil.GSON.fromJson(getAsJsonArray("casts"), object : TypeToken<Array<Cast>>() {}.type),
             if (get("total_count").isJsonNull) null else get("total_count").asLong,
             if (get("next_page").isJsonNull) null else get("next_page").asLong,
@@ -56,9 +56,9 @@ data class CastsResponseData(val casts: Array<Cast>?,
 
 class CastsService(client: AnnictClient) : BaseService(client) {
 
-    fun get(query: CastsRequestQuery) : CastsResponseData {
+    fun get(query: CastsGetRequestQuery) : CastsGetResponseData {
         this.client.apply {
-            return CastsResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
+            return CastsGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
         }
     }
 }

@@ -11,7 +11,7 @@ import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
-data class MeRequestQuery(val fields: Array<String>?) : RequestQuery {
+data class MeGetRequestQuery(val fields: Array<String>?) : RequestQuery {
     override fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
             addPathSegment("me")
@@ -22,12 +22,12 @@ data class MeRequestQuery(val fields: Array<String>?) : RequestQuery {
     }
 }
 
-data class MeResponseData(val user: User?) : ResponseData<MeResponseData> {
+data class MeGetResponseData(val user: User?) : ResponseData<MeGetResponseData> {
 
     constructor() : this(null)
 
-    override fun toDataClass(response: Response): MeResponseData {
-        return MeResponseData(JsonUtil.GSON.fromJson(
+    override fun toDataClass(response: Response): MeGetResponseData {
+        return MeGetResponseData(JsonUtil.GSON.fromJson(
             JsonUtil.JSON_PARSER.parse(response.body?.string()).asJsonObject,
             object : TypeToken<User>() {}.type)
         )
@@ -36,7 +36,7 @@ data class MeResponseData(val user: User?) : ResponseData<MeResponseData> {
 
 class MeService(client: AnnictClient) : BaseService(client){
 
-    fun get(query: MeRequestQuery) : MeResponseData {
-        this.client.apply { return MeResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
+    fun get(query: MeGetRequestQuery) : MeGetResponseData {
+        this.client.apply { return MeGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
     }
 }

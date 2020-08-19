@@ -12,7 +12,7 @@ import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
-data class PeopleRequestQuery(
+data class PeopleGetRequestQuery(
     val fields           : Array<String>?,
     val filter_ids       : Array<Long>?,
     val filter_work_id   : Long?,
@@ -35,17 +35,17 @@ data class PeopleRequestQuery(
     }
 }
 
-data class PeopleResponseData(
+data class PeopleGetResponseData(
     val people: Array<Person>?,
     val total_count: Long?,
     val next_page: Long?,
     val prev_page: Long?
-) : ResponseData<PeopleResponseData> {
+) : ResponseData<PeopleGetResponseData> {
 
     constructor() : this(null, null, null, null)
 
-    override fun toDataClass(response: Response): PeopleResponseData {
-        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return PeopleResponseData (
+    override fun toDataClass(response: Response): PeopleGetResponseData {
+        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return PeopleGetResponseData (
             JsonUtil.GSON.fromJson(getAsJsonArray("organizations"), object : TypeToken<Array<Person>>() {}.type),
             if (get("total_count").isJsonNull) null else get("total_count").asLong,
             if (get("next_page").isJsonNull) null else get("next_page").asLong,
@@ -57,9 +57,9 @@ data class PeopleResponseData(
 
 class PeopleService(client: AnnictClient) : BaseService(client) {
 
-    fun get(query: PeopleRequestQuery) : PeopleResponseData {
+    fun get(query: PeopleGetRequestQuery) : PeopleGetResponseData {
         this.client.apply {
-            return  PeopleResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
+            return  PeopleGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
         }
     }
 
