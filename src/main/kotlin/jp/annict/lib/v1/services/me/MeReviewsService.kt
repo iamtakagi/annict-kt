@@ -104,7 +104,7 @@ data class MeReviewsPatchResponseData(val review: Review?) : ResponseData<MeRevi
     }
 }
 
-data class MeReviewsDeleteQuery(val id: Long) : RequestQuery {
+data class MeReviewsDeleteRequestQuery(val id: Long) : RequestQuery {
 
     override fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
@@ -145,7 +145,7 @@ class MeReviewsService (client: AnnictClient) : BaseService(client) {
     /**
      * レビュー削除 [write scope]
      */
-    fun delete(query: MeReviewsDeleteQuery): Boolean {
+    fun delete(query: MeReviewsDeleteRequestQuery): Boolean {
         this.client.apply {
             return (request(Request.Builder().url(query.url(getUrlBuilder())).method("delete", null)).code == 204)
         }
