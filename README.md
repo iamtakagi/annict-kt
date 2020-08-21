@@ -1,6 +1,6 @@
 # annict-kotlin
 
-Kotlinに移植してクライアントライブラリ化したい。
+Kotlinに移植してクライアントライブラリ化したい。(未完成)
 
 ## Example
 ```kotlin
