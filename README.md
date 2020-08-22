@@ -2,7 +2,7 @@
 
 Stage: Development
 
-## Examples
+## Example
 
 ### Authorization
 ```kotlin
