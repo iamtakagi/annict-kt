@@ -1,6 +1,6 @@
 # annict-kt
 
-Development Stage
+Stage: Development
 
 ## Examples
 
