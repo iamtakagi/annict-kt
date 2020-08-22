@@ -7,7 +7,7 @@ Stage: Development
 ## Usage
 
 ### Install
-```
+```gradle
 repositories {
     maven {
         url "https://dl.bintray.com/riptakagi/maven"
