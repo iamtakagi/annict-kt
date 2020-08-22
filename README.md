@@ -1,8 +1,11 @@
-# annict-kt
+# Examples
 
-未完成
+## Authorization 
+```kotlin
+```
 
-## Example
+## Service
+
 ```kotlin
 val client = AnnictLib.newClient("token here", new OkHttpClient(), AnnictVersion.V_1)
 
