@@ -5,36 +5,36 @@ import com.google.gson.reflect.TypeToken
 import jp.annict.lib.bases.BaseService
 import jp.annict.lib.bases.BaseRequestData
 import jp.annict.lib.interfaces.AnnictClient
+import jp.annict.lib.interfaces.FormBodyData
 import jp.annict.lib.interfaces.RequestQuery
 import jp.annict.lib.interfaces.ResponseData
 import jp.annict.lib.utils.JsonUtil
 import jp.annict.lib.v1.models.Application
 import okhttp3.*
+import java.text.Normalizer
 
-data class TokenGetRequestQuery (
+data class TokenGetFormBodyData (
     val client_id: String?,
     val client_secret: String?,
     val grant_type: String?,
     val redirect_uri: String?,
     val code: String?
-) : RequestQuery {
+) : FormBodyData {
 
-    override fun url(builder: HttpUrl.Builder): HttpUrl {
-        return builder.apply {
-            addPathSegment("/oauth/token")
-
-            if(client_id != null && client_id.isNotEmpty()) { addQueryParameter("client_id", client_id )}
-            if(client_secret != null && client_secret.isNotEmpty()) { addQueryParameter("client_secret", client_secret )}
-            if(grant_type != null && grant_type.isNotEmpty()) { addQueryParameter("grant_type", grant_type )}
-            if(redirect_uri != null && redirect_uri.isNotEmpty()) { addQueryParameter("redirect_uri", redirect_uri )}
-            if(code != null && code.isNotEmpty()) { addQueryParameter("code", code )}
+    override fun toFormBody(): RequestBody {
+        return FormBody.Builder().apply {
+            if(client_id != null && client_id.isNotEmpty()) { addEncoded("client_id", client_id )}
+            if(client_secret != null && client_secret.isNotEmpty()) { addEncoded("client_secret", client_secret )}
+            if(grant_type != null && grant_type.isNotEmpty()) { addEncoded("grant_type", grant_type )}
+            if(redirect_uri != null && redirect_uri.isNotEmpty()) { addEncoded("redirect_uri", redirect_uri )}
+            if(code != null && code.isNotEmpty()) { addEncoded("code", code )}
 
         }.build()
     }
 
 }
 
-data class TokenGetResponseData(
+data class TokenGetResponseData (
     val access_token: String?,
     val token_Type: String?,
     val scope: String?,
@@ -68,7 +68,7 @@ data class RevokeTokenPostRequestData (
     }
 }
 
-data class TokenInfoGetResponseData(
+data class TokenInfoGetResponseData (
     val resource_owner_id: Long?,
     val scopes: Array<String>?,
     val expires_in_seconds: String?,
@@ -93,10 +93,11 @@ class AuthorizationService(client: AnnictClient) : BaseService(client) {
     /**
      * アクセストークンを取得する
      */
-        fun postToken(query: TokenGetRequestQuery): TokenGetResponseData {
+        fun postToken(data: TokenGetFormBodyData): TokenGetResponseData {
         this.client.apply {
-            println(request(Request.Builder().url(query.url(getUrlBuilder())).method("post", null)).body?.string())
-            return TokenGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())).method("post", null))) }
+            println(request(Request.Builder().url(getUrlBuilder().addPathSegments("oauth/token").build()).method("post", data.toFormBody())))
+
+            return TokenGetResponseData().toDataClass(request(Request.Builder().url(getUrlBuilder().addPathSegments("oauth/token").build()).method("post", data.toFormBody()))) }
     }
 
     /**
@@ -106,7 +107,7 @@ class AuthorizationService(client: AnnictClient) : BaseService(client) {
         this.client.apply {
             return TokenInfoGetResponseData().toDataClass(
                 request(
-                    Request.Builder().url(getUrlBuilder().addEncodedPathSegments("/oauth/token/info").build())
+                    Request.Builder().url(getUrlBuilder().addPathSegments("/oauth/token/info").build())
                 )
             )
         }
