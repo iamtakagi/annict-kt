@@ -5,5 +5,3 @@ repositories {
 dependencies {
     implementation 'jp.annict:annict-kt:0.0.2'
 }
-
-
