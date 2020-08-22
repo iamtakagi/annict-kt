@@ -49,21 +49,6 @@ data class TokenGetResponseData (
     }
 }
 
-data class RevokeTokenPostRequestData (
-    val client_id: String? =null,
-    val client_secret: String? =null,
-    val token: String? =null
-) : RequestBodyData {
-
-    override fun toRequestBody() : RequestBody {
-
-        return MultipartBody.Builder().apply {
-            if(client_id != null && client_id.isNotEmpty()) { addFormDataPart("client_id", client_id )}
-            if(client_secret != null && client_secret.isNotEmpty()) { addFormDataPart("client_secret", client_secret )}
-            if(token != null && token.isNotEmpty()) { addFormDataPart("token", token )}
-        }.build()
-    }
-}
 
 data class TokenInfoGetResponseData (
     val resource_owner_id: Long?,
@@ -85,6 +70,21 @@ data class TokenInfoGetResponseData (
     }
 }
 
+data class RevokeTokenPostRequestData (
+    val client_id: String? =null,
+    val client_secret: String? =null,
+    val token: String? =null
+) : RequestBodyData {
+
+    override fun toRequestBody() : RequestBody {
+
+        return MultipartBody.Builder().apply {
+            if(client_id != null && client_id.isNotEmpty()) { addFormDataPart("client_id", client_id )}
+            if(client_secret != null && client_secret.isNotEmpty()) { addFormDataPart("client_secret", client_secret )}
+            if(token != null && token.isNotEmpty()) { addFormDataPart("token", token )}
+        }.build()
+    }
+}
 
 class AnnictAuth {
 
@@ -95,34 +95,22 @@ class AnnictAuth {
     /**
      * アクセストークンを取得する
      */
-    fun token(data: TokenGetRequestData): TokenGetResponseData {
-        val res =  this.client.newCall(
-            Request.Builder().url(getUrlBuilder().addPathSegments("oauth/token").build())
-                .post(data.toRequestBody()).build()).execute()
+    fun token(client_id: String? =null, client_secret: String? =null, grant_type: String? ="authorization_code", redirect_uri: String? ="urn:ietf:wg:oauth:2.0:oob", code: String? =null): TokenGetResponseData = TokenGetResponseData().toDataClass(this.client.newCall(
+            Request.Builder().url(getUrlBuilder().addPathSegments("oauth/token").build()).post(TokenGetRequestData(client_id, client_secret, grant_type, redirect_uri, code).toRequestBody()).build()).execute()
+    )
 
-        println(res)
-
-        return TokenGetResponseData().toDataClass(res)
-    }
 
     /**
      * 認証ユーザの情報を取得する
      */
-    fun info(token: String): TokenInfoGetResponseData {
-        val res =  this.client.newCall(
-            Request.Builder().header("Authorization", "Bearer $token").url(getUrlBuilder().addPathSegments("oauth/token/info").build()).build()
-        ).execute()
+    fun info(token: String): TokenInfoGetResponseData = TokenInfoGetResponseData().toDataClass( this.client.newCall(
+            Request.Builder().header("Authorization", "Bearer $token").url(getUrlBuilder().addPathSegments("oauth/token/info").build()).build()).execute()
+    )
 
-        println(res)
-
-        return TokenInfoGetResponseData().toDataClass(res)
-    }
 
     /**
      * トークンを失効させる
      */
-    fun revoke(data: RevokeTokenPostRequestData): Boolean {
-       return this.client.newCall(Request.Builder().url(getUrlBuilder().addPathSegments("oauth/revoke").build()).post(data.toRequestBody()).build()).execute().code == 200
-    }
+    fun revoke(client_id: String? =null, client_secret: String? =null, token: String? =null): Boolean = this.client.newCall(Request.Builder().url(getUrlBuilder().addPathSegments("oauth/revoke").build()).post(RevokeTokenPostRequestData(client_id, client_secret, token).toRequestBody()).build()).execute().code == 200
 
 }
