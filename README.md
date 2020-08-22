@@ -6,20 +6,23 @@ Stage: Development
 
 ### Authorization
 
-#### Get Token
 ```kotlin
+//Get Token
+
 val response: TokenGetResponseData = AnnictAuth().token(TokenGetRequestData("client_id", "client_secret", "authorization_code"(default), "urn:ietf:wg:oauth:2.0:oob"(default), "code"))
 
 val access_token = response.access_token
 ```
 
-#### Get Info
 ```kotlin
+//Get Info
+
 val response: TokenInfoGetResponseData = AnnictAuth().info("access_token")
 ```
 
-#### Revoke Token
 ```kotlin
+//Revoke Token
+
 val result: Boolean = AnnictAuth().revoke(RevokeTokenPostRequestData("client_id", "client_secret", "token"))
 ```
 
