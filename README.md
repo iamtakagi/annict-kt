@@ -8,7 +8,7 @@ Stage: Development
 ```kotlin
 ```
 
-### Service Example
+### Service
 
 ```kotlin
 val client = AnnictClient("token here")
