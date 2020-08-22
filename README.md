@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'jp.annict:annict-kt:0.0.1'
+    implementation 'jp.annict:annict-kt:${version}'
 }
 ```
 
