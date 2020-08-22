@@ -34,7 +34,7 @@ val client = AnnictClient("access_token")
 ### Service
 
 ```kotlin
-val response = client.getWorks(filter_title="氷菓")
+val response = client.getWorks(filter_title = "氷菓")
 ```
 
 ```kotlin
