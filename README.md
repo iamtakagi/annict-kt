@@ -7,7 +7,7 @@
 ## Service
 
 ```kotlin
-val client = AnnictLib.newClient("token here")
+val client = AnnictClient("token here")
 
 val res = client.getWorks(WorksRequestQuery(filter_title="氷菓"))
 ```
