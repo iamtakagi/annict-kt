@@ -2,6 +2,10 @@ package jp.annict.lib.v1.client
 
 import jp.annict.lib.bases.BaseAnnictClient
 import jp.annict.lib.enums.AnnictVersion
+import jp.annict.lib.v1.enums.Action
+import jp.annict.lib.v1.enums.Order
+import jp.annict.lib.v1.enums.RatingState
+import jp.annict.lib.v1.enums.Status
 import jp.annict.lib.v1.services.*
 import jp.annict.lib.v1.services.me.*
 import okhttp3.*
@@ -57,53 +61,103 @@ class AnnictClient(val token: String, httpClient: OkHttpClient = OkHttpClient())
 
     val meWorksService = MeWorksService(this)
 
-    fun getActivities(query: ActivitiesGetRequestQuery) : ActivitiesGetResponseData = activitiesService.get(query)
+    fun getActivities(fields: Array<String>? =null, filter_user_id: Long?=null, filter_username: String?=null, page: Long?=null, per_page: Long? =null, sort_id: Order? =null) : ActivitiesGetResponseData = activitiesService.get(
+        ActivitiesGetRequestQuery(fields, filter_user_id, filter_username, page, per_page, sort_id)
+    )
 
-    fun getCasts(query: CastsGetRequestQuery) : CastsGetResponseData = castsService.get(query)
+    fun getCasts(fields: Array<String>? =null, filter_ids: Array<Long>? =null, filter_work_id: Long?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_sort_number: Order?=null) : CastsGetResponseData = castsService.get(
+        CastsGetRequestQuery(fields, filter_ids, filter_work_id, page, per_page, sort_id, sort_sort_number)
+    )
 
-    fun getCharacters(query: CharactersGetRequestQuery) : CharactersGetResponseData = charactersService.get(query)
+    fun getCharacters(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id: Long?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : CharactersGetResponseData = charactersService.get(
+        CharactersGetRequestQuery(fields, filter_ids, filter_work_id, page, per_page, sort_id)
+    )
 
-    fun getEpisodes(query: EpisodesGetRequestQuery) : EpisodesGetResponseData = episodesService.get(query)
+    fun getEpisodes(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id: Long?=null, page: Long?=null, per_page: Long?=null, sort_id : Order?=null, sort_sort_number : Order?=null) : EpisodesGetResponseData = episodesService.get(
+        EpisodesGetRequestQuery(fields, filter_ids, filter_work_id, page, per_page, sort_id, sort_sort_number)
+    )
 
-    fun getFollowers(query: FollowersGetRequestQuery) : FollowersGetResponseData = followersService.get(query)
+    fun getFollowers(fields: Array<String>?=null, filter_user_id: Long?=null, filter_username: String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : FollowersGetResponseData = followersService.get(
+        FollowersGetRequestQuery(fields, filter_user_id, filter_username, page, per_page, sort_id)
+    )
 
-    fun getFollowing(query: FollowingGetRequestQuery) : FollowingGetResponseData = followingService.get(query)
+    fun getFollowing(fields: Array<String>?=null, filter_user_id: Long?=null, filter_username: String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : FollowingGetResponseData = followingService.get(
+        FollowingGetRequestQuery(fields, filter_user_id, filter_username, page, per_page, sort_id)
+    )
 
-    fun getOrganizations(query: OrganizationsGetRequestQuery) : OrganizationsGetResponseData = organizationsService.get(query)
+    fun getOrganizations(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id : Long?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : OrganizationsGetResponseData = organizationsService.get(
+        OrganizationsGetRequestQuery(fields, filter_ids, filter_work_id, page, per_page, sort_id)
+    )
 
-    fun getPeople(query: PeopleGetRequestQuery) : PeopleGetResponseData = peopleService.get(query)
+    fun getPeople(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id: Long?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : PeopleGetResponseData = peopleService.get(
+        PeopleGetRequestQuery(fields, filter_ids, filter_work_id, page, per_page, sort_id)
+    )
 
-    fun getRecords(query: RecordsGetRequestQuery) : RecordsGetResponseData = recordsService.get(query)
+    fun getRecords(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_episode_id: Long?=null, filter_has_record_comment: Boolean?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_likes_count: Order?=null) : RecordsGetResponseData = recordsService.get(
+        RecordsGetRequestQuery(fields, filter_ids, filter_episode_id, filter_has_record_comment, page, per_page, sort_id, sort_likes_count)
+    )
 
-    fun getReviews(query: ReviewsGetRequestQuery) : ReviewsGetResponseData = reviewsService.get(query)
+    fun getReviews(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id: Long?=null, filter_has_review_body: Boolean?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_likes_count: Order?=null) : ReviewsGetResponseData = reviewsService.get(
+        ReviewsGetRequestQuery(fields, filter_ids, filter_work_id, filter_has_review_body, page, per_page, sort_id, sort_likes_count)
+    )
 
-    fun getSeries(query: SeriesGetRequestQuery) : SeriesGetResponseData = seriesService.get(query)
+    fun getSeries(fields: Array<String>?=null, filter_ids : Array<Long>?=null, filter_name: String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : SeriesGetResponseData = seriesService.get(
+        SeriesGetRequestQuery(fields, filter_ids, filter_name, page, per_page, sort_id)
+    )
 
-    fun getStaffs(query: StaffsGetRequestQuery) : StaffsGetResponseData = staffsService.get(query)
+    fun getStaffs(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id: Long?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_sort_number: Order?=null) : StaffsGetResponseData = staffsService.get(
+        StaffsGetRequestQuery(fields, filter_ids, filter_work_id, page, per_page, sort_id, sort_sort_number)
+    )
 
-    fun getUsers(query: UsersGetRequestQuery) : UsersGetResponseData = usersService.get(query)
+    fun getUsers(fields: Array<String>?=null, filter_user_id : Long?=null, filter_username   : String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : UsersGetResponseData = usersService.get(
+        UsersGetRequestQuery(fields, filter_user_id, filter_username, page, per_page, sort_id)
+    )
 
-    fun getWorks(query: WorksGetRequestQuery) : WorksGetResponseData = worksService.get(query)
+    fun getWorks(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_season: String?=null, filter_title: String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_season: Order?=null, sort_watchers_count: Order?=null ) : WorksGetResponseData = worksService.get(
+        WorksGetRequestQuery(fields, filter_ids, filter_season, filter_title, page, per_page, sort_id, sort_season, sort_watchers_count)
+    )
 
-    fun getMeFollowingActivities(query: MeFollowingActivitiesGetRequestQuery) : MeFollowingActivitiesGetResponseData = meFollowingActivitiesService.get(query)
+    fun getMeFollowingActivities(fields: Array<String>? =null, filter_actions: Array<Action>? =null, filter_muted: Boolean? =null, page: Long? =null, per_page: Long? =null, sort_id: Order?=null) : MeFollowingActivitiesGetResponseData = meFollowingActivitiesService.get(
+        MeFollowingActivitiesGetRequestQuery(fields, filter_actions, filter_muted, page, per_page, sort_id)
+    )
 
-    fun getMePrograms(query: MeProgramsGetRequestQuery) : MeProgramsGetResponseData = meProgramsService.get(query)
+    fun getMePrograms(fields: Array<String>? =null, filter_ids: Array<Long>? =null, filter_channel_ids: Array<Long>? =null, filter_work_ids: Array<Long>? =null, filter_started_at_gt: String? =null, filter_started_at_lt: String? =null, filter_unwatched: Boolean? =null, filter_rebroadcast: Boolean? =null, page: Long? =null, per_page: Long? =null, sort_id: Order? =null, sort_started_at: Order? =null) : MeProgramsGetResponseData = meProgramsService.get(
+        MeProgramsGetRequestQuery(fields, filter_ids, filter_channel_ids, filter_work_ids, filter_started_at_gt, filter_started_at_lt, filter_unwatched, filter_rebroadcast, page, per_page, sort_id, sort_started_at)
+    )
 
-    fun postMeRecord(query: MeRecordsPostRequestQuery) : MeRecordsPostResponseData = meRecordsService.post(query)
+    fun postMeRecord(episode_id: Long? =null, comment: String? =null, rating_state: RatingState? =null, share_twitter: Boolean? =null, share_facebook: Boolean? =null) : MeRecordsPostResponseData = meRecordsService.post(
+        MeRecordsPostRequestQuery(episode_id, comment, rating_state, share_twitter, share_facebook)
+    )
 
-    fun patchMeRecord(query: MeRecordsPatchRequestQuery) : MeRecordsPatchResponseData = meRecordsService.patch(query)
+    fun patchMeRecord(episode_id: Long? =null, comment: String? =null, rating_state: RatingState? =null, share_twitter: Boolean? =null, share_facebook: Boolean? =null) : MeRecordsPatchResponseData = meRecordsService.patch(
+        MeRecordsPatchRequestQuery(episode_id, comment, rating_state, share_twitter, share_facebook)
+    )
 
-    fun deleteMeRecord(query: MeRecordsDeleteRequestQuery) : Boolean = meRecordsService.delete(query)
+    fun deleteMeRecord(id: Long) : Boolean = meRecordsService.delete(
+        MeRecordsDeleteRequestQuery(id)
+    )
 
-    fun postMeReview(query: MeReviewsPostRequestQuery) : MeReviewsPostResponseData = meReviewsService.post(query)
+    fun postMeReview(work_id: Long? =null, title: String?=null, body: String? =null, rating_animation_state: RatingState? =null, rating_music_state: RatingState? =null, rating_story_state: RatingState? =null, rating_character_state: RatingState? =null, rating_overall_state: RatingState? =null, share_twitter: Boolean? =null, share_facebook: Boolean? =null) : MeReviewsPostResponseData = meReviewsService.post(
+        MeReviewsPostRequestQuery(work_id, title, body, rating_animation_state, rating_music_state, rating_story_state, rating_character_state, rating_overall_state, share_twitter, share_facebook)
+    )
 
-    fun patchMeReview(query: MeReviewsPatchRequestQuery) : MeReviewsPatchResponseData = meReviewsService.patch(query)
+    fun patchMeReview(work_id: Long? =null, title: String? =null, body: String? =null, rating_animation_state: RatingState? =null, rating_music_state: RatingState? =null, rating_story_state: RatingState? =null, rating_character_state: RatingState? =null, rating_overall_state: RatingState? =null, share_twitter: Boolean? =null, share_facebook: Boolean? =null) : MeReviewsPatchResponseData = meReviewsService.patch(
+        MeReviewsPatchRequestQuery(work_id, title, body, rating_animation_state, rating_music_state, rating_story_state, rating_character_state, rating_overall_state, share_twitter, share_facebook)
+    )
 
-    fun deleteMeReview(query: MeReviewsDeleteRequestQuery) : Boolean = meReviewsService.delete(query)
+    fun deleteMeReview(id: Long? =null) : Boolean = meReviewsService.delete(
+        MeReviewsDeleteRequestQuery(id)
+    )
 
-    fun getMe(query: MeGetRequestQuery) : MeGetResponseData = meService.get(query)
+    fun getMe(fields: Array<String>? =null) : MeGetResponseData = meService.get(
+        MeGetRequestQuery(fields)
+    )
 
-    fun postMeStatus(query: MeStatuesPostRequestQuery) : Boolean = meStatusesService.post(query)
+    fun postMeStatus(work_id: Long? =null, kind: Status? =null) : Boolean = meStatusesService.post(
+        MeStatuesPostRequestQuery(work_id, kind)
+    )
 
-    fun getMeWorks(query: MeWorksGetRequestQuery) : MeWorksGetResponseData = meWorksService.get(query)
+    fun getMeWorks(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_season: String?=null, filter_title: String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_season : Order?=null, sort_watchers_count: Order?=null, filter_status: Status?=null) : MeWorksGetResponseData = meWorksService.get(
+        MeWorksGetRequestQuery(fields, filter_ids, filter_season, filter_title, page, per_page, sort_id, sort_season, sort_watchers_count, filter_status)
+    )
 }
