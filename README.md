@@ -1,10 +1,13 @@
 # annict-kt
 
-## Authorization Example
+
+## Examples
+
+### Authorization
 ```kotlin
 ```
 
-## Service Example
+### Service Example
 
 ```kotlin
 val client = AnnictClient("token here")
