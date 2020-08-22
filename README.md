@@ -1,4 +1,4 @@
-# Examples
+# annict-kt
 
 ## Authorization 
 ```kotlin
