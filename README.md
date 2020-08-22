@@ -36,13 +36,13 @@ val client = AnnictClient("access_token")
 ### Service
 
 ```kotlin
-// 作成情報取得
+// 作品情報取得
 
 val response = client.getWorks(filter_title = "氷菓")
 ```
 
 ```kotlin
-// キャスト取得
+// キャスト情報取得
 
 val response = client.getCasts(filter_work_id = 1808, per_page = 5, page = 5)
 ```
