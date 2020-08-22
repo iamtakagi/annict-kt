@@ -1,12 +1,10 @@
 # annict-kt
 
-Stage: Development
-
 [ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg) ](https://bintray.com/riptakagi/maven/annict-kt/_latestVersion)
 
 ## Usage
 
-### Install
+### Installation
 ```gradle
 repositories {
     maven {
