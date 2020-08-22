@@ -2,6 +2,9 @@
 
 [ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg) ](https://bintray.com/riptakagi/maven/annict-kt/_latestVersion)
 
+## Document
+https://docs.annict.com/docs/
+
 ## Installation
 ```gradle
 repositories {
