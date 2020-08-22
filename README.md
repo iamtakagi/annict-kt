@@ -1,6 +1,6 @@
 # annict-kt
 
-[ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg) ](https://bintray.com/riptakagi/maven/annict-kt/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=0.0.1) ](https://bintray.com/riptakagi/maven/annict-kt/0.0.1/link)
 
 ## Document
 https://docs.annict.com/docs/
