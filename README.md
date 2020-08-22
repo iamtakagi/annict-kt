@@ -2,7 +2,22 @@
 
 Stage: Development
 
-## Example
+[ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg) ](https://bintray.com/riptakagi/maven/annict-kt/_latestVersion)
+
+## Usage
+
+### Install
+```gradle
+repositories {
+    maven {
+        url "https://dl.bintray.com/riptakagi/maven"
+    }
+}
+
+dependencies {
+    implementation 'jp.annict:annict-kt:0.0.1'
+}
+```
 
 ### Authorization
 
