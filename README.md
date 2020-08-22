@@ -2,9 +2,7 @@
 
 [ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg) ](https://bintray.com/riptakagi/maven/annict-kt/_latestVersion)
 
-## Usage
-
-### Installation
+## Installation
 ```gradle
 repositories {
     maven {
@@ -17,7 +15,7 @@ dependencies {
 }
 ```
 
-### Authorization
+## Authorization
 
 ```kotlin
 // Get Token (アクセストークンを取得する)
@@ -39,14 +37,14 @@ val response: TokenInfoGetResponseData = AnnictAuth().info("access_token")
 val result: Boolean = AnnictAuth().revoke(RevokeTokenPostRequestData("client_id", "client_secret", "token"))
 ```
 
-### Client
+## Client
 ```kotlin
 // Create Client (クライアント作成)
 
 val client = AnnictClient("access_token")
 ```
 
-### Service
+## Service
 
 ```kotlin
 // 作品情報取得
