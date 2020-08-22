@@ -7,22 +7,13 @@ import jp.annict.lib.v1.services.me.*
 import okhttp3.*
 import jp.annict.lib.v1.services.CharactersGetRequestQuery as CharactersGetRequestQuery
 
-class AnnictClient(val token: String, httpClient: OkHttpClient) : BaseAnnictClient(httpClient) {
+class AnnictClient(val token: String, httpClient: OkHttpClient = OkHttpClient()) : BaseAnnictClient(httpClient) {
 
-    override fun getVersion(): AnnictVersion {
-        return AnnictVersion.V_1
-    }
+    override fun getVersion(): AnnictVersion = AnnictVersion.V_1
 
-    override fun getUrlBuilder(): HttpUrl.Builder {
-        return HttpUrl.Builder()
-            .scheme("https")
-            .host("api.annict.com")
-            .addPathSegment("v1")
-    }
+    override fun getUrlBuilder(): HttpUrl.Builder = HttpUrl.Builder().scheme("https").host("api.annict.com").addPathSegment("v1")
 
-    override fun request(requestBuilder: Request.Builder): Response {
-        return this.client.newCall(requestBuilder.header("Authorization", "Bearer $token").build()).execute()
-    }
+    override fun request(requestBuilder: Request.Builder): Response = this.client.newCall(requestBuilder.header("Authorization", "Bearer $token").build()).execute()
 
     val activitiesService = ActivitiesService(this)
 
