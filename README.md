@@ -31,5 +31,5 @@ val result: Boolean = AnnictAuth().revoke(RevokeTokenPostRequestData("client_id"
 ```kotlin
 val client = AnnictClient("access_token")
 
-val response = client.getWorks(WorksRequestQuery(filter_title="氷菓"))
+val response = client.getWorks(filter_title="氷菓")
 ```
