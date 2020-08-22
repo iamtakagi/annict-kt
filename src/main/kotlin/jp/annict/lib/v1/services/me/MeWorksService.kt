@@ -2,7 +2,7 @@ package jp.annict.lib.v1.services.me
 
 import com.google.gson.reflect.TypeToken
 import jp.annict.lib.bases.BaseService
-import jp.annict.lib.interfaces.AnnictClient
+import jp.annict.lib.interfaces.IAnnictClient
 import jp.annict.lib.interfaces.RequestQuery
 import jp.annict.lib.interfaces.ResponseData
 import jp.annict.lib.utils.JsonUtil
@@ -23,7 +23,7 @@ data class MeWorksGetRequestQuery (
     val sort_id             : Order?=null,
     val sort_season         : Order?=null,
     val sort_watchers_count : Order?=null,
-    val filter_status: Status?
+    val filter_status: Status?=null
 ) : RequestQuery {
 
     override fun url(builder: HttpUrl.Builder): HttpUrl {
@@ -69,7 +69,7 @@ data class MeWorksGetResponseData (
 
 }
 
-class MeWorksService(client: AnnictClient) : BaseService(client) {
+class MeWorksService(client: IAnnictClient) : BaseService(client) {
 
     fun get(query: MeWorksGetRequestQuery) : MeWorksGetResponseData {
         this.client.apply {

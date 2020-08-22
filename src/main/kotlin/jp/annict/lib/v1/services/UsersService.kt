@@ -4,7 +4,7 @@ import jp.annict.lib.v1.models.User
 
 import com.google.gson.reflect.TypeToken
 import jp.annict.lib.bases.BaseService
-import jp.annict.lib.interfaces.AnnictClient
+import jp.annict.lib.interfaces.IAnnictClient
 import jp.annict.lib.interfaces.RequestQuery
 import jp.annict.lib.interfaces.ResponseData
 import jp.annict.lib.utils.JsonUtil
@@ -60,7 +60,7 @@ data class UsersGetResponseData (
     }
 }
 
-class UsersService(client: AnnictClient) : BaseService(client) {
+class UsersService(client: IAnnictClient) : BaseService(client) {
 
     fun get(query: UsersGetRequestQuery): UsersGetResponseData {
         this.client.apply {

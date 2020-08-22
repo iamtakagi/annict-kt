@@ -2,7 +2,7 @@ package jp.annict.lib.v1.services.me
 
 import com.google.gson.reflect.TypeToken
 import jp.annict.lib.bases.BaseService
-import jp.annict.lib.interfaces.AnnictClient
+import jp.annict.lib.interfaces.IAnnictClient
 import jp.annict.lib.interfaces.RequestQuery
 import jp.annict.lib.interfaces.ResponseData
 import jp.annict.lib.utils.JsonUtil
@@ -58,7 +58,7 @@ data class MeFollowingActivitiesGetResponseData(
     }
 }
 
-class MeFollowingActivitiesService(client: AnnictClient) : BaseService(client) {
+class MeFollowingActivitiesService(client: IAnnictClient) : BaseService(client) {
 
     fun get(query: MeFollowingActivitiesGetRequestQuery) : MeFollowingActivitiesGetResponseData {
         this.client.apply { return MeFollowingActivitiesGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }

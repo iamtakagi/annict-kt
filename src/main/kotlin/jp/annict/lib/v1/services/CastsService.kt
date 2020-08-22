@@ -2,12 +2,13 @@ package jp.annict.lib.v1.services
 
 import com.google.gson.reflect.TypeToken
 import jp.annict.lib.bases.BaseService
-import jp.annict.lib.interfaces.AnnictClient
+import jp.annict.lib.interfaces.IAnnictClient
 import jp.annict.lib.interfaces.RequestQuery
 import jp.annict.lib.interfaces.ResponseData
 import jp.annict.lib.utils.JsonUtil
 import jp.annict.lib.v1.enums.Order
 import jp.annict.lib.v1.models.Cast
+import jp.annict.lib.v1.models.Episode
 import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
@@ -44,17 +45,17 @@ data class CastsGetResponseData(val casts: Array<Cast>?,
     constructor() : this(null, null, null, null)
 
     override fun toDataClass(response: Response): CastsGetResponseData {
-        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return CastsGetResponseData (
-            JsonUtil.GSON.fromJson(getAsJsonArray("casts"), object : TypeToken<Array<Cast>>() {}.type),
-            if (get("total_count").isJsonNull) null else get("total_count").asLong,
-            if (get("next_page").isJsonNull) null else get("next_page").asLong,
-            if (get("prev_page").isJsonNull) null else get("prev_page").asLong
-        ) }
+        response.apply {
+            JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return CastsGetResponseData (JsonUtil.GSON.fromJson(getAsJsonArray("casts"), object : TypeToken<Array<Cast>>() {}.type),
+                if (get("total_count").isJsonNull) null else get("total_count").asLong,
+                if (get("next_page").isJsonNull) null else get("next_page").asLong,
+                if (get("prev_page").isJsonNull) null else get("prev_page").asLong
+            ) }
         }
     }
 }
 
-class CastsService(client: AnnictClient) : BaseService(client) {
+class CastsService(client: IAnnictClient) : BaseService(client) {
 
     fun get(query: CastsGetRequestQuery) : CastsGetResponseData {
         this.client.apply {

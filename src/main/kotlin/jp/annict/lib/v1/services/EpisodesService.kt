@@ -2,7 +2,7 @@ package jp.annict.lib.v1.services
 
 import com.google.gson.reflect.TypeToken
 import jp.annict.lib.bases.BaseService
-import jp.annict.lib.interfaces.AnnictClient
+import jp.annict.lib.interfaces.IAnnictClient
 import jp.annict.lib.interfaces.RequestQuery
 import jp.annict.lib.interfaces.ResponseData
 import jp.annict.lib.utils.JsonUtil
@@ -48,7 +48,8 @@ data class EpisodesGetResponseData (
     constructor() : this(null, null, null, null)
 
     override fun toDataClass(response: Response): EpisodesGetResponseData {
-        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return EpisodesGetResponseData (JsonUtil.GSON.fromJson(getAsJsonArray("episodes"), object : TypeToken<Array<Episode>>() {}.type),
+        response.apply {
+            JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return EpisodesGetResponseData (JsonUtil.GSON.fromJson(getAsJsonArray("episodes"), object : TypeToken<Array<Episode>>() {}.type),
             if (get("total_count").isJsonNull) null else get("total_count").asLong,
             if (get("next_page").isJsonNull) null else get("next_page").asLong,
             if (get("prev_page").isJsonNull) null else get("prev_page").asLong
@@ -56,7 +57,7 @@ data class EpisodesGetResponseData (
     }
 }
 
-class EpisodesService(client: AnnictClient) : BaseService(client) {
+class EpisodesService(client: IAnnictClient) : BaseService(client) {
 
     fun get(query: EpisodesGetRequestQuery) : EpisodesGetResponseData {
         this.client.apply {

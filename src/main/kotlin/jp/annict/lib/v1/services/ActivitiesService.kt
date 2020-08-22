@@ -2,7 +2,7 @@ package jp.annict.lib.v1.services
 
 import com.google.gson.reflect.TypeToken
 import jp.annict.lib.bases.BaseService
-import jp.annict.lib.interfaces.AnnictClient
+import jp.annict.lib.interfaces.IAnnictClient
 import jp.annict.lib.interfaces.RequestQuery
 import jp.annict.lib.interfaces.ResponseData
 import jp.annict.lib.utils.JsonUtil
@@ -46,7 +46,7 @@ data class ActivitiesGetResponseData(
     constructor() : this(null, null, null, null)
 
     override fun toDataClass(response: Response): ActivitiesGetResponseData {
-        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return ActivitiesGetResponseData (
+        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return ActivitiesGetResponseData(
             JsonUtil.GSON.fromJson(getAsJsonArray("activities"), object : TypeToken<Array<Activity>>() {}.type),
             if (get("total_count").isJsonNull) null else get("total_count").asLong,
             if (get("next_page").isJsonNull) null else get("next_page").asLong,
@@ -57,9 +57,10 @@ data class ActivitiesGetResponseData(
     }
 }
 
-class ActivitiesService(client: AnnictClient) : BaseService(client){
+class ActivitiesService(client: IAnnictClient) : BaseService(client) {
 
     fun get(query: ActivitiesGetRequestQuery) : ActivitiesGetResponseData {
-        this.client.apply { return ActivitiesGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
+        this.client.apply { return ActivitiesGetResponseData()
+            .toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
     }
 }

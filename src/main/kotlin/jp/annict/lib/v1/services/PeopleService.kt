@@ -2,7 +2,7 @@ package jp.annict.lib.v1.services
 
 import com.google.gson.reflect.TypeToken
 import jp.annict.lib.bases.BaseService
-import jp.annict.lib.interfaces.AnnictClient
+import jp.annict.lib.interfaces.IAnnictClient
 import jp.annict.lib.interfaces.RequestQuery
 import jp.annict.lib.interfaces.ResponseData
 import jp.annict.lib.utils.JsonUtil
@@ -22,7 +22,7 @@ data class PeopleGetRequestQuery(
 
     override fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
-            addPathSegment("organizations")
+            addPathSegment("people")
 
             if(fields != null && fields.isNotEmpty()) { addQueryParameter("fields", fields.joinToString(separator = ",")) }
             if(filter_ids != null && filter_ids.isNotEmpty()) { addQueryParameter("filter_ids", filter_ids.joinToString(separator = ",")) }
@@ -46,7 +46,7 @@ data class PeopleGetResponseData(
 
     override fun toDataClass(response: Response): PeopleGetResponseData {
         response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return PeopleGetResponseData (
-            JsonUtil.GSON.fromJson(getAsJsonArray("organizations"), object : TypeToken<Array<Person>>() {}.type),
+            JsonUtil.GSON.fromJson(getAsJsonArray("people"), object : TypeToken<Array<Person>>() {}.type),
             if (get("total_count").isJsonNull) null else get("total_count").asLong,
             if (get("next_page").isJsonNull) null else get("next_page").asLong,
             if (get("prev_page").isJsonNull) null else get("prev_page").asLong
@@ -55,11 +55,12 @@ data class PeopleGetResponseData(
     }
 }
 
-class PeopleService(client: AnnictClient) : BaseService(client) {
+class PeopleService(client: IAnnictClient) : BaseService(client) {
 
     fun get(query: PeopleGetRequestQuery) : PeopleGetResponseData {
         this.client.apply {
-            return  PeopleGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
+            println(request(Request.Builder().url(query.url(getUrlBuilder()))).body?.string())
+            return PeopleGetResponseData().toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
         }
     }
 

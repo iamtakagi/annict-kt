@@ -1,7 +1,7 @@
 package jp.annict.lib.v1.services.me
 
 import jp.annict.lib.bases.BaseService
-import jp.annict.lib.interfaces.AnnictClient
+import jp.annict.lib.interfaces.IAnnictClient
 import jp.annict.lib.interfaces.RequestQuery
 import jp.annict.lib.v1.enums.Status
 import okhttp3.HttpUrl
@@ -21,7 +21,7 @@ data class MeStatuesPostRequestQuery(val work_id: Long? =null,
     }
 }
 
-class MeStatusesService(client: AnnictClient) : BaseService(client) {
+class MeStatusesService(client: IAnnictClient) : BaseService(client) {
 
     fun post(query: MeStatuesPostRequestQuery) : Boolean {
         this.client.apply {

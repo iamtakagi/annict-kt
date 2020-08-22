@@ -2,7 +2,7 @@ package jp.annict.lib.v1.services.me
 
 import com.google.gson.reflect.TypeToken
 import jp.annict.lib.bases.BaseService
-import jp.annict.lib.interfaces.AnnictClient
+import jp.annict.lib.interfaces.IAnnictClient
 import jp.annict.lib.interfaces.RequestQuery
 import jp.annict.lib.interfaces.ResponseData
 import jp.annict.lib.utils.JsonUtil
@@ -88,7 +88,7 @@ data class MeRecordsDeleteRequestQuery(val id: Long) : RequestQuery {
 
 }
 
-class MeRecordsService(client: AnnictClient) : BaseService(client) {
+class MeRecordsService(client: IAnnictClient) : BaseService(client) {
 
     /**
      * エピソードへの記録作成 [write scope]
