@@ -37,6 +37,6 @@ val client = AnnictClient("access_token")
 val response = client.getWorks(filter_title="氷菓")
 ```
 
-```
+```kotlin
 val response = client.getCasts(filter_work_id = 1808, per_page = 5, page = 5)
 ```
