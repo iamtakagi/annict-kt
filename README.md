@@ -21,7 +21,7 @@ dependencies {
 ```kotlin
 // Get Token (アクセストークンを取得する)
 
-val response: TokenGetResponseData = AnnictAuth().token(TokenGetRequestData("client_id", "client_secret", "authorization_code"(default), "urn:ietf:wg:oauth:2.0:oob"(default), "code"))
+val response: TokenGetResponseData = AnnictAuth().token("client_id", "client_secret", "authorization_code"(default), "urn:ietf:wg:oauth:2.0:oob"(default), "code")
 
 val access_token = response.access_token
 ```
@@ -35,7 +35,7 @@ val response: TokenInfoGetResponseData = AnnictAuth().info("access_token")
 ```kotlin
 // Revoke Token (トークンを失効させる)
 
-val result: Boolean = AnnictAuth().revoke(RevokeTokenPostRequestData("client_id", "client_secret", "token"))
+val result: Boolean = AnnictAuth().revoke("client_id", "client_secret", "token")
 ```
 
 ## Client
