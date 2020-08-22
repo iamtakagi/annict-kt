@@ -1,4 +1,4 @@
-# annict-kotlin
+# annict-kt
 
 Kotlinに移植してクライアントライブラリ化したい。(未完成)
 
