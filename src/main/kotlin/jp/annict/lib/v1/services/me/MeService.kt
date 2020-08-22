@@ -11,7 +11,7 @@ import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
-data class MeGetRequestQuery(val fields: Array<String>?) : RequestQuery {
+data class MeGetRequestQuery(val fields: Array<String>? =null) : RequestQuery {
     override fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
             addPathSegment("me")

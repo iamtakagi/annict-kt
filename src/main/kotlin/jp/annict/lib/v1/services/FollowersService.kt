@@ -14,12 +14,12 @@ import okhttp3.Request
 import okhttp3.Response
 
 data class FollowersGetRequestQuery (
-    val fields           : Array<String>?,
-    val filter_user_id       : Long?,
-    val filter_username   : String?,
-    val page             : Long?,
-    val per_page         : Long?,
-    val sort_id          : Order?
+    val fields           : Array<String>?=null,
+    val filter_user_id       : Long?=null,
+    val filter_username   : String?=null,
+    val page             : Long?=null,
+    val per_page         : Long?=null,
+    val sort_id          : Order?=null
 ) : RequestQuery {
 
     override fun url(builder: HttpUrl.Builder) : HttpUrl {

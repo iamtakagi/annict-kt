@@ -14,15 +14,15 @@ import okhttp3.Request
 import okhttp3.Response
 
 data class MeWorksGetRequestQuery (
-    val fields           : Array<String>?,
-    val filter_ids       : Array<Long>?,
-    val filter_season       : String?,
-    val filter_title        : String?,
-    val page                : Long?,
-    val per_page            : Long?,
-    val sort_id             : Order?,
-    val sort_season         : Order?,
-    val sort_watchers_count : Order?,
+    val fields           : Array<String>?=null,
+    val filter_ids       : Array<Long>?=null,
+    val filter_season       : String?=null,
+    val filter_title        : String?=null,
+    val page                : Long?=null,
+    val per_page            : Long?=null,
+    val sort_id             : Order?=null,
+    val sort_season         : Order?=null,
+    val sort_watchers_count : Order?=null,
     val filter_status: Status?
 ) : RequestQuery {
 

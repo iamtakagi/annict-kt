@@ -13,11 +13,11 @@ import okhttp3.Request
 import okhttp3.Response
 
 data class MeRecordsPostRequestQuery(
-    val episode_id: Long?,
-    val comment: String?,
-    val rating_state: RatingState?,
-    val share_twitter: Boolean?,
-    val share_facebook: Boolean?
+    val episode_id: Long? =null,
+    val comment: String? =null,
+    val rating_state: RatingState? =null,
+    val share_twitter: Boolean? =null,
+    val share_facebook: Boolean? =null
 ) : RequestQuery {
 
     override fun url(builder: HttpUrl.Builder): HttpUrl {
@@ -46,11 +46,11 @@ data class MeRecordsPostResponseData(val record: Record?) : ResponseData<MeRecor
 }
 
 data class MeRecordsPatchRequestQuery(
-    val episode_id: Long?,
-    val comment: String?,
-    val rating_state: RatingState?,
-    val share_twitter: Boolean?,
-    val share_facebook: Boolean?
+    val episode_id: Long? =null,
+    val comment: String? =null,
+    val rating_state: RatingState? =null,
+    val share_twitter: Boolean? =null,
+    val share_facebook: Boolean? =null
 ) : RequestQuery {
 
     override fun url(builder: HttpUrl.Builder): HttpUrl {

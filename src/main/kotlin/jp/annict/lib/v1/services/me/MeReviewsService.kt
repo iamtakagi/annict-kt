@@ -13,16 +13,16 @@ import okhttp3.Request
 import okhttp3.Response
 
 data class MeReviewsPostRequestQuery(
-    val work_id: Long?,
-    val title: String?,
-    val body: String?,
-    val rating_animation_state: RatingState?,
-    val rating_music_state: RatingState?,
-    val rating_story_state: RatingState?,
-    val rating_character_state: RatingState?,
-    val rating_overall_state: RatingState?,
-    val share_twitter: Boolean?,
-    val share_facebook: Boolean?) : RequestQuery {
+    val work_id: Long? =null,
+    val title: String? =null,
+    val body: String? =null,
+    val rating_animation_state: RatingState? =null,
+    val rating_music_state: RatingState? =null,
+    val rating_story_state: RatingState? =null,
+    val rating_character_state: RatingState? =null,
+    val rating_overall_state: RatingState? =null,
+    val share_twitter: Boolean? =null,
+    val share_facebook: Boolean? =null) : RequestQuery {
 
     override fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
@@ -56,16 +56,16 @@ data class MeReviewsPostResponseData(val review: Review?) : ResponseData<MeRevie
 }
 
 data class MeReviewsPatchRequestQuery(
-    val work_id: Long?,
-    val title: String?,
-    val body: String?,
-    val rating_animation_state: RatingState?,
-    val rating_music_state: RatingState?,
-    val rating_story_state: RatingState?,
-    val rating_character_state: RatingState?,
-    val rating_overall_state: RatingState?,
-    val share_twitter: Boolean?,
-    val share_facebook: Boolean?) : RequestQuery {
+    val work_id: Long? =null,
+    val title: String? =null,
+    val body: String? =null,
+    val rating_animation_state: RatingState? =null,
+    val rating_music_state: RatingState? =null,
+    val rating_story_state: RatingState? =null,
+    val rating_character_state: RatingState? =null,
+    val rating_overall_state: RatingState? =null,
+    val share_twitter: Boolean? =null,
+    val share_facebook: Boolean? =null) : RequestQuery {
 
     override fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
@@ -98,7 +98,7 @@ data class MeReviewsPatchResponseData(val review: Review?) : ResponseData<MeRevi
     }
 }
 
-data class MeReviewsDeleteRequestQuery(val id: Long) : RequestQuery {
+data class MeReviewsDeleteRequestQuery(val id: Long? =null) : RequestQuery {
 
     override fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {

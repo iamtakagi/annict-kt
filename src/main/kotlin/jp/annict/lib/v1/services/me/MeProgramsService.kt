@@ -13,18 +13,18 @@ import okhttp3.Request
 import okhttp3.Response
 
 class MeProgramsGetRequestQuery(
-    val fields: Array<String>?,
-    val filter_ids: Array<Long>?,
-    val filter_channel_ids: Array<Long>?,
-    val filter_work_ids: Array<Long>?,
-    val filter_started_at_gt: String?,
-    val filter_started_at_lt: String?,
-    val filter_unwatched: Boolean?,
-    val filter_rebroadcast: Boolean?,
-    val page: Long?,
-    val per_page: Long?,
-    val sort_id: Order?,
-    val sort_started_at: Order?
+    val fields: Array<String>? =null,
+    val filter_ids: Array<Long>? =null,
+    val filter_channel_ids: Array<Long>? =null,
+    val filter_work_ids: Array<Long>? =null,
+    val filter_started_at_gt: String? =null,
+    val filter_started_at_lt: String? =null,
+    val filter_unwatched: Boolean? =null,
+    val filter_rebroadcast: Boolean? =null,
+    val page: Long? =null,
+    val per_page: Long? =null,
+    val sort_id: Order? =null,
+    val sort_started_at: Order? =null
     ) : RequestQuery {
 
     override fun url(builder: HttpUrl.Builder): HttpUrl {

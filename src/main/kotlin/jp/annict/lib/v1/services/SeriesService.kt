@@ -13,12 +13,12 @@ import okhttp3.Request
 import okhttp3.Response
 
 data class SeriesGetRequestQuery(
-    val fields           : Array<String>?,
-    val filter_ids       : Array<Long>?,
-    val filter_name   : String?,
-    val page             : Long?,
-    val per_page         : Long?,
-    val sort_id          : Order?) : RequestQuery {
+    val fields           : Array<String>?=null,
+    val filter_ids       : Array<Long>?=null,
+    val filter_name   : String?=null,
+    val page             : Long?=null,
+    val per_page         : Long?=null,
+    val sort_id          : Order?=null) : RequestQuery {
 
     override fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {

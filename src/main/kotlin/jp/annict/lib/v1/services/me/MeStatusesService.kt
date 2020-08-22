@@ -7,7 +7,8 @@ import jp.annict.lib.v1.enums.Status
 import okhttp3.HttpUrl
 import okhttp3.Request
 
-data class MeStatuesPostRequestQuery(val work_id: Long?, val kind: Status?) : RequestQuery {
+data class MeStatuesPostRequestQuery(val work_id: Long? =null,
+                                     val kind: Status? =null) : RequestQuery {
 
     override fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {

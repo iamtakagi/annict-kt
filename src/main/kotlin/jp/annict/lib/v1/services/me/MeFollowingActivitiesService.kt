@@ -14,12 +14,12 @@ import okhttp3.Request
 import okhttp3.Response
 
 data class MeFollowingActivitiesGetRequestQuery (
-    val fields: Array<String>?,
-    val filter_actions: Array<Action>?,
-    val filter_muted: Boolean?,
-    val page: Long?,
-    val per_page: Long?,
-    val sort_id: Order?
+    val fields: Array<String>? =null,
+    val filter_actions: Array<Action>? =null,
+    val filter_muted: Boolean? =null,
+    val page: Long? =null,
+    val per_page: Long? =null,
+    val sort_id: Order?=null
 ): RequestQuery {
 
     override fun url(builder: HttpUrl.Builder): HttpUrl {
