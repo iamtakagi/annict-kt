@@ -69,8 +69,8 @@ open class Work (
     val episodes_count    : Long? = null,
     val watchers_count    : Long? = null,
     val reviews_count     : Long? = null,
-    val syobocal_tid      : Long? = null,
-    val mal_anime_id      : Long? = null,
+    val syobocal_tid      : String? = null,
+    val mal_anime_id      : String? = null,
     val images            : Images? = null,
     val no_episodes       : Boolean? = null
 )
@@ -129,86 +129,86 @@ data class Activity (
  * シリーズ情報
  */
 data class Series (
-    val id      : Long?,
-    val name    : String?,
-    val name_ro : String?,
-    val name_en : String?
+    val id      : Long?= null,
+    val name    : String?= null,
+    val name_ro : String?= null,
+    val name_en : String?= null
 )
 
 /**
  * キャラクター情報
  */
 data class Character (
-    val id                        : Long?,
-    val name                      : String?,
-    val name_kana                 : String?,
-    val name_en                   : String?,
-    val nickname                  : String?,
-    val birthday                  : String?,
-    val birthday_en               : String?,
-    val age                       : String?,
-    val age_en                    : String?,
-    val blood_type                : String?,
-    val blood_type_en             : String?,
-    val height                    : String?,
-    val height_en                 : String?,
-    val weight                    : String?,
-    val weight_en                 : String?,
-    val nationality               : String?,
-    val nationality_en            : String?,
-    val occupation                : String?,
-    val occupation_en             : String?,
-    val description_source        : String?,
-    val description_source_en     : String?,
-    val favorite_characters_count : Long?,
-    val series                    : Series?
+    val id                        : Long?= null,
+    val name                      : String?= null,
+    val name_kana                 : String?= null,
+    val name_en                   : String?= null,
+    val nickname                  : String?= null,
+    val birthday                  : String?= null,
+    val birthday_en               : String?= null,
+    val age                       : String?= null,
+    val age_en                    : String?= null,
+    val blood_type                : String?= null,
+    val blood_type_en             : String?= null,
+    val height                    : String?= null,
+    val height_en                 : String?= null,
+    val weight                    : String?= null,
+    val weight_en                 : String?= null,
+    val nationality               : String?= null,
+    val nationality_en            : String?= null,
+    val occupation                : String?= null,
+    val occupation_en             : String?= null,
+    val description_source        : String?= null,
+    val description_source_en     : String?= null,
+    val favorite_characters_count : Long?= null,
+    val series                    : Series?=null
 )
 
 /**
  * 都道府県情報
  */
 data class Prefecture (
-    val id   : Long?,
-    val name : String?
+    val id   : Long?= null,
+    val name : String?= null
 )
 
 /**
  * 人物(声優)情報
  */
 data class Person (
-    val id                    : Long?,
-    val name                  : String?,
-    val name_kana             : String?,
-    val name_en               : String?,
-    val nickname              : String?,
-    val nickname_en           : String?,
-    val gender_text           : String?,
-    val url                   : String?,
-    val url_en                : String?,
-    val wikipedia_url         : String?,
-    val wikipedia_url_en      : String?,
-    val twitter_username      : String?,
-    val twitter_username_en   : String?,
-    val birthday              : String?,
-    val blood_type            : String?,
-    val height                : Long?,
-    val favorite_people_count : Long?,
-    val casts_count           : Long?,
-    val staffs_count          : Long?,
-    val prefecture            : Prefecture?
+    val id                    : Long?= null,
+    val name                  : String?= null,
+    val name_kana             : String?= null,
+    val name_en               : String?= null,
+    val nickname              : String?= null,
+    val nickname_en           : String?= null,
+    val gender_text           : String?= null,
+    val url                   : String?= null,
+    val url_en                : String?= null,
+    val wikipedia_url         : String?= null,
+    val wikipedia_url_en      : String?= null,
+    val twitter_username      : String?= null,
+    val twitter_username_en   : String?= null,
+    val birthday              : String?= null,
+    val blood_type            : String?= null,
+    val height                : String?= null,
+    val favorite_people_count : Long?= null,
+    val casts_count           : Long?= null,
+    val staffs_count          : Long?= null,
+    val prefecture            : Prefecture?= null
 )
 
 /**
  * キャスト情報
  */
 data class Cast (
-    val id          : Long?,
-    val name        : String?,
-    val name_en     : String?,
-    val sort_number : Long?,
-    val work        : Work?,
-    val character   : Character?,
-    val person      : Person?
+    val id          : Long?= null,
+    val name        : String?= null,
+    val name_en     : String?= null,
+    val sort_number : Long?= null,
+    val work        : Work?= null,
+    val character   : Character?= null,
+    val person      : Person?= null
 )
 
 /**
