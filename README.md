@@ -20,7 +20,7 @@ val response = AnnictAuth().info("access_token")
 
 #### Revoke Token - Boolean
 ```kotlin
-AnnictAuth().revoke(RevokeTokenPostRequestData("client_id","client_secret","token"))
+val result = AnnictAuth().revoke(RevokeTokenPostRequestData("client_id","client_secret","token"))
 ```
 
 ### Service
