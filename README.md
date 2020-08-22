@@ -1,9 +1,13 @@
-# annict-kotlin
+# annict-kt
 
-Kotlinに移植してクライアントライブラリ化したい。
+## Authorization 
+```kotlin
+```
 
-- ドキュメント / Document: https://docs.annict.com/docs/
+## Service
 
-- 看板 / Board: https://github.com/riptakagi/annict-kotlin-rest/projects/1
+```kotlin
+val client = AnnictLib.newClient("token here")
 
-未完成です。プルリク待ってます。
+val res = client.getWorks(WorksRequestQuery(filter_title="氷菓"))
+```
