@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import java.util.*
 
-
 object JsonUtil {
 
     val GSON = GsonBuilder()

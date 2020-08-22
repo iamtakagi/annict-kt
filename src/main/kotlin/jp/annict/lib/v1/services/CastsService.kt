@@ -8,7 +8,6 @@ import jp.annict.lib.interfaces.ResponseData
 import jp.annict.lib.utils.JsonUtil
 import jp.annict.lib.v1.enums.Order
 import jp.annict.lib.v1.models.Cast
-import jp.annict.lib.v1.models.Episode
 import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response

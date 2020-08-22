@@ -95,3 +95,5 @@ modules.xml
 build
 
 Test.kt
+
+gradle.properties
