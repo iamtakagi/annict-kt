@@ -1,6 +1,5 @@
 # annict-kt
-
-Stage: Development
+[ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=0.1.0) ](https://bintray.com/riptakagi/maven/annict-kt/0.1.0/link)
 
 ## Example
 
