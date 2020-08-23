@@ -1,0 +1,80 @@
+buildscript {
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.0'
+    id 'com.jfrog.bintray' version '1.8.4'
+}
+
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    testCompile("junit:junit:4.12")
+    implementation("com.squareup.okhttp3:okhttp:4.8.1")
+    implementation("com.google.code.gson:gson:2.8.6")
+}
+
+def versionMajor = 0
+def versionMinor = 1
+def versionPatch = 0
+
+group 'jp.annict'
+archivesBaseName = 'annict-kt'
+version "${versionMajor}.${versionMinor}.${versionPatch}"
+
+bintray {
+    user = project.hasProperty('bintray_user') ? bintray_user : ''
+    key = project.hasProperty('bintray_key') ? bintray_key : ''
+    publications = ["publishToBintray"]
+    configurations = ["archives"]
+    pkg {
+        repo = "maven"
+        name = "annict-kt"
+        licenses = ["Apache-2.0"]
+        vcsUrl = "https://github.com/riptakagi/annict-kt.git"
+        publicDownloadNumbers = true
+        version {
+            name = project.getVersion()
+            desc = 'Annict Kotlin Lib'
+            vcsTag = project.getVersion()
+            released = new Date()
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    archiveClassifier = 'sources'
+    from sourceSets.main.allJava
+}
+
+publishing {
+    publications {
+        publishToBintray(MavenPublication) {
+            from components.java // or use 'artifact jar'
+
+            groupId = 'jp.annict'
+            artifactId = 'annict-kt'
+            version = project.getVersion()
+
+            artifact sourcesJar // optional: adds the source JAR artifact
+        }
+    }
+}
+
+tasks.bintrayUpload {
+    dependsOn("build")
+}
+
+tasks.publish {
+    finalizedBy(tasks.bintrayUpload)
+}
