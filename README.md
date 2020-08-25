@@ -34,7 +34,7 @@ val response: TokenInfoGetResponseData = AnnictAuth().info("access_token")
 
 ```kotlin
 // Revoke Token (トークンを失効させる)
-val result: Boolean = AnnictAuth().revoke("client_id", "client_secret", "token")
+val result: Boolean = AnnictAuth().revoke("client_id", "client_secret", "access_token")
 ```
 
 ## Client
