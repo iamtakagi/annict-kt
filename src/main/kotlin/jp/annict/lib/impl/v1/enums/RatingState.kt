@@ -2,8 +2,12 @@ package jp.annict.lib.impl.v1.enums
 
 enum class RatingState {
 
-    bad,
-    average,
-    good,
-    great
+    BAD,
+    AVERAGE,
+    GOOD,
+    GREAT;
+
+    override fun toString() : String {
+        return name.toLowerCase()
+    }
 }

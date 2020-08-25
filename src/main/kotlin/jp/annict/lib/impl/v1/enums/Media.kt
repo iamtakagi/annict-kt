@@ -2,9 +2,16 @@ package jp.annict.lib.impl.v1.enums
 
 enum class Media {
 
-    tv,
-    ova,
-    movie,
-    web,
-    other
+    TV,
+    OVA,
+    MOVIE,
+    WEB,
+    OTHER;
+
+    override fun toString() : String {
+        return name.toLowerCase()
+    }
+
+
+
 }
