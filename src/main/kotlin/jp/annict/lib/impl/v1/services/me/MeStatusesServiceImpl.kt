@@ -15,7 +15,7 @@ data class MeStatuesPostRequestQueryImpl(val work_id: Long? =null,
             addPathSegments("me/statues")
 
             if(work_id != null) { addQueryParameter("work_id", work_id.toString())}
-            if(kind != null ) { addQueryParameter("kind", kind.name) }
+            if(kind != null ) { addQueryParameter("kind", kind.toString()) }
 
         }.build()
     }

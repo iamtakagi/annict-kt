@@ -36,10 +36,10 @@ data class MeWorksGetRequestQueryImpl (
             if(filter_title != null && filter_title.isNotEmpty()) { addQueryParameter("filter_title", filter_title.toString()) }
             if(page != null) { addQueryParameter("page", page.toString()) }
             if(per_page != null) { addQueryParameter("per_page", per_page.toString()) }
-            if(sort_id != null) { addQueryParameter("sort_id", sort_id.name) }
-            if(sort_season != null) { addQueryParameter("sort_season", sort_season.name) }
-            if(sort_watchers_count != null) { addQueryParameter("sort_watchers_count", sort_watchers_count.name) }
-            if(filter_status != null) { addQueryParameter("filter_status", filter_status.name) }
+            if(sort_id != null) { addQueryParameter("sort_id", sort_id.toString()) }
+            if(sort_season != null) { addQueryParameter("sort_season", sort_season.toString()) }
+            if(sort_watchers_count != null) { addQueryParameter("sort_watchers_count", sort_watchers_count.toString()) }
+            if(filter_status != null) { addQueryParameter("filter_status", filter_status.toString()) }
 
         }.build()
     }

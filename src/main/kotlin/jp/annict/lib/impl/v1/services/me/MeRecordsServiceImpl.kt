@@ -25,7 +25,7 @@ data class MeRecordsPostRequestQueryImpl(
 
             if(episode_id != null) { addQueryParameter("episode_id", episode_id.toString()) }
             if(comment != null && comment.isNotEmpty()) { addQueryParameter("comment", comment) }
-            if(rating_state != null) { addQueryParameter("rating_state", rating_state.name) }
+            if(rating_state != null) { addQueryParameter("rating_state", rating_state.toString()) }
             if(share_twitter != null ) { addQueryParameter("share_twitter", share_twitter.toString()) }
             if(share_facebook != null ) { addQueryParameter("share_facebook", share_facebook.toString()) }
 
@@ -58,7 +58,7 @@ data class MeRecordsPatchRequestQueryImpl(
 
             if(episode_id != null) { addQueryParameter("episode_id", episode_id.toString()) }
             if(comment != null && comment.isNotEmpty()) { addQueryParameter("comment", comment) }
-            if(rating_state != null) { addQueryParameter("rating_state", rating_state.name) }
+            if(rating_state != null) { addQueryParameter("rating_state", rating_state.toString()) }
             if(share_twitter != null ) { addQueryParameter("share_twitter", share_twitter.toString()) }
             if(share_facebook != null ) { addQueryParameter("share_facebook", share_facebook.toString()) }
 

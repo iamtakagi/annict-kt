@@ -31,8 +31,8 @@ data class EpisodesGetRequestQueryImpl (
             if(filter_work_id != null) { addQueryParameter("filter_work_id", filter_work_id.toString()) }
             if(page != null) { addQueryParameter("page", page.toString()) }
             if(per_page != null) { addQueryParameter("per_page", per_page.toString()) }
-            if(sort_id != null) { addQueryParameter("sort_id", sort_id.name) }
-            if(sort_sort_number != null) { addQueryParameter("sort_sort_number", sort_sort_number.name) }
+            if(sort_id != null) { addQueryParameter("sort_id", sort_id.toString()) }
+            if(sort_sort_number != null) { addQueryParameter("sort_sort_number", sort_sort_number.toString()) }
 
         }.build()
     }

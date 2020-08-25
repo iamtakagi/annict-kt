@@ -31,7 +31,7 @@ data class MeFollowingActivitiesGetRequestQueryImpl (
             if(filter_muted != null) { addQueryParameter("filter_muted", filter_muted.toString()) }
             if(page != null) { addQueryParameter("page", page.toString()) }
             if(per_page != null) { addQueryParameter("per_page", per_page.toString()) }
-            if(sort_id != null) { addQueryParameter("sort_id", sort_id.name) }
+            if(sort_id != null) { addQueryParameter("sort_id", sort_id.toString()) }
 
         }.build()
     }

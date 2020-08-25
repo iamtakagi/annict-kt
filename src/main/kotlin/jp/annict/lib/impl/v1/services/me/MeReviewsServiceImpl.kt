@@ -30,11 +30,11 @@ data class MeReviewsPostRequestQueryImpl (
             if(work_id != null) { addQueryParameter("work_id", work_id.toString()) }
             if(title != null && title.isNotEmpty()) { addQueryParameter("title", title) }
             if(body != null && body.isNotEmpty()) { addQueryParameter("body", body) }
-            if(rating_animation_state != null) { addQueryParameter("rating_animation_state", rating_animation_state.name) }
-            if(rating_music_state != null) { addQueryParameter("rating_music_state", rating_music_state.name) }
-            if(rating_story_state != null) { addQueryParameter("rating_story_state", rating_story_state.name) }
-            if(rating_character_state != null) { addQueryParameter("rating_character_state", rating_character_state.name) }
-            if(rating_overall_state != null) { addQueryParameter("rating_overall_state", rating_overall_state.name) }
+            if(rating_animation_state != null) { addQueryParameter("rating_animation_state", rating_animation_state.toString()) }
+            if(rating_music_state != null) { addQueryParameter("rating_music_state", rating_music_state.toString()) }
+            if(rating_story_state != null) { addQueryParameter("rating_story_state", rating_story_state.toString()) }
+            if(rating_character_state != null) { addQueryParameter("rating_character_state", rating_character_state.toString()) }
+            if(rating_overall_state != null) { addQueryParameter("rating_overall_state", rating_overall_state.toString()) }
             if(share_twitter != null) { addQueryParameter("share_twitter", share_twitter.toString()) }
             if(share_facebook != null) { addQueryParameter("share_facebook", share_facebook.toString()) }
 
@@ -73,11 +73,11 @@ data class MeReviewsPatchRequestQueryImpl (
             if(work_id != null) { addQueryParameter("work_id", work_id.toString()) }
             if(title != null && title.isNotEmpty()) { addQueryParameter("title", title) }
             if(body != null && body.isNotEmpty()) { addQueryParameter("body", body) }
-            if(rating_animation_state != null) { addQueryParameter("rating_animation_state", rating_animation_state.name) }
-            if(rating_music_state != null) { addQueryParameter("rating_music_state", rating_music_state.name) }
-            if(rating_story_state != null) { addQueryParameter("rating_story_state", rating_story_state.name) }
-            if(rating_character_state != null) { addQueryParameter("rating_character_state", rating_character_state.name) }
-            if(rating_overall_state != null) { addQueryParameter("rating_overall_state", rating_overall_state.name) }
+            if(rating_animation_state != null) { addQueryParameter("rating_animation_state", rating_animation_state.toString()) }
+            if(rating_music_state != null) { addQueryParameter("rating_music_state", rating_music_state.toString()) }
+            if(rating_story_state != null) { addQueryParameter("rating_story_state", rating_story_state.toString()) }
+            if(rating_character_state != null) { addQueryParameter("rating_character_state", rating_character_state.toString()) }
+            if(rating_overall_state != null) { addQueryParameter("rating_overall_state", rating_overall_state.toString()) }
             if(share_twitter != null) { addQueryParameter("share_twitter", share_twitter.toString()) }
             if(share_facebook != null) { addQueryParameter("share_facebook", share_facebook.toString()) }
 
