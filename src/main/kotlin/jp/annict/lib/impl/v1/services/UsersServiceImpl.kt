@@ -31,7 +31,7 @@ data class UsersGetRequestQueryImpl (
             if(filter_username != null && filter_username.isNotEmpty()) { addQueryParameter("filter_username", filter_username) }
             if(page != null) { addQueryParameter("page", page.toString()) }
             if(per_page != null) { addQueryParameter("per_page", per_page.toString()) }
-            if(sort_id != null) { addQueryParameter("sort_id", sort_id.name) }
+            if(sort_id != null) { addQueryParameter("sort_id", sort_id.toString()) }
 
         }.build()
     }

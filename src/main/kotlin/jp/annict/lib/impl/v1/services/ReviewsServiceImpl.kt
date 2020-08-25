@@ -33,8 +33,8 @@ data class ReviewsGetRequestQueryImpl (
             if(filter_has_review_body != null) { addQueryParameter("filter_has_review_body", filter_has_review_body.toString()) }
             if(page != null) { addQueryParameter("page", page.toString()) }
             if(per_page != null) { addQueryParameter("per_page", per_page.toString()) }
-            if(sort_id != null) { addQueryParameter("sort_id", sort_id.name) }
-            if(sort_likes_count != null) { addQueryParameter("sort_likes_count", sort_likes_count.name) }
+            if(sort_id != null) { addQueryParameter("sort_id", sort_id.toString()) }
+            if(sort_likes_count != null) { addQueryParameter("sort_likes_count", sort_likes_count.toString()) }
 
         }.build()
     }

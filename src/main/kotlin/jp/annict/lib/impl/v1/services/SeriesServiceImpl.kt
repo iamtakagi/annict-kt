@@ -29,7 +29,7 @@ data class SeriesGetRequestQueryImpl(
             if(filter_name != null) { addQueryParameter("filter_name", filter_name.toString()) }
             if(page != null) { addQueryParameter("page", page.toString()) }
             if(per_page != null) { addQueryParameter("per_page", per_page.toString()) }
-            if(sort_id != null) { addQueryParameter("sort_id", sort_id.name) }
+            if(sort_id != null) { addQueryParameter("sort_id", sort_id.toString()) }
 
         }.build()
     }
