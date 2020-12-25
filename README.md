@@ -11,6 +11,8 @@
 
 https://annict.jp/userland/projects/61
 
+Still in development.
+
 ## Document
 https://docs.annict.com/docs/
 
