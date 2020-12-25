@@ -96,4 +96,6 @@ build
 
 Test.kt
 
+.gradle
+
 gradle.properties
