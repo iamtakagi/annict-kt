@@ -1,7 +1,13 @@
-# annict-kt
-Annict API wrapper for Kotlin
+<p align="center"><a href="https://annict.com" target="_blank" rel="noopener"><img src="https://user-images.githubusercontent.com/56767/56467671-fdd6ea80-645c-11e9-9056-a5d3fd5739e6.png" width="130" /></a></p>
 
-[ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=1.1.0) ](https://bintray.com/riptakagi/maven/annict-kt/1.1.0/link)
+# annict-kt
+[Annict API](https://github.com/annict/annict) wrapper for Kotlin Library.
+
+[![Kotlin](https://img.shields.io/badge/Kotlin-1.4.21-blue)](https://kotlinlang.org)
+[ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=1.1.2) ](https://bintray.com/riptakagi/maven/annict-kt/1.1.2/link)
+[![license](https://img.shields.io/github/license/iam-takagi/annict-kt)](./LICENSE)
+[![issues](https://img.shields.io/github/issues/iam-takagi/annict-kt)](https://github.com/iam-takagi/annict-kt/issues)
+[![pull requests](https://img.shields.io/github/issues-pr/iam-takagi/annict-kt)](https://github.com/iam-takagi/annict-kt/pulls)
 
 https://annict.jp/userland/projects/61
 
@@ -19,7 +25,9 @@ dependencies {
 }
 ```
 
-## Authorization
+## Example
+
+### Authorization
 
 ```kotlin
 // Get Token (アクセストークンを取得する)
@@ -37,13 +45,13 @@ val response = AnnictAuth().info("access_token")
 val result = AnnictAuth().revoke("client_id", "client_secret", "access_token")
 ```
 
-## Client
+### Client
 ```kotlin
 // Create Client (クライアント作成)
 val client = AnnictClient("access_token")
 ```
 
-## Service
+### Service
 
 ```kotlin
 // 作品情報取得
