@@ -1,7 +1,7 @@
 # annict-kt
 Annict API wrapper for Kotlin
 
-[ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=0.1.2) ](https://bintray.com/riptakagi/maven/annict-kt/1.1.0/link)
+[ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=1.1.0) ](https://bintray.com/riptakagi/maven/annict-kt/1.1.0/link)
 
 https://annict.jp/userland/projects/61
 
