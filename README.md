@@ -22,7 +22,9 @@ dependencies {
 }
 ```
 
-## Authorization
+## Example
+
+### Authorization
 
 ```kotlin
 // Get Token (アクセストークンを取得する)
@@ -40,13 +42,13 @@ val response = AnnictAuth().info("access_token")
 val result = AnnictAuth().revoke("client_id", "client_secret", "access_token")
 ```
 
-## Client
+### Client
 ```kotlin
 // Create Client (クライアント作成)
 val client = AnnictClient("access_token")
 ```
 
-## Service
+### Service
 
 ```kotlin
 // 作品情報取得
