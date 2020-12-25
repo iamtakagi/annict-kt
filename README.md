@@ -1,10 +1,10 @@
+<p align="center"><a href="https://annict.com" target="_blank" rel="noopener"><img src="https://user-images.githubusercontent.com/56767/56467671-fdd6ea80-645c-11e9-9056-a5d3fd5739e6.png" width="130" /></a></p>
+
 # annict-kt
-Annict API wrapper for Kotlin
+[Annict](https://github.com/annict/annict) API wrapper for Kotlin
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.4.21-blue)](https://kotlinlang.org)
 [ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=1.1.2) ](https://bintray.com/riptakagi/maven/annict-kt/1.1.2/link)
-
-<p align="center"><a href="https://annict.com" target="_blank" rel="noopener"><img src="https://user-images.githubusercontent.com/56767/56467671-fdd6ea80-645c-11e9-9056-a5d3fd5739e6.png" width="130" /></a></p>
 
 https://annict.jp/userland/projects/61
 
