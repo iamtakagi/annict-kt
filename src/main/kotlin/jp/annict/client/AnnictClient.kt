@@ -4,8 +4,6 @@ import jp.annict.enums.Action
 import jp.annict.enums.Order
 import jp.annict.enums.RatingState
 import jp.annict.enums.Status
-import jp.annict.lib.services.*
-import jp.annict.lib.services.me.*
 import jp.annict.services.*
 import jp.annict.services.me.*
 import okhttp3.*
