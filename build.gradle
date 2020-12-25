@@ -24,9 +24,9 @@ dependencies {
     compile("com.google.code.gson:gson:2.8.6")
 }
 
-def versionMajor = 0
+def versionMajor = 1
 def versionMinor = 1
-def versionPatch = 2
+def versionPatch = 0
 
 group 'jp.annict'
 archivesBaseName = 'annict-kt'
@@ -45,7 +45,7 @@ bintray {
         publicDownloadNumbers = true
         version {
             name = project.getVersion()
-            desc = 'Annict Kotlin Lib'
+            desc = 'Annict Kotlin Library'
             vcsTag = project.getVersion()
             released = new Date()
         }
