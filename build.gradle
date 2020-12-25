@@ -6,7 +6,7 @@ buildscript {
 
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.4.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.21'
     id 'com.jfrog.bintray' version '1.8.4'
 }
 
@@ -26,7 +26,7 @@ dependencies {
 
 def versionMajor = 1
 def versionMinor = 1
-def versionPatch = 1
+def versionPatch = 2
 
 group 'jp.annict'
 archivesBaseName = 'annict-kt'
