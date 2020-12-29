@@ -2,6 +2,7 @@ package jp.annict.services.me
 
 import com.google.gson.reflect.TypeToken
 import jp.annict.client.AnnictClient
+import jp.annict.models.Me
 import jp.annict.utils.JsonUtil
 import jp.annict.models.User
 import okhttp3.HttpUrl
@@ -27,7 +28,7 @@ data class MeGetResponseData(val user: User?) {
         return MeGetResponseData(
             JsonUtil.GSON.fromJson(
                 JsonUtil.JSON_PARSER.parse(response.body?.string()).asJsonObject,
-                object : TypeToken<User>() {}.type
+                object : TypeToken<Me>() {}.type
             )
         )
     }
