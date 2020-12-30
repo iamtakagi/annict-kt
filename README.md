@@ -9,14 +9,14 @@
 [![issues](https://img.shields.io/github/issues/iam-takagi/annict-kt?style=flat-square)](https://github.com/iam-takagi/annict-kt/issues)
 [![pull requests](https://img.shields.io/github/issues-pr/iam-takagi/annict-kt?style=flat-square)](https://github.com/iam-takagi/annict-kt/pulls)
 
-[![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=2.1.0) ](https://bintray.com/riptakagi/maven/annict-kt/2.1.0/link)
-
 https://annict.jp/userland/projects/61
 
 ## Document
 https://docs.annict.com/docs/
 
 ## Installation
+[![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=2.1.0) ](https://bintray.com/riptakagi/maven/annict-kt/2.1.0/link)
+
 ```gradle
 repositories {
     jcenter()
