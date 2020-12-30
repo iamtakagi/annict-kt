@@ -103,7 +103,7 @@ class AnnictAuth {
     /**
      * アクセストークンを取得する
      */
-    internal fun token(
+    fun token(
         client_id: String? = null,
         client_secret: String? = null,
         grant_type: String? = "authorization_code",
@@ -128,7 +128,7 @@ class AnnictAuth {
     /**
      * 認証ユーザの情報を取得する
      */
-    internal fun info(token: String): TokenInfoGetResponseData? {
+    fun info(token: String): TokenInfoGetResponseData? {
 
         this.client.newCall(
             Request.Builder().header("Authorization", "Bearer $token").url(getUrlBuilder().addPathSegments("oauth/token/info").build()).build()
@@ -140,11 +140,10 @@ class AnnictAuth {
         }
     }
 
-
     /**
      * トークンを失効させる
      */
-    internal fun revoke(client_id: String? = null, client_secret: String? = null, token: String? = null): Boolean? =
+    fun revoke(client_id: String? = null, client_secret: String? = null, token: String? = null): Boolean? =
         this.client.newCall(
             Request.Builder().url(getUrlBuilder().addPathSegments("oauth/revoke").build()).post(
                 RevokeTokenPostRequestData(client_id, client_secret, token).toRequestBody()
