@@ -3,11 +3,11 @@
 # annict-kt
 [Annict API](https://github.com/annict/annict) wrapper for Kotlin Library.
 
-[![Kotlin](https://img.shields.io/badge/Kotlin-1.4.21-blue?style=flat)](https://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/Kotlin-1.4.21-blue?style=flat-square)](https://kotlinlang.org)
 [![annict-kt](https://img.shields.io/github/v/release/iam-takagi/annict-kt?style=flat-square)](https://github.com/iam-takagi/annict-kt/releases/latest)
 [![license](https://img.shields.io/github/license/iam-takagi/annict-kt?style=flat-square)](./LICENSE)
 [![issues](https://img.shields.io/github/issues/iam-takagi/annict-kt?style=flat-square)](https://github.com/iam-takagi/annict-kt/issues)
-[![pull requests](https://img.shields.io/github/issues-pr/iam-takagi/annict-kt?style=flat-square&logo=appveyore)](https://github.com/iam-takagi/annict-kt/pulls)
+[![pull requests](https://img.shields.io/github/issues-pr/iam-takagi/annict-kt?style=flat-square)](https://github.com/iam-takagi/annict-kt/pulls)
 
 [![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=2.1.0) ](https://bintray.com/riptakagi/maven/annict-kt/2.1.0/link)
 
