@@ -17,11 +17,23 @@ https://docs.annict.com/docs/
 ## Installation
 ```gradle
 repositories {
-    jcenter() or maven ( url = "https://dl.bintray.com/riptakagi/maven/")
+    jcenter()
 }
 
 dependencies {
-    implementation 'jp.annict:annict-kt:${version}'
+    implementation 'jp.annict:annict-kt:2.0.0'
+}
+```
+
+or
+
+```gradle
+repositories {
+    maven ( url = "https://dl.bintray.com/riptakagi/maven/")
+}
+
+dependencies {
+    implementation 'jp.annict:annict-kt:2.0.0'
 }
 ```
 
