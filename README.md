@@ -3,7 +3,7 @@
 # annict-kt
 [Annict API](https://github.com/annict/annict) wrapper for Kotlin Library.
 
-[![Kotlin](https://img.shields.io/badge/Kotlin-1.4.21-blue?style=flat-square&logo=appveyore)](https://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/Kotlin-1.4.21-blue?style=flat&logo=appveyor)](https://kotlinlang.org)
 [![annict-kt](https://img.shields.io/github/v/release/iam-takagi/annict-kt?style=flat-square&logo=appveyore)](https://github.com/iam-takagi/annict-kt/releases/latest)
 [![license](https://img.shields.io/github/license/iam-takagi/annict-kt?style=flat-square&logo=appveyore)](./LICENSE)
 [![issues](https://img.shields.io/github/issues/iam-takagi/annict-kt?style=flat-square&logo=appveyore)](https://github.com/iam-takagi/annict-kt/issues)
