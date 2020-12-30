@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'jp.annict:annict-kt:2.0.0'
+    implementation 'jp.annict:annict-kt:2.1.0'
 }
 ```
 
@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'jp.annict:annict-kt:2.0.0'
+    implementation 'jp.annict:annict-kt:2.1.0'
 }
 ```
 
