@@ -1,10 +1,12 @@
 package jp.annict.services.me
 
-import com.google.gson.reflect.TypeToken
 import jp.annict.client.AnnictClient
-import jp.annict.utils.JsonUtil
 import jp.annict.enums.Order
+import jp.annict.exception.AnnictError
 import jp.annict.models.Program
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
@@ -24,7 +26,7 @@ class MeProgramsGetRequestQuery (
     val sort_started_at: Order? =null
     ) {
 
-    fun url(builder: HttpUrl.Builder): HttpUrl {
+    internal fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
 
             addPathSegments("/me/programs")
@@ -47,35 +49,30 @@ class MeProgramsGetRequestQuery (
     }
 }
 
+@Serializable
 data class MeProgramsGetResponseData (
-    val programs: Array<Program>?,
-    val total_count: Long?,
-    val next_page: Long?,
-    val prev_page: Long?
+    val programs: Array<Program>? = null,
+    val total_count: Long? = null,
+    val next_page: Long? = null,
+    val prev_page: Long? = null
 ) {
 
     constructor() : this(null, null, null, null)
 
-    fun toDataClass(response: Response): MeProgramsGetResponseData {
+    internal fun parse(response: Response): MeProgramsGetResponseData? {
         response.apply {
-            JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return MeProgramsGetResponseData(
-                JsonUtil.GSON.fromJson(
-                    getAsJsonArray("activities"),
-                    object : TypeToken<Array<Program>>() {}.type
-                ),
-                if (get("total_count").isJsonNull) null else get("total_count").asLong,
-                if (get("next_page").isJsonNull) null else get("next_page").asLong,
-                if (get("prev_page").isJsonNull) null else get("prev_page").asLong
-            )
+            if(response.code != 200) {
+                return throw AnnictError(response.message)
             }
+            return body?.string()?.let { Json { isLenient = true }.decodeFromString<MeProgramsGetResponseData>(it) }
         }
     }
 }
 
 class MeProgramsService (val client: AnnictClient) {
 
-    fun get(query: MeProgramsGetRequestQuery) : MeProgramsGetResponseData {
+    internal fun get(query: MeProgramsGetRequestQuery) : MeProgramsGetResponseData? {
         this.client.apply { return MeProgramsGetResponseData()
-            .toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
+            .parse(request(Request.Builder().url(query.url(getUrlBuilder())))) }
     }
 }

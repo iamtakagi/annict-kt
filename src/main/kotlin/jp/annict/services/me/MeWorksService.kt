@@ -1,11 +1,13 @@
 package jp.annict.services.me
 
-import com.google.gson.reflect.TypeToken
 import jp.annict.client.AnnictClient
-import jp.annict.utils.JsonUtil
 import jp.annict.enums.Order
 import jp.annict.enums.Status
+import jp.annict.exception.AnnictError
 import jp.annict.models.MeWork
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
@@ -23,7 +25,7 @@ data class MeWorksGetRequestQuery (
     val filter_status: Status?=null
 ) {
 
-    fun url(builder: HttpUrl.Builder): HttpUrl {
+    internal fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
             addPathSegments("/me/works")
 
@@ -42,39 +44,33 @@ data class MeWorksGetRequestQuery (
     }
 }
 
+@Serializable
 data class MeWorksGetResponseData (
-    val works: Array<MeWork>?,
-    val total_count: Long?,
-    val next_page: Long?,
-    val prev_page: Long?
+    val works: Array<MeWork>? = null,
+    val total_count: Long? = null,
+    val next_page: Long? = null,
+    val prev_page: Long? = null
 ) {
 
     constructor() : this(null, null, null, null)
 
-     fun toDataClass(response: Response): MeWorksGetResponseData {
-        response.apply {
-            JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply {
-                return MeWorksGetResponseData(
-                    JsonUtil.GSON.fromJson(
-                        getAsJsonArray("works"),
-                        object : TypeToken<Array<MeWork>>() {}.type
-                    ),
-                    if (get("total_count").isJsonNull) null else get("total_count").asLong,
-                    if (get("next_page").isJsonNull) null else get("next_page").asLong,
-                    if (get("prev_page").isJsonNull) null else get("prev_page").asLong
-                )
-            }
-        }
+    internal fun parse(response: Response): MeWorksGetResponseData? {
+         response.apply {
+             if (response.code != 200) {
+                 return throw AnnictError(response.message)
+             }
+             return body?.string()?.let { Json { isLenient = true }.decodeFromString<MeWorksGetResponseData>(it) }
+         }
     }
 
 }
 
 class MeWorksService(val client: AnnictClient)  {
 
-     fun get(query: MeWorksGetRequestQuery) : MeWorksGetResponseData {
+     internal fun get(query: MeWorksGetRequestQuery) : MeWorksGetResponseData? {
         this.client.apply {
             return MeWorksGetResponseData()
-                .toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
+                .parse(request(Request.Builder().url(query.url(getUrlBuilder()))))
         }
     }
 }

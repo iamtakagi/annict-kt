@@ -1,11 +1,15 @@
 package jp.annict.enums
 
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerialName
+
+@Serializable
 enum class RatingState {
 
-    BAD,
-    AVERAGE,
-    GOOD,
-    GREAT;
+    @SerialName("bad") BAD,
+    @SerialName("average") AVERAGE,
+    @SerialName("good") GOOD,
+    @SerialName("great") GREAT;
 
     override fun toString() : String {
         return name.toLowerCase()

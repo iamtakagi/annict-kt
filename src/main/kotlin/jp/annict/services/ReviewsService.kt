@@ -1,10 +1,12 @@
 package jp.annict.services
 
-import com.google.gson.reflect.TypeToken
 import jp.annict.client.AnnictClient
-import jp.annict.utils.JsonUtil
 import jp.annict.enums.Order
+import jp.annict.exception.AnnictError
 import jp.annict.models.Review
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
@@ -20,7 +22,7 @@ data class ReviewsGetRequestQuery (
     val sort_likes_count         : Order?=null
 ) {
 
-    fun url(builder: HttpUrl.Builder): HttpUrl {
+    internal fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
             addPathSegment("reviews")
 
@@ -37,28 +39,22 @@ data class ReviewsGetRequestQuery (
     }
 }
 
+@Serializable
 data class ReviewsGetResponseData (
-    val reviews: Array<Review>?,
-    val total_count: Long?,
-    val next_page: Long?,
-    val prev_page: Long?
+    val reviews: Array<Review>? = null,
+    val total_count: Long? = null,
+    val next_page: Long? = null,
+    val prev_page: Long? = null
 )  {
 
     constructor() : this(null, null, null, null)
 
-     fun toDataClass(response: Response): ReviewsGetResponseData {
-        response.apply {
-            JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply {
-                return ReviewsGetResponseData(
-                    JsonUtil.GSON.fromJson(
-                        getAsJsonArray("reviews"),
-                        object : TypeToken<Array<Review>>() {}.type
-                    ),
-                    if (get("total_count").isJsonNull) null else get("total_count").asLong,
-                    if (get("next_page").isJsonNull) null else get("next_page").asLong,
-                    if (get("prev_page").isJsonNull) null else get("prev_page").asLong
-                )
-            }
+    internal fun parse(response: Response): ReviewsGetResponseData? {
+         response.apply {
+             if(response.code != 200) {
+                 return throw AnnictError(response.message)
+             }
+             return body?.string()?.let { Json { isLenient = true }.decodeFromString<ReviewsGetResponseData>(it) }
         }
     }
 
@@ -66,10 +62,10 @@ data class ReviewsGetResponseData (
 
 class ReviewsService(val client: AnnictClient) {
 
-     fun get(query: ReviewsGetRequestQuery) : ReviewsGetResponseData {
+    internal fun get(query: ReviewsGetRequestQuery) : ReviewsGetResponseData? {
         this.client.apply {
             return ReviewsGetResponseData()
-                .toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
+                .parse(request(Request.Builder().url(query.url(getUrlBuilder()))))
         }
     }
 }

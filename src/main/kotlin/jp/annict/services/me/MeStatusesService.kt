@@ -8,7 +8,7 @@ import okhttp3.Request
 data class MeStatuesPostRequestQuery(val work_id: Long? =null,
                                      val kind: Status? =null) {
 
-    fun url(builder: HttpUrl.Builder): HttpUrl {
+    internal fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
             addPathSegments("me/statues")
 
@@ -19,9 +19,10 @@ data class MeStatuesPostRequestQuery(val work_id: Long? =null,
     }
 }
 
+
 class MeStatusesService (val client: AnnictClient) {
 
-    fun post(query: MeStatuesPostRequestQuery) : Boolean {
+    internal fun post(query: MeStatuesPostRequestQuery) : Boolean? {
         this.client.apply {
             return (request(Request.Builder().url(query.url(getUrlBuilder())).method("post", null)).code == 204)
         }

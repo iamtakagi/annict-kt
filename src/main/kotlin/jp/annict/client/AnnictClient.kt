@@ -11,53 +11,31 @@ import okhttp3.*
 class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient()) {
     
     fun getUrlBuilder(): HttpUrl.Builder = HttpUrl.Builder().scheme("https").host("api.annict.com").addPathSegment("v1")
-
     fun request(requestBuilder: Request.Builder): Response = this.client.newCall(requestBuilder.header("Authorization", "Bearer $token").build()).execute()
 
-    val activitiesService = ActivitiesService(this)
+    private val activitiesService = ActivitiesService(this)
+    private val castsService = CastsService(this)
+    private val charactersService = CharactersService(this)
+    private val episodesService = EpisodesService(this)
+    private val followersService = FollowersService(this)
+    private val followingService = FollowingService(this)
+    private val organizationsService = OrganizationsService(this)
+    private val peopleService = PeopleService(this)
+    private val recordsService = RecordsService(this)
+    private val reviewsService = ReviewsService(this)
+    private val seriesService = SeriesService(this)
+    private val staffsService = StaffsService(this)
+    private val usersService = UsersService(this)
+    private val worksService = WorksService(this)
+    private val meFollowingActivitiesService = MeFollowingActivitiesService(this)
+    private val meProgramsService = MeProgramsService(this)
+    private val meRecordsService = MeRecordsService(this)
+    private val meReviewsService = MeReviewsService(this)
+    private val meService = MeService(this)
+    private val meStatusesService = MeStatusesService(this)
+    private val meWorksService = MeWorksService(this)
 
-    val castsService = CastsService(this)
-
-    val charactersService = CharactersService(this)
-
-    val episodesService = EpisodesService(this)
-
-    val followersService = FollowersService(this)
-
-    val followingService = FollowingService(this)
-
-    val organizationsService = OrganizationsService(this)
-
-    val peopleService = PeopleService(this)
-
-    val recordsService = RecordsService(this)
-
-    val reviewsService = ReviewsService(this)
-
-    val seriesService = SeriesService(this)
-
-    val staffsService = StaffsService(this)
-
-    val usersService = UsersService(this)
-
-    val worksService = WorksService(this)
-
-    val meFollowingActivitiesService =
-        MeFollowingActivitiesService(this)
-
-    val meProgramsService = MeProgramsService(this)
-
-    val meRecordsService = MeRecordsService(this)
-
-    val meReviewsService = MeReviewsService(this)
-
-    val meService = MeService(this)
-
-    val meStatusesService = MeStatusesService(this)
-
-    val meWorksService = MeWorksService(this)
-
-    fun getActivities(fields: Array<String>? =null, filter_user_id: Long?=null, filter_username: String?=null, page: Long?=null, per_page: Long? =null, sort_id: Order? =null) : ActivitiesGetResponseData = activitiesService.get(
+    fun getActivities(fields: Array<String>? =null, filter_user_id: Long?=null, filter_username: String?=null, page: Long?=null, per_page: Long? =null, sort_id: Order? =null) : ActivitiesGetResponseData? = activitiesService.get(
         ActivitiesGetRequestQuery(
             fields,
             filter_user_id,
@@ -68,7 +46,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun getCasts(fields: Array<String>? =null, filter_ids: Array<Long>? =null, filter_work_id: Long?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_sort_number: Order?=null) : CastsGetResponseData = castsService.get(
+    fun getCasts(fields: Array<String>? =null, filter_ids: Array<Long>? =null, filter_work_id: Long?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_sort_number: Order?=null) : CastsGetResponseData? = castsService.get(
         CastsGetRequestQuery(
             fields,
             filter_ids,
@@ -80,7 +58,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun getCharacters(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id: Long?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : CharactersGetResponseData = charactersService.get(
+    fun getCharacters(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id: Long?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : CharactersGetResponseData? = charactersService.get(
         CharactersGetRequestQuery(
             fields,
             filter_ids,
@@ -91,7 +69,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun getEpisodes(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id: Long?=null, page: Long?=null, per_page: Long?=null, sort_id : Order?=null, sort_sort_number : Order?=null) : EpisodesGetResponseData = episodesService.get(
+    fun getEpisodes(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id: Long?=null, page: Long?=null, per_page: Long?=null, sort_id : Order?=null, sort_sort_number : Order?=null) : EpisodesGetResponseData? = episodesService.get(
         EpisodesGetRequestQuery(
             fields,
             filter_ids,
@@ -103,7 +81,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun getFollowers(fields: Array<String>?=null, filter_user_id: Long?=null, filter_username: String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : FollowersGetResponseData = followersService.get(
+    fun getFollowers(fields: Array<String>?=null, filter_user_id: Long?=null, filter_username: String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : FollowersGetResponseData? = followersService.get(
         FollowersGetRequestQuery(
             fields,
             filter_user_id,
@@ -114,7 +92,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun getFollowing(fields: Array<String>?=null, filter_user_id: Long?=null, filter_username: String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : FollowingGetResponseData = followingService.get(
+    fun getFollowing(fields: Array<String>?=null, filter_user_id: Long?=null, filter_username: String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : FollowingGetResponseData? = followingService.get(
         FollowingGetRequestQuery(
             fields,
             filter_user_id,
@@ -125,7 +103,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun getOrganizations(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id : Long?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : OrganizationsGetResponseData = organizationsService.get(
+    fun getOrganizations(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id : Long?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : OrganizationsGetResponseData? = organizationsService.get(
         OrganizationsGetRequestQuery(
             fields,
             filter_ids,
@@ -136,7 +114,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun getPeople(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id: Long?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : PeopleGetResponseData = peopleService.get(
+    fun getPeople(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id: Long?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : PeopleGetResponseData? = peopleService.get(
         PeopleGetRequestQuery(
             fields,
             filter_ids,
@@ -147,7 +125,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun getRecords(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_episode_id: Long?=null, filter_has_record_comment: Boolean?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_likes_count: Order?=null) : RecordsGetResponseData = recordsService.get(
+    fun getRecords(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_episode_id: Long?=null, filter_has_record_comment: Boolean?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_likes_count: Order?=null) : RecordsGetResponseData? = recordsService.get(
         RecordsGetRequestQuery(
             fields,
             filter_ids,
@@ -160,7 +138,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun getReviews(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id: Long?=null, filter_has_review_body: Boolean?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_likes_count: Order?=null) : ReviewsGetResponseData = reviewsService.get(
+    fun getReviews(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id: Long?=null, filter_has_review_body: Boolean?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_likes_count: Order?=null) : ReviewsGetResponseData? = reviewsService.get(
         ReviewsGetRequestQuery(
             fields,
             filter_ids,
@@ -173,7 +151,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun getSeries(fields: Array<String>?=null, filter_ids : Array<Long>?=null, filter_name: String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : SeriesGetResponseData = seriesService.get(
+    fun getSeries(fields: Array<String>?=null, filter_ids : Array<Long>?=null, filter_name: String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : SeriesGetResponseData? = seriesService.get(
         SeriesGetRequestQuery(
             fields,
             filter_ids,
@@ -184,7 +162,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun getStaffs(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id: Long?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_sort_number: Order?=null) : StaffsGetResponseData = staffsService.get(
+    fun getStaffs(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_work_id: Long?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_sort_number: Order?=null) : StaffsGetResponseData? = staffsService.get(
         StaffsGetRequestQuery(
             fields,
             filter_ids,
@@ -196,7 +174,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun getUsers(fields: Array<String>?=null, filter_user_id : Long?=null, filter_username   : String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : UsersGetResponseData = usersService.get(
+    fun getUsers(fields: Array<String>?=null, filter_user_id : Long?=null, filter_username   : String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null) : UsersGetResponseData? = usersService.get(
         UsersGetRequestQuery(
             fields,
             filter_user_id,
@@ -207,7 +185,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun getWorks(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_season: String?=null, filter_title: String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_season: Order?=null, sort_watchers_count: Order?=null ) : WorksGetResponseData = worksService.get(
+    fun getWorks(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_season: String?=null, filter_title: String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_season: Order?=null, sort_watchers_count: Order?=null ) : WorksGetResponseData? = worksService.get(
         WorksGetRequestQuery(
             fields,
             filter_ids,
@@ -221,7 +199,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun getMeFollowingActivities(fields: Array<String>? =null, filter_actions: Array<Action>? =null, filter_muted: Boolean? =null, page: Long? =null, per_page: Long? =null, sort_id: Order?=null) : MeFollowingActivitiesGetResponseData = meFollowingActivitiesService.get(
+    fun getMeFollowingActivities(fields: Array<String>? =null, filter_actions: Array<Action>? =null, filter_muted: Boolean? =null, page: Long? =null, per_page: Long? =null, sort_id: Order?=null) : MeFollowingActivitiesGetResponseData? = meFollowingActivitiesService.get(
         MeFollowingActivitiesGetRequestQuery(
             fields,
             filter_actions,
@@ -232,7 +210,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun getMePrograms(fields: Array<String>? =null, filter_ids: Array<Long>? =null, filter_channel_ids: Array<Long>? =null, filter_work_ids: Array<Long>? =null, filter_started_at_gt: String? =null, filter_started_at_lt: String? =null, filter_unwatched: Boolean? =null, filter_rebroadcast: Boolean? =null, page: Long? =null, per_page: Long? =null, sort_id: Order? =null, sort_started_at: Order? =null) : MeProgramsGetResponseData = meProgramsService.get(
+    fun getMePrograms(fields: Array<String>? =null, filter_ids: Array<Long>? =null, filter_channel_ids: Array<Long>? =null, filter_work_ids: Array<Long>? =null, filter_started_at_gt: String? =null, filter_started_at_lt: String? =null, filter_unwatched: Boolean? =null, filter_rebroadcast: Boolean? =null, page: Long? =null, per_page: Long? =null, sort_id: Order? =null, sort_started_at: Order? =null) : MeProgramsGetResponseData? = meProgramsService.get(
         MeProgramsGetRequestQuery(
             fields,
             filter_ids,
@@ -249,7 +227,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun postMeRecord(episode_id: Long? =null, comment: String? =null, rating_state: RatingState? =null, share_twitter: Boolean? =null, share_facebook: Boolean? =null) : MeRecordsPostResponseData = meRecordsService.post(
+    fun postMeRecord(episode_id: Long? =null, comment: String? =null, rating_state: RatingState? =null, share_twitter: Boolean? =null, share_facebook: Boolean? =null) : MeRecordsPostResponseData? = meRecordsService.post(
         MeRecordsPostRequestQuery(
             episode_id,
             comment,
@@ -259,7 +237,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun patchMeRecord(episode_id: Long? =null, comment: String? =null, rating_state: RatingState? =null, share_twitter: Boolean? =null, share_facebook: Boolean? =null) : MeRecordsPatchResponseData = meRecordsService.patch(
+    fun patchMeRecord(episode_id: Long? =null, comment: String? =null, rating_state: RatingState? =null, share_twitter: Boolean? =null, share_facebook: Boolean? =null) : MeRecordsPatchResponseData? = meRecordsService.patch(
         MeRecordsPatchRequestQuery(
             episode_id,
             comment,
@@ -269,11 +247,11 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun deleteMeRecord(id: Long) : Boolean = meRecordsService.delete(
+    fun deleteMeRecord(id: Long) : Boolean? = meRecordsService.delete(
         MeRecordsDeleteRequestQuery(id)
     )
 
-    fun postMeReview(work_id: Long? =null, title: String?=null, body: String? =null, rating_animation_state: RatingState? =null, rating_music_state: RatingState? =null, rating_story_state: RatingState? =null, rating_character_state: RatingState? =null, rating_overall_state: RatingState? =null, share_twitter: Boolean? =null, share_facebook: Boolean? =null) : MeReviewsPostResponseData = meReviewsService.post(
+    fun postMeReview(work_id: Long? =null, title: String?=null, body: String? =null, rating_animation_state: RatingState? =null, rating_music_state: RatingState? =null, rating_story_state: RatingState? =null, rating_character_state: RatingState? =null, rating_overall_state: RatingState? =null, share_twitter: Boolean? =null, share_facebook: Boolean? =null) : MeReviewsPostResponseData? = meReviewsService.post(
         MeReviewsPostRequestQuery(
             work_id,
             title,
@@ -288,7 +266,7 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun patchMeReview(work_id: Long? =null, title: String? =null, body: String? =null, rating_animation_state: RatingState? =null, rating_music_state: RatingState? =null, rating_story_state: RatingState? =null, rating_character_state: RatingState? =null, rating_overall_state: RatingState? =null, share_twitter: Boolean? =null, share_facebook: Boolean? =null) : MeReviewsPatchResponseData = meReviewsService.patch(
+    fun patchMeReview(work_id: Long? =null, title: String? =null, body: String? =null, rating_animation_state: RatingState? =null, rating_music_state: RatingState? =null, rating_story_state: RatingState? =null, rating_character_state: RatingState? =null, rating_overall_state: RatingState? =null, share_twitter: Boolean? =null, share_facebook: Boolean? =null) : MeReviewsPatchResponseData? = meReviewsService.patch(
         MeReviewsPatchRequestQuery(
             work_id,
             title,
@@ -303,19 +281,26 @@ class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient())
         )
     )
 
-    fun deleteMeReview(id: Long? =null) : Boolean = meReviewsService.delete(
-        MeReviewsDeleteRequestQuery(id)
+    fun deleteMeReview(id: Long? =null) : Boolean? = meReviewsService.delete(
+        MeReviewsDeleteRequestQuery(
+                id
+        )
     )
 
-    fun getMe(fields: Array<String>? =null) : MeGetResponseData = meService.get(
-        MeGetRequestQuery(fields)
+    fun getMe(fields: Array<String>? =null) : MeGetResponseData? = meService.get(
+        MeGetRequestQuery(
+                fields
+        )
     )
 
-    fun postMeStatus(work_id: Long? =null, kind: Status? =null) : Boolean = meStatusesService.post(
-        MeStatuesPostRequestQuery(work_id, kind)
+    fun postMeStatus(work_id: Long? =null, kind: Status? =null) : Boolean? = meStatusesService.post(
+        MeStatuesPostRequestQuery(
+                work_id,
+                kind
+        )
     )
 
-    fun getMeWorks(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_season: String?=null, filter_title: String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_season : Order?=null, sort_watchers_count: Order?=null, filter_status: Status?=null) : MeWorksGetResponseData = meWorksService.get(
+    fun getMeWorks(fields: Array<String>?=null, filter_ids: Array<Long>?=null, filter_season: String?=null, filter_title: String?=null, page: Long?=null, per_page: Long?=null, sort_id: Order?=null, sort_season : Order?=null, sort_watchers_count: Order?=null, filter_status: Status?=null) : MeWorksGetResponseData? = meWorksService.get(
         MeWorksGetRequestQuery(
             fields,
             filter_ids,

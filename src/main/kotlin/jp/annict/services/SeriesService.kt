@@ -1,10 +1,12 @@
 package jp.annict.services
 
-import com.google.gson.reflect.TypeToken
 import jp.annict.client.AnnictClient
-import jp.annict.utils.JsonUtil
 import jp.annict.enums.Order
+import jp.annict.exception.AnnictError
 import jp.annict.models.Series
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
@@ -17,7 +19,7 @@ data class SeriesGetRequestQuery(
     val per_page         : Long?=null,
     val sort_id          : Order?=null) {
 
-     fun url(builder: HttpUrl.Builder): HttpUrl {
+    internal fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
             addPathSegment("series")
 
@@ -32,36 +34,32 @@ data class SeriesGetRequestQuery(
     }
 }
 
+@Serializable
 data class SeriesGetResponseData (
-    val organizations: Array<Series>?,
-    val total_count: Long?,
-    val next_page: Long?,
-    val prev_page: Long?
+    val series: Array<Series>? = null,
+    val total_count: Long? = null,
+    val next_page: Long? = null,
+    val prev_page: Long? = null
 ) {
 
     constructor() : this(null, null, null, null)
 
-     fun toDataClass(response: Response): SeriesGetResponseData {
-        response.apply { JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return SeriesGetResponseData(
-            JsonUtil.GSON.fromJson(
-                getAsJsonArray("organizations"),
-                object : TypeToken<Array<Series>>() {}.type
-            ),
-            if (get("total_count").isJsonNull) null else get("total_count").asLong,
-            if (get("next_page").isJsonNull) null else get("next_page").asLong,
-            if (get("prev_page").isJsonNull) null else get("prev_page").asLong
-        )
-        }
+    internal fun parse(response: Response): SeriesGetResponseData? {
+         response.apply {
+             if(response.code != 200) {
+                 return throw AnnictError(response.message)
+             }
+             return body?.string()?.let { Json { isLenient = true }.decodeFromString<SeriesGetResponseData>(it) }
         }
     }
 }
 
 class SeriesService(val client: AnnictClient) {
 
-    fun get(query: SeriesGetRequestQuery) : SeriesGetResponseData {
+    internal fun get(query: SeriesGetRequestQuery) : SeriesGetResponseData? {
         this.client.apply {
             return SeriesGetResponseData()
-                .toDataClass(request(Request.Builder().url(query.url(getUrlBuilder()))))
+                .parse(request(Request.Builder().url(query.url(getUrlBuilder()))))
         }
     }
 

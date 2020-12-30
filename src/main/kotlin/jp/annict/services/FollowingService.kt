@@ -1,11 +1,12 @@
 package jp.annict.services
 
 import jp.annict.models.User
-
-import com.google.gson.reflect.TypeToken
 import jp.annict.client.AnnictClient
-import jp.annict.utils.JsonUtil
 import jp.annict.enums.Order
+import jp.annict.exception.AnnictError
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
@@ -19,7 +20,7 @@ data class FollowingGetRequestQuery (
     val sort_id          : Order?=null
 ) {
 
-    fun url(builder: HttpUrl.Builder) : HttpUrl {
+    internal fun url(builder: HttpUrl.Builder) : HttpUrl {
         return builder.apply {
             addPathSegment("following")
 
@@ -34,37 +35,31 @@ data class FollowingGetRequestQuery (
     }
 }
 
+@Serializable
 data class FollowingGetResponseData (
-    val users: Array<User>?,
-    val total_count: Long?,
-    val next_page: Long?,
-    val prev_page: Long?
+    val users: Array<User>? = null,
+    val total_count: Long? = null,
+    val next_page: Long? = null,
+    val prev_page: Long? = null
 )  {
 
     constructor() : this(null, null, null, null)
 
-    fun toDataClass(response: Response): FollowingGetResponseData {
+    internal fun parse(response: Response): FollowingGetResponseData? {
         response.apply {
-            JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply {
-                return FollowingGetResponseData(
-                    JsonUtil.GSON.fromJson(
-                        getAsJsonArray("users"),
-                        object : TypeToken<Array<User>>() {}.type
-                    ),
-                    if (get("total_count").isJsonNull) null else get("total_count").asLong,
-                    if (get("next_page").isJsonNull) null else get("next_page").asLong,
-                    if (get("prev_page").isJsonNull) null else get("prev_page").asLong
-                )
+            if(response.code != 200) {
+                return throw AnnictError(response.message)
             }
+            return body?.string()?.let { Json { isLenient = true }.decodeFromString<FollowingGetResponseData>(it) }
         }
     }
 }
 
 class FollowingService(val client: AnnictClient) {
 
-    fun get(query: FollowingGetRequestQuery): FollowingGetResponseData {
+    internal fun get(query: FollowingGetRequestQuery): FollowingGetResponseData? {
         this.client.apply {
-            return FollowingGetResponseData().toDataClass(
+            return FollowingGetResponseData().parse(
                 request(Request.Builder().url(query.url(getUrlBuilder())))
             )
         }
