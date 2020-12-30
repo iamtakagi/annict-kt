@@ -17,7 +17,7 @@ https://docs.annict.com/docs/
 ## Installation
 ```gradle
 repositories {
-    jcenter()
+    jcenter() or maven ( url = "https://dl.bintray.com/riptakagi/maven/")
 }
 
 dependencies {
