@@ -5,7 +5,7 @@
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.4.21-blue?style=flat-square)](https://kotlinlang.org)
 [![annict-kt](https://img.shields.io/github/v/release/iam-takagi/annict-kt?style=flat-square)](https://github.com/iam-takagi/annict-kt/releases/latest)
-[![license](https://img.shields.io/github/license/iam-takagi/annict-kt?style=flat-square)](https://github.com/iam-takagi/annict-kt/blob/main/LICENSE)
+[![license](https://img.shields.io/github/license/iam-takagi/annict-kt?style=flat-square)](./LICENSE)
 [![issues](https://img.shields.io/github/issues/iam-takagi/annict-kt?style=flat-square)](https://github.com/iam-takagi/annict-kt/issues)
 [![pull requests](https://img.shields.io/github/issues-pr/iam-takagi/annict-kt?style=flat-square)](https://github.com/iam-takagi/annict-kt/pulls)
 
