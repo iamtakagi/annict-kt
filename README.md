@@ -4,7 +4,7 @@
 [Annict API](https://github.com/annict/annict) wrapper for Kotlin Library.
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.4.21-blue)](https://kotlinlang.org)
-[ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=1.1.2) ](https://bintray.com/riptakagi/maven/annict-kt/1.1.2/link)
+[ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=2.0.0) ](https://bintray.com/riptakagi/maven/annict-kt/2.0.0/link)
 [![license](https://img.shields.io/github/license/iam-takagi/annict-kt)](./LICENSE)
 [![issues](https://img.shields.io/github/issues/iam-takagi/annict-kt)](https://github.com/iam-takagi/annict-kt/issues)
 [![pull requests](https://img.shields.io/github/issues-pr/iam-takagi/annict-kt)](https://github.com/iam-takagi/annict-kt/pulls)
