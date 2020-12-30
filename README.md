@@ -4,7 +4,7 @@
 [Annict API](https://github.com/annict/annict) wrapper for Kotlin Library.
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.4.21-blue)](https://kotlinlang.org)
-[ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=1.1.3) ](https://bintray.com/riptakagi/maven/annict-kt/1.1.3/link)
+[ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=2.0.0) ](https://bintray.com/riptakagi/maven/annict-kt/2.0.0/link)
 [![release](https://img.shields.io/github/v/release/iam-takagi/annict-kt)](https://github.com/iam-takagi/annict-kt/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
@@ -21,7 +21,7 @@ https://docs.annict.com/docs/
 ## Installation
 ```gradle
 repositories {
-    jcenter()
+    jcenter() or maven ( url = "https://dl.bintray.com/riptakagi/maven/")
 }
 
 dependencies {
