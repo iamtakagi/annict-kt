@@ -1,5 +1,7 @@
 <p align="center"><a href="https://annict.com" target="_blank" rel="noopener"><img src="https://user-images.githubusercontent.com/56767/56467671-fdd6ea80-645c-11e9-9056-a5d3fd5739e6.png" width="130" /></a></p>
 
+[![annict-kt](https://img.shields.io/badge/annictーkt-2.1.0-F85B73.svg?style=for-the-badge)](https://github.com/iam-takagi/annict-kt/)
+
 # annict-kt
 [Annict API](https://github.com/annict/annict) wrapper for Kotlin Library.
 
