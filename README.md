@@ -5,7 +5,7 @@
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.4.21-blue?style=flat-square&logo=appveyore)](https://kotlinlang.org)
 [![annict-kt](https://img.shields.io/github/v/release/iam-takagi/annict-kt?style=flat-square&logo=appveyore)](https://github.com/iam-takagi/annict-kt/releases/latest)
-[![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=2.1.0?style=flat-square&logo=appveyore) ](https://bintray.com/riptakagi/maven/annict-kt/2.1.0/link)
+[![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=2.1.0) ](https://bintray.com/riptakagi/maven/annict-kt/2.1.0/link)
 [![license](https://img.shields.io/github/license/iam-takagi/annict-kt?style=flat-square&logo=appveyore)](./LICENSE)
 [![issues](https://img.shields.io/github/issues/iam-takagi/annict-kt?style=flat-square&logo=appveyore)](https://github.com/iam-takagi/annict-kt/issues)
 [![pull requests](https://img.shields.io/github/issues-pr/iam-takagi/annict-kt?style=flat-square&logo=appveyore)](https://github.com/iam-takagi/annict-kt/pulls)
