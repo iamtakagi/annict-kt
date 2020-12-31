@@ -32,10 +32,10 @@ data class TokenGetRequestData (
 
 @Serializable
 data class TokenGetResponseData (
-    val access_token: String?,
-    val token_Type: String?,
-    val scope: String?,
-    val created_at: Long?
+    val access_token: String? = null,
+    val token_Type: String? = null,
+    val scope: String? = null,
+    val created_at: Long? = null
 ) {
 
     constructor() : this(null, null, null, null)
@@ -52,11 +52,11 @@ data class TokenGetResponseData (
 
 @Serializable
 data class TokenInfoGetResponseData(
-    val resource_owner_id: Long?,
-    val scopes: Array<String>?,
-    val expires_in_seconds: String?,
-    val application: Application?,
-    val created_at: Long?
+    val resource_owner_id: Long? = null,
+    val scopes: Array<String>? = null,
+    val expires_in_seconds: String? = null,
+    val application: Application? = null,
+    val created_at: Long? = null
 ) {
 
     constructor() : this(null, null, null, null, null)
