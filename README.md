@@ -15,7 +15,7 @@ https://annict.jp/userland/projects/61
 https://docs.annict.com/docs/
 
 ## Installation
-[![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=2.2.0) ](https://bintray.com/riptakagi/maven/annict-kt/2.2.0/link)
+[![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=2.3.1) ](https://bintray.com/riptakagi/maven/annict-kt/2.2.0/link)
 
 ```gradle
 repositories {
@@ -23,7 +23,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'jp.annict:annict-kt:2.2.0'
+    implementation 'jp.annict:annict-kt:2.3.1'
 }
 ```
 
@@ -35,7 +35,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'jp.annict:annict-kt:2.2.0'
+    implementation 'jp.annict:annict-kt:2.3.1'
 }
 ```
 
