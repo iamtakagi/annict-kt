@@ -35,7 +35,6 @@ group 'jp.annict'
 archivesBaseName = 'annict-kt'
 version "${versionMajor}.${versionMinor}.${versionPatch}"
 
-
 bintray {
     user = project.hasProperty('bintray_user') ? bintray_user : ''
     key = project.hasProperty('bintray_key') ? bintray_key : ''
@@ -44,7 +43,7 @@ bintray {
     pkg {
         repo = "maven"
         name = "annict-kt"
-        licenses = ["Apache-2.0"]
+        licenses = ["MIT"]
         vcsUrl = "https://github.com/riptakagi/annict-kt.git"
         publicDownloadNumbers = true
         version {
