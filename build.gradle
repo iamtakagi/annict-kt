@@ -44,7 +44,7 @@ bintray {
         repo = "maven"
         name = "annict-kt"
         licenses = ["MIT"]
-        vcsUrl = "https://github.com/riptakagi/annict-kt.git"
+        vcsUrl = "https://github.com/iam-takagi/annict-kt.git"
         publicDownloadNumbers = true
         version {
             name = project.getVersion()
