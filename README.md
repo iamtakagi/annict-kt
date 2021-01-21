@@ -17,9 +17,10 @@ https://docs.annict.com/docs/
 ## Installation
 [ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=2.4.2) ](https://bintray.com/riptakagi/maven/annict-kt/2.4.2/link)
 
+
 ```gradle
 repositories {
-    jcenter()
+    maven ( url = "https://dl.bintray.com/riptakagi/maven/")
 }
 
 dependencies {
@@ -31,7 +32,7 @@ or
 
 ```gradle
 repositories {
-    maven ( url = "https://dl.bintray.com/riptakagi/maven/")
+    jcenter()
 }
 
 dependencies {
