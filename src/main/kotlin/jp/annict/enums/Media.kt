@@ -12,10 +12,6 @@ enum class Media {
     @SerialName("web") WEB,
     @SerialName("other") OTHER;
 
-    override fun toString() : String {
-        return name.toLowerCase()
-    }
-
 
 
 }

@@ -7,8 +7,4 @@ import kotlinx.serialization.SerialName
 enum class Order {
     @SerialName("asc") ASC,
     @SerialName("desc") DESC;
-
-    override fun toString() : String {
-        return name.toLowerCase()
-    }
 }

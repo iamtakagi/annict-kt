@@ -10,8 +10,4 @@ enum class Action {
     @SerialName("create_review") CREATE_REVIEW,
     @SerialName("create_multiple_records") CREATE_MULTIPLE_RECORDS,
     @SerialName("create_status") CREATE_STATUS;
-
-    override fun toString() : String {
-        return name.toLowerCase()
-    }
 }
