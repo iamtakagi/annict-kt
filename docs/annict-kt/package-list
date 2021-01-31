@@ -1,0 +1,11 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+jp.annict.auth
+jp.annict.client
+jp.annict.enums
+jp.annict.exception
+jp.annict.models
+jp.annict.services
+jp.annict.services.me
+

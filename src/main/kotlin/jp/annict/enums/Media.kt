@@ -3,6 +3,11 @@ package jp.annict.enums
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
+/**
+ * Media
+ *
+ * @constructor Create empty Media
+ */
 @Serializable
 enum class Media {
 

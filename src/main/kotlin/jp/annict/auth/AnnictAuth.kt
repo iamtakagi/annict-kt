@@ -8,6 +8,16 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import okhttp3.*
 
+/**
+ * Token get request data
+ *
+ * @property client_id
+ * @property client_secret
+ * @property grant_type
+ * @property redirect_uri
+ * @property code
+ * @constructor Create empty Token get request data
+ */
 data class TokenGetRequestData (
     val client_id: String? =null,
     val client_secret: String? =null,
@@ -30,6 +40,15 @@ data class TokenGetRequestData (
     }
 }
 
+/**
+ * Token get response data
+ *
+ * @property access_token
+ * @property token_type
+ * @property scope
+ * @property created_at
+ * @constructor Create empty Token get response data
+ */
 @Serializable
 data class TokenGetResponseData (
     val access_token: String? = null,
@@ -50,6 +69,16 @@ data class TokenGetResponseData (
     }
 }
 
+/**
+ * Token info get response data
+ *
+ * @property resource_owner_id
+ * @property scope
+ * @property expires_in
+ * @property application
+ * @property created_at
+ * @constructor Create empty Token info get response data
+ */
 @Serializable
 data class TokenInfoGetResponseData(
     val resource_owner_id: Long? = null,
@@ -71,6 +100,14 @@ data class TokenInfoGetResponseData(
     }
 }
 
+/**
+ * Revoke token post request data
+ *
+ * @property client_id
+ * @property client_secret
+ * @property token
+ * @constructor Create empty Revoke token post request data
+ */
 data class RevokeTokenPostRequestData(
     val client_id: String? = null,
     val client_secret: String? = null,
@@ -94,6 +131,11 @@ data class RevokeTokenPostRequestData(
     }
 }
 
+/**
+ * Annict auth
+ *
+ * @constructor Create empty Annict auth
+ */
 class AnnictAuth {
 
     val client = OkHttpClient()

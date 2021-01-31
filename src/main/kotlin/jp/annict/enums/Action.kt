@@ -3,6 +3,11 @@ package jp.annict.enums
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Action
+ *
+ * @constructor Create empty Action
+ */
 @Serializable
 enum class Action {
 

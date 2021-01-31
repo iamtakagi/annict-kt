@@ -13,6 +13,17 @@ import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
+/**
+ * Me following activities get request query
+ *
+ * @property fields
+ * @property filter_actions
+ * @property filter_muted
+ * @property page
+ * @property per_page
+ * @property sort_id
+ * @constructor Create empty Me following activities get request query
+ */
 data class MeFollowingActivitiesGetRequestQuery (
     val fields: Array<String>? =null,
     val filter_actions: Array<Action>? =null,
@@ -37,6 +48,15 @@ data class MeFollowingActivitiesGetRequestQuery (
     }
 }
 
+/**
+ * Me following activities get response data
+ *
+ * @property activities
+ * @property total_count
+ * @property next_page
+ * @property prev_page
+ * @constructor Create empty Me following activities get response data
+ */
 @Serializable
 data class MeFollowingActivitiesGetResponseData (
     val activities: Array<Activity>? = null,
@@ -57,6 +77,12 @@ data class MeFollowingActivitiesGetResponseData (
     }
 }
 
+/**
+ * Me following activities service
+ *
+ * @property client
+ * @constructor Create empty Me following activities service
+ */
 class MeFollowingActivitiesService (val client: AnnictClient) {
 
     internal fun get(query: MeFollowingActivitiesGetRequestQuery) : MeFollowingActivitiesGetResponseData? {

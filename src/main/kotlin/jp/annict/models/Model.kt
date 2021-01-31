@@ -8,13 +8,26 @@ import okhttp3.internal.http.StatusLine
 import java.util.*
 
 /**
- * 画像関係
+ * Facebook
+ *
+ * @property og_image_url
+ * @constructor Create empty Facebook
  */
 @Serializable
 data class Facebook(
     val og_image_url: String? = null
 )
 
+/**
+ * Twitter
+ *
+ * @property mini_avatar_url
+ * @property normal_avatar_url
+ * @property bigger_avatar_url
+ * @property original_avatar_url
+ * @property image_url
+ * @constructor Create empty Twitter
+ */
 @Serializable
 data class Twitter(
     val mini_avatar_url     : String? = null,
@@ -24,6 +37,14 @@ data class Twitter(
     val image_url           : String? = null
 )
 
+/**
+ * Images
+ *
+ * @property recommended_url
+ * @property facebook
+ * @property twitter
+ * @constructor Create empty Images
+ */
 @Serializable
 data class Images(
     val recommended_url : String? = null,
@@ -32,7 +53,25 @@ data class Images(
 )
 
 /**
- * ユーザ情報
+ * User
+ *
+ * @property id
+ * @property username
+ * @property name
+ * @property description
+ * @property url
+ * @property avatar_url
+ * @property background_image_url
+ * @property records_count
+ * @property followings_count
+ * @property followers_count
+ * @property wanna_watch_count
+ * @property watching_count
+ * @property watched_count
+ * @property on_hold_count
+ * @property stop_watching_count
+ * @property created_at
+ * @constructor Create empty User
  */
 @Serializable
 data class User(
@@ -55,7 +94,29 @@ data class User(
 )
 
 /**
- * 作品情報
+ * Work
+ *
+ * @property id
+ * @property title
+ * @property title_kana
+ * @property media
+ * @property media_text
+ * @property season_name
+ * @property season_name_text
+ * @property released_on
+ * @property released_on_about
+ * @property official_site_url
+ * @property wikipedia_url
+ * @property twitter_username
+ * @property twitter_hashtag
+ * @property episodes_count
+ * @property watchers_count
+ * @property reviews_count
+ * @property syobocal_tid
+ * @property mal_anime_id
+ * @property images
+ * @property no_episodes
+ * @constructor Create empty Work
  */
 @Serializable
 open class Work (
@@ -81,16 +142,30 @@ open class Work (
     val no_episodes       : Boolean? = null
 )
 
-/***
- * 自分の見た作品情報
+/**
+ * Me work
+ *
+ * @property status
+ * @constructor Create empty Me work
  */
 @Serializable
 data class MeWork(val status: Status? = null) : Work()
 
 /**
- * エピソード情報
+ * Episode
+ *
+ * @property id
+ * @property number
+ * @property number_text
+ * @property sort_number
+ * @property title
+ * @property records_count
+ * @property record_comments_count
+ * @property work
+ * @property prev_episode
+ * @property next_episode
+ * @constructor Create empty Episode
  */
-
 @Serializable
 data class Episode (
     val id                    : Long? = null,
@@ -106,7 +181,20 @@ data class Episode (
 )
 
 /**
- * エピソードへの記録
+ * Record
+ *
+ * @property id
+ * @property comment
+ * @property rating
+ * @property is_modified
+ * @property rating_state
+ * @property likes_count
+ * @property comments_count
+ * @property created_at
+ * @property user
+ * @property work
+ * @property episode
+ * @constructor Create empty Record
  */
 @Serializable
 data class Record(
@@ -124,7 +212,17 @@ data class Record(
 )
 
 /**
- * アクティビティ情報
+ * Activity
+ *
+ * @property id
+ * @property user
+ * @property action
+ * @property created_at
+ * @property work
+ * @property episode
+ * @property record
+ * @property status
+ * @constructor Create empty Activity
  */
 @Serializable
 data class Activity (
@@ -138,13 +236,25 @@ data class Activity (
     val status: Status?  = null
 )
 
+/**
+ * Status
+ *
+ * @property kind
+ * @constructor Create empty Status
+ */
 @Serializable
 data class Status(
         val kind: jp.annict.enums.Status? = null
 )
 
 /**
- * シリーズ情報
+ * Series
+ *
+ * @property id
+ * @property name
+ * @property name_ro
+ * @property name_en
+ * @constructor Create empty Series
  */
 @Serializable
 data class Series (
@@ -155,7 +265,35 @@ data class Series (
 )
 
 /**
- * キャラクター情報
+ * Character
+ *
+ * @property id
+ * @property name
+ * @property name_kana
+ * @property name_en
+ * @property nickname
+ * @property nickname_en
+ * @property birthday
+ * @property birthday_en
+ * @property age
+ * @property age_en
+ * @property blood_type
+ * @property blood_type_en
+ * @property height
+ * @property height_en
+ * @property weight
+ * @property weight_en
+ * @property nationality
+ * @property nationality_en
+ * @property occupation
+ * @property occupation_en
+ * @property description
+ * @property description_en
+ * @property description_source
+ * @property description_source_en
+ * @property favorite_characters_count
+ * @property series
+ * @constructor Create empty Character
  */
 @Serializable
 data class Character (
@@ -188,7 +326,11 @@ data class Character (
 )
 
 /**
- * 都道府県情報
+ * Prefecture
+ *
+ * @property id
+ * @property name
+ * @constructor Create empty Prefecture
  */
 @Serializable
 data class Prefecture (
@@ -197,7 +339,29 @@ data class Prefecture (
 )
 
 /**
- * 人物(声優)情報
+ * Person
+ *
+ * @property id
+ * @property name
+ * @property name_kana
+ * @property name_en
+ * @property nickname
+ * @property nickname_en
+ * @property gender_text
+ * @property url
+ * @property url_en
+ * @property wikipedia_url
+ * @property wikipedia_url_en
+ * @property twitter_username
+ * @property twitter_username_en
+ * @property birthday
+ * @property blood_type
+ * @property height
+ * @property favorite_people_count
+ * @property casts_count
+ * @property staffs_count
+ * @property prefecture
+ * @constructor Create empty Person
  */
 @Serializable
 data class Person (

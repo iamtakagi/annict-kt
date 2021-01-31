@@ -3,6 +3,12 @@ package jp.annict.enums
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Status
+ *
+ * @property locale
+ * @constructor Create empty Status
+ */
 @Serializable
 enum class Status(val locale: String) {
 

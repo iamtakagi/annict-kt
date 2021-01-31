@@ -3,6 +3,12 @@ package jp.annict.enums
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
+/**
+ * Rating state
+ *
+ * @property locale
+ * @constructor Create empty Rating state
+ */
 @Serializable
 enum class RatingState(val locale: String) {
 

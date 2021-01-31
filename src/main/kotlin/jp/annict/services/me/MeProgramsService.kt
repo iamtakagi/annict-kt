@@ -11,6 +11,23 @@ import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
+/**
+ * Me programs get request query
+ *
+ * @property fields
+ * @property filter_ids
+ * @property filter_channel_ids
+ * @property filter_work_ids
+ * @property filter_started_at_gt
+ * @property filter_started_at_lt
+ * @property filter_unwatched
+ * @property filter_rebroadcast
+ * @property page
+ * @property per_page
+ * @property sort_id
+ * @property sort_started_at
+ * @constructor Create empty Me programs get request query
+ */
 class MeProgramsGetRequestQuery (
     val fields: Array<String>? =null,
     val filter_ids: Array<Long>? =null,
