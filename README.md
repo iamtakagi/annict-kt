@@ -12,7 +12,7 @@
 https://annict.jp/userland/projects/61
 
 ## Documents
-https://iam-takagi.github.io/annict-kt/kdoc/pages/index.html
+https://iam-takagi.github.io/annict-kt/kdoc/annict-kt/index.html
 
 ## Installation
 [ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=2.4.2) ](https://bintray.com/riptakagi/maven/annict-kt/2.4.2/link)
