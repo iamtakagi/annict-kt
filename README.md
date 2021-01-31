@@ -14,10 +14,6 @@ https://annict.jp/userland/projects/61
 ## annict-kt Documents
 https://iam-takagi.github.io/annict-kt/kdoc/pages/index.html
 
-## Annict Documents
-
-https://docs.annict.com/docs/
-
 ## Installation
 [ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=2.4.2) ](https://bintray.com/riptakagi/maven/annict-kt/2.4.2/link)
 
