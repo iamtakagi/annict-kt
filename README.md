@@ -11,7 +11,7 @@
 
 https://annict.jp/userland/projects/61
 
-## annict-kt Documents
+## Documents
 https://iam-takagi.github.io/annict-kt/kdoc/pages/index.html
 
 ## Installation
