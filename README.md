@@ -11,8 +11,10 @@
 
 https://annict.jp/userland/projects/61
 
-## Document
+## annict-kt Documents
 https://iam-takagi.github.io/annict-kt/kdoc/pages/index.html
+
+## Annict Documents
 
 https://docs.annict.com/docs/
 
