@@ -1,15 +1,29 @@
 package jp.annict.services.me
 
-import com.google.gson.reflect.TypeToken
 import jp.annict.client.AnnictClient
-import jp.annict.utils.JsonUtil
 import jp.annict.enums.Action
 import jp.annict.enums.Order
+import jp.annict.exception.AnnictError
 import jp.annict.models.Activity
+import jp.annict.services.SeriesGetResponseData
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
+/**
+ * Me following activities get request query
+ *
+ * @property fields
+ * @property filter_actions
+ * @property filter_muted
+ * @property page
+ * @property per_page
+ * @property sort_id
+ * @constructor Create empty Me following activities get request query
+ */
 data class MeFollowingActivitiesGetRequestQuery (
     val fields: Array<String>? =null,
     val filter_actions: Array<Action>? =null,
@@ -19,7 +33,7 @@ data class MeFollowingActivitiesGetRequestQuery (
     val sort_id: Order?=null
 ) {
 
-    fun url(builder: HttpUrl.Builder): HttpUrl {
+     internal fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
             addPathSegments("/me/following_activities")
 
@@ -34,36 +48,46 @@ data class MeFollowingActivitiesGetRequestQuery (
     }
 }
 
+/**
+ * Me following activities get response data
+ *
+ * @property activities
+ * @property total_count
+ * @property next_page
+ * @property prev_page
+ * @constructor Create empty Me following activities get response data
+ */
+@Serializable
 data class MeFollowingActivitiesGetResponseData (
-    val activities: Array<Activity>?,
-    val total_count: Long?,
-    val next_page: Long?,
-    val prev_page: Long?
+    val activities: Array<Activity>? = null,
+    val total_count: Long? = null,
+    val next_page: Long? = null,
+    val prev_page: Long? = null
 ) {
 
     constructor() : this(null, null, null, null)
 
-    fun toDataClass(response: Response): MeFollowingActivitiesGetResponseData {
+    internal fun parse(response: Response): MeFollowingActivitiesGetResponseData? {
         response.apply {
-            JsonUtil.JSON_PARSER.parse(body?.string()).asJsonObject.apply { return MeFollowingActivitiesGetResponseData(
-                JsonUtil.GSON.fromJson(
-                    getAsJsonArray("activities"),
-                    object : TypeToken<Array<Activity>>() {}.type
-                ),
-                if (get("total_count").isJsonNull) null else get("total_count").asLong,
-                if (get("next_page").isJsonNull) null else get("next_page").asLong,
-                if (get("prev_page").isJsonNull) null else get("prev_page").asLong
-            )
+            if(response.code != 200) {
+                return throw AnnictError(response.message)
             }
+            return body?.string()?.let { Json { isLenient = true }.decodeFromString<MeFollowingActivitiesGetResponseData>(it) }
         }
     }
 }
 
+/**
+ * Me following activities service
+ *
+ * @property client
+ * @constructor Create empty Me following activities service
+ */
 class MeFollowingActivitiesService (val client: AnnictClient) {
 
-    fun get(query: MeFollowingActivitiesGetRequestQuery) : MeFollowingActivitiesGetResponseData {
+    internal fun get(query: MeFollowingActivitiesGetRequestQuery) : MeFollowingActivitiesGetResponseData? {
         this.client.apply { return MeFollowingActivitiesGetResponseData()
-            .toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
+            .parse(request(Request.Builder().url(query.url(getUrlBuilder())))) }
     }
 
 }

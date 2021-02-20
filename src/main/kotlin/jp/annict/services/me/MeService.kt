@@ -1,16 +1,19 @@
 package jp.annict.services.me
 
-import com.google.gson.reflect.TypeToken
 import jp.annict.client.AnnictClient
+import jp.annict.exception.AnnictError
 import jp.annict.models.Me
-import jp.annict.utils.JsonUtil
-import jp.annict.models.User
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObjectBuilder
+import kotlinx.serialization.serializer
 import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
 
 data class MeGetRequestQuery(val fields: Array<String>? =null) {
-    fun url(builder: HttpUrl.Builder): HttpUrl {
+    internal fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
             addPathSegment("me")
 
@@ -20,24 +23,23 @@ data class MeGetRequestQuery(val fields: Array<String>? =null) {
     }
 }
 
-data class MeGetResponseData(val user: User?) {
+@Serializable
+class MeGetResponseData() : Me() {
 
-    constructor() : this(null)
-
-    fun toDataClass(response: Response): MeGetResponseData {
-        return MeGetResponseData(
-            JsonUtil.GSON.fromJson(
-                JsonUtil.JSON_PARSER.parse(response.body?.string()).asJsonObject,
-                object : TypeToken<Me>() {}.type
-            )
-        )
+    internal fun parse(response: Response): MeGetResponseData? {
+        response.apply {
+            if (response.code != 200) {
+                return throw AnnictError(response.message)
+            }
+            return body?.string()?.let { Json() { isLenient = true }.decodeFromString<MeGetResponseData>(it) }
+        }
     }
 }
 
 class MeService(val client: AnnictClient) {
 
-    fun get(query: MeGetRequestQuery) : MeGetResponseData {
+    internal fun get(query: MeGetRequestQuery) : MeGetResponseData? {
         this.client.apply { return MeGetResponseData()
-            .toDataClass(request(Request.Builder().url(query.url(getUrlBuilder())))) }
+            .parse(request(Request.Builder().url(query.url(getUrlBuilder())))) }
     }
 }

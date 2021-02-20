@@ -1,10 +1,12 @@
 package jp.annict.services.me
 
-import com.google.gson.reflect.TypeToken
 import jp.annict.client.AnnictClient
-import jp.annict.utils.JsonUtil
 import jp.annict.enums.RatingState
+import jp.annict.exception.AnnictError
 import jp.annict.models.Review
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import okhttp3.HttpUrl
 import okhttp3.Request
 import okhttp3.Response
@@ -21,7 +23,7 @@ data class MeReviewsPostRequestQuery (
     val share_twitter: Boolean? =null,
     val share_facebook: Boolean? =null) {
 
-    fun url(builder: HttpUrl.Builder): HttpUrl {
+    internal fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
             addPathSegment("/me/reviews")
 
@@ -40,17 +42,18 @@ data class MeReviewsPostRequestQuery (
     }
 }
 
-data class MeReviewsPostResponseData(val review: Review?) {
+@Serializable
+data class MeReviewsPostResponseData(val review: Review? = null) {
 
     constructor() : this(null)
 
-     fun toDataClass(response: Response): MeReviewsPostResponseData {
-        return MeReviewsPostResponseData(
-            JsonUtil.GSON.fromJson(
-                JsonUtil.JSON_PARSER.parse(response.body?.string()).asJsonObject,
-                object : TypeToken<Review>() {}.type
-            )
-        )
+    internal fun parse(response: Response): MeReviewsPostResponseData? {
+         response.apply {
+             if (response.code != 200) {
+                 return throw AnnictError(response.message)
+             }
+             return body?.string()?.let { Json { isLenient = true }.decodeFromString<MeReviewsPostResponseData>(it) }
+         }
     }
 }
 
@@ -67,7 +70,7 @@ data class MeReviewsPatchRequestQuery (
     val share_facebook: Boolean? =null) {
 
 
-    fun url(builder: HttpUrl.Builder): HttpUrl {
+    internal fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
             addPathSegment("/me/reviews")
 
@@ -86,23 +89,24 @@ data class MeReviewsPatchRequestQuery (
     }
 }
 
-data class MeReviewsPatchResponseData(val review: Review?) {
+@Serializable
+data class MeReviewsPatchResponseData(val review: Review? = null) {
 
     constructor() : this(null)
 
-    fun toDataClass(response: Response): MeReviewsPatchResponseData {
-        return MeReviewsPatchResponseData(
-            JsonUtil.GSON.fromJson(
-                JsonUtil.JSON_PARSER.parse(response.body?.string()).asJsonObject,
-                object : TypeToken<Review>() {}.type
-            )
-        )
+    internal fun parse(response: Response): MeReviewsPatchResponseData? {
+        response.apply {
+            if (response.code != 200) {
+                return throw AnnictError(response.message)
+            }
+            return body?.string()?.let { Json { isLenient = true }.decodeFromString<MeReviewsPatchResponseData>(it) }
+        }
     }
 }
 
 data class MeReviewsDeleteRequestQuery(val id: Long? =null) {
 
-    fun url(builder: HttpUrl.Builder): HttpUrl {
+    internal fun url(builder: HttpUrl.Builder): HttpUrl {
         return builder.apply {
             addPathSegment("/me/reviews/${id}")
         }.build()
@@ -114,9 +118,9 @@ class MeReviewsService (val client: AnnictClient) {
     /**
      * レビュー投稿 [write scope]
      */
-    fun post(query: MeReviewsPostRequestQuery): MeReviewsPostResponseData {
+    internal fun post(query: MeReviewsPostRequestQuery): MeReviewsPostResponseData? {
         this.client.apply {
-            return MeReviewsPostResponseData().toDataClass(
+            return MeReviewsPostResponseData().parse(
                 request(
                     Request.Builder().url(query.url(getUrlBuilder())).method("post", null)
                 )
@@ -127,9 +131,9 @@ class MeReviewsService (val client: AnnictClient) {
     /**
      * レビュー編集 [write scope]
      */
-    fun patch(query: MeReviewsPatchRequestQuery): MeReviewsPatchResponseData {
+    internal fun patch(query: MeReviewsPatchRequestQuery): MeReviewsPatchResponseData? {
         this.client.apply {
-            return MeReviewsPatchResponseData().toDataClass(
+            return MeReviewsPatchResponseData().parse(
                 request(
                     Request.Builder().url(query.url(getUrlBuilder())).method("patch", null)
                 )
@@ -140,7 +144,7 @@ class MeReviewsService (val client: AnnictClient) {
     /**
      * レビュー削除 [write scope]
      */
-    fun delete(query: MeReviewsDeleteRequestQuery): Boolean {
+    internal fun delete(query: MeReviewsDeleteRequestQuery): Boolean? {
         this.client.apply {
             return (request(Request.Builder().url(query.url(getUrlBuilder())).method("delete", null)).code == 204)
         }

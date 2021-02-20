@@ -1,27 +1,41 @@
 <p align="center"><a href="https://annict.com" target="_blank" rel="noopener"><img src="https://user-images.githubusercontent.com/56767/56467671-fdd6ea80-645c-11e9-9056-a5d3fd5739e6.png" width="130" /></a></p>
 
-# annict-kt
-[Annict API](https://github.com/annict/annict) wrapper for Kotlin Library.
+# 🅰️ annict-kt: [Annict API](https://github.com/annict/annict) wrapper for Kotlin Library.
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.4.21-blue)](https://kotlinlang.org)
-[ ![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=1.1.2) ](https://bintray.com/riptakagi/maven/annict-kt/1.1.2/link)
-[![license](https://img.shields.io/github/license/iam-takagi/annict-kt)](./LICENSE)
+[![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=2.4.2) ](https://bintray.com/riptakagi/maven/annict-kt/2.4.2/link)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/iam-takagi/annict-kt)](https://github.com/iam-takagi/annict-kt/releases)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/iam-takagi/annict-kt/Check)]()
+[![license](https://img.shields.io/github/license/iam-takagi/annict-kt)](https://github.com/iam-takagi/annict-kt/blob/master/LICENSE)
 [![issues](https://img.shields.io/github/issues/iam-takagi/annict-kt)](https://github.com/iam-takagi/annict-kt/issues)
 [![pull requests](https://img.shields.io/github/issues-pr/iam-takagi/annict-kt)](https://github.com/iam-takagi/annict-kt/pulls)
 
 https://annict.jp/userland/projects/61
 
-## Document
-https://docs.annict.com/docs/
+## Documents
+https://iam-takagi.github.io/annict-kt/kdoc/annict-kt/
 
 ## Installation
+
+```gradle
+repositories {
+    maven ( url = "https://dl.bintray.com/riptakagi/maven/")
+}
+
+dependencies {
+    implementation 'jp.annict:annict-kt:2.4.2'
+}
+```
+
+or
+
 ```gradle
 repositories {
     jcenter()
 }
 
 dependencies {
-    implementation 'jp.annict:annict-kt:${version}'
+    implementation 'jp.annict:annict-kt:2.4.2'
 }
 ```
 

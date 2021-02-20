@@ -1,9 +1,15 @@
 package jp.annict.enums
 
-enum class Order {
-    ASC, DESC;
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerialName
 
-    override fun toString() : String {
-        return name.toLowerCase()
-    }
+/**
+ * Order
+ *
+ * @constructor Create empty Order
+ */
+@Serializable
+enum class Order {
+    @SerialName("asc") ASC,
+    @SerialName("desc") DESC;
 }
