@@ -1,0 +1,11 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+com.github.iamtakagi.kannict.auth
+com.github.iamtakagi.kannict.client
+com.github.iamtakagi.kannict.enums
+com.github.iamtakagi.kannict.exception
+com.github.iamtakagi.kannict.models
+com.github.iamtakagi.kannict.services
+com.github.iamtakagi.kannict.services.me
+
