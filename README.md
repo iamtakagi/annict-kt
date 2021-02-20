@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'jp.annict:annict-kt:${version}'
+    implementation 'com.github.iamtakagi.kannict:annict-kt:${version}'
 }
 ```
 

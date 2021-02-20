@@ -10,6 +10,7 @@ object Versions {
 
 plugins {
     kotlin("jvm") version "1.4.30"
+    kotlin("plugin.serialization") version "1.4.30"
     id("com.github.johnrengelman.shadow") version "6.1.0"
 
     `maven-publish`
@@ -26,7 +27,6 @@ repositories {
 }
 
 dependencies {
-    // Kotlin
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.squareup.okhttp3:okhttp:${Versions.OkHttp}")

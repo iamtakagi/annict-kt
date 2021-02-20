@@ -1,8 +1,8 @@
 package com.github.iamtakagi.kannict.services.me
 
-import jp.annict.client.AnnictClient
-import jp.annict.exception.AnnictError
-import jp.annict.models.Me
+import com.github.iamtakagi.kannict.client.AnnictClient
+import com.github.iamtakagi.kannict.exception.AnnictError
+import com.github.iamtakagi.kannict.models.Me
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json

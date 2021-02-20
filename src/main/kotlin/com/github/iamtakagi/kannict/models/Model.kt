@@ -1,7 +1,7 @@
 package com.github.iamtakagi.kannict.models
 
-import jp.annict.enums.Action
-import jp.annict.enums.RatingState
+import com.github.iamtakagi.kannict.enums.Action
+import com.github.iamtakagi.kannict.enums.RatingState
 import kotlinx.serialization.Serializable
 import java.util.*
 
@@ -242,7 +242,7 @@ data class Activity (
  */
 @Serializable
 data class Status(
-        val kind: jp.annict.enums.Status? = null
+        val kind: com.github.iamtakagi.kannict.enums.Status? = null
 )
 
 /**

@@ -1,11 +1,11 @@
 package com.github.iamtakagi.kannict.client
 
-import jp.annict.enums.Action
-import jp.annict.enums.Order
-import jp.annict.enums.RatingState
-import jp.annict.enums.Status
-import jp.annict.services.*
-import jp.annict.services.me.*
+import com.github.iamtakagi.kannict.enums.Action
+import com.github.iamtakagi.kannict.enums.Order
+import com.github.iamtakagi.kannict.enums.RatingState
+import com.github.iamtakagi.kannict.enums.Status
+import com.github.iamtakagi.kannict.services.*
+import com.github.iamtakagi.kannict.services.me.*
 import okhttp3.*
 
 class AnnictClient(val token: String, val client: OkHttpClient = OkHttpClient()) {

@@ -1,8 +1,8 @@
 package com.github.iamtakagi.kannict.services
 
-import jp.annict.client.AnnictClient
-import jp.annict.enums.Order
-import jp.annict.exception.AnnictError
+import com.github.iamtakagi.kannict.client.AnnictClient
+import com.github.iamtakagi.kannict.enums.Order
+import com.github.iamtakagi.kannict.exception.AnnictError
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json

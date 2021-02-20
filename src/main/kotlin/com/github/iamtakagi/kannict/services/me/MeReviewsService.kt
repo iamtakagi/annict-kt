@@ -1,9 +1,9 @@
 package com.github.iamtakagi.kannict.services.me
 
-import jp.annict.client.AnnictClient
-import jp.annict.enums.RatingState
-import jp.annict.exception.AnnictError
-import jp.annict.models.Review
+import com.github.iamtakagi.kannict.client.AnnictClient
+import com.github.iamtakagi.kannict.enums.RatingState
+import com.github.iamtakagi.kannict.exception.AnnictError
+import com.github.iamtakagi.kannict.models.Review
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json

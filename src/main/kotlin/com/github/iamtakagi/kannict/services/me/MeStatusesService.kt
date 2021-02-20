@@ -1,7 +1,7 @@
 package com.github.iamtakagi.kannict.services.me
 
-import jp.annict.client.AnnictClient
-import jp.annict.enums.Status
+import com.github.iamtakagi.kannict.client.AnnictClient
+import com.github.iamtakagi.kannict.enums.Status
 import okhttp3.HttpUrl
 import okhttp3.Request
 

@@ -1,7 +1,7 @@
 package com.github.iamtakagi.kannict.auth
 
-import jp.annict.exception.AnnictError
-import jp.annict.models.Application
+import com.github.iamtakagi.kannict.exception.AnnictError
+import com.github.iamtakagi.kannict.models.Application
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
