@@ -13,7 +13,7 @@
 https://annict.jp/userland/projects/61
 
 ## Documents
-https://iam-takagi.github.io/kannict/dokka/html/kannict
+https://iamtakagi.github.io/kannict/dokka/html/kannict
 
 ## Installation
 
