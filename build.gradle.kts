@@ -1,6 +1,3 @@
-group = "com.github.iamtakagi"
-val artifactID = "kannict"
-
 object Versions {
     const val OkHttp = "4.8.1"
     const val KotlinxCoroutinesCore = "1.4.2"
@@ -28,7 +25,6 @@ repositories {
 
 dependencies {
     // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("com.squareup.okhttp3:okhttp:${Versions.OkHttp}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.KotlinxCoroutinesCore}")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.KotlinxSerializationJson}")
@@ -57,12 +53,6 @@ kotlin {
             useExperimentalAnnotation("kotlin.ExperimentalStdlibApi")
         }
     }
-}
-
-val shadowJar: com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar by tasks
-shadowJar.apply {
-    baseName = artifactID
-    classifier = null
 }
 
 /*****************
