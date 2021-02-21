@@ -1,12 +1,10 @@
-name: Release
-
+name: Publish package to the Maven Central Repository and GitHub Packages
 on:
   release:
     types:
       - published
-
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,16 +29,11 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Build & Release to Maven Central
-        run: ./gradlew publishToMavenLocal publish closeAndReleaseRepository
+      - name: Publish to the Maven Central Repository
+        run: gradle publish
         env:
           VERSION: ${{ github.event.release.tag_name }}
-
-          OSSRH_PROFILE_ID: ${{ secrets.OSSRH_PROFILE_ID }}
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-          SIGNING_KEYID: ${{ secrets.SIGNING_KEYID }}
-          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
           GITHUB_USERNAME: x-access-token
           GITHUB_PASSWORD: ${{ secrets.TOKEN }}

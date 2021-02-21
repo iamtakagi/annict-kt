@@ -61,22 +61,15 @@ kotlin {
 
 object Env {
     const val Version = "VERSION"
-
-    const val OSSRHProfileId = "OSSRH_PROFILE_ID"
     const val OSSRHUsername = "OSSRH_USERNAME"
     const val OSSRHPassword = "OSSRH_PASSWORD"
-
     const val GitHubUsername = "GITHUB_USERNAME"
     const val GitHubPassword = "GITHUB_PASSWORD"
-
-    const val SigningKeyId = "SIGNING_KEYID"
-    const val SigningKey = "SIGNING_KEY"
-    const val SigningPassword = "SIGNING_PASSWORD"
 }
 
 object Publications {
     const val GroupId = "com.github.iamtakagi"
-    const val OSSRHProfileGroupId = "com.github.iamtakagi.kannict"
+    const val OSSRHProfileGroupId = "com.github.iamtakagi"
     const val Description = "Annict API wrapper for Kotlin."
     const val GitHubUsername = "iamtakagi"
     const val GitHubRepository = "kannict"
@@ -106,7 +99,7 @@ publishing {
         maven {
             name = "Sonatype"
             url = uri(
-                if (System.getenv(Env.Version).orEmpty().endsWith("-SNAPSHOT")) {
+               if (System.getenv(Env.Version).orEmpty().endsWith("-SNAPSHOT")) {
                     Publications.MavenCentralSnapshotRepositoryUrl
                 } else {
                     Publications.MavenCentralStagingRepositoryUrl
@@ -169,25 +162,4 @@ publishing {
 
         artifact(tasks["kdocJar"])
     }
-}
-
-signing {
-    setRequired { gradle.taskGraph.hasTask("publish") }
-    sign(publishing.publications)
-
-    if (System.getenv(Env.SigningKey) != null) {
-        @Suppress("UnstableApiUsage")
-        useInMemoryPgpKeys(
-            System.getenv(Env.SigningKeyId),
-            System.getenv(Env.SigningKey),
-            System.getenv(Env.SigningPassword)
-        )
-    }
-}
-
-nexusStaging {
-    packageGroup = Publications.OSSRHProfileGroupId
-    stagingProfileId = System.getenv(Env.OSSRHProfileId)
-    username = System.getenv(Env.OSSRHUsername)
-    password = System.getenv(Env.OSSRHPassword)
 }
