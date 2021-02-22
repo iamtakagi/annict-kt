@@ -1,4 +1,4 @@
-rootProject.name = "kannict"
+rootProject.name = "annict-kt"
 
 pluginManagement {
     repositories {
