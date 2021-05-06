@@ -1,1 +1,2 @@
-kdoc/* linguist-documentation
+* linguist-vendored
+*.html linguist-vendored=false
