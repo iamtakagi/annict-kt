@@ -29,18 +29,6 @@ dependencies {
 }
 ```
 
-or
-
-```gradle
-repositories {
-    jcenter()
-}
-
-dependencies {
-    implementation 'jp.annict:annict-kt:2.4.2'
-}
-```
-
 ## Example
 
 ### Authorization
@@ -80,3 +68,9 @@ val works = response.works
 val response = client.getCasts(filter_work_id = 1808, per_page = 5, page = 5)
 val casts = response.casts
 ```
+
+## Logo
+The copyright of the logo belongs to [annict/annict-logo](https://github.com/annict/annict-logo).
+
+## LICENSE
+iamtakagi/annict-kt is provided under the MIT license.
