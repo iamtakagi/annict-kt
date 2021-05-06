@@ -1,4 +1,4 @@
+*.kt linguist-detectable=true
 *.html linguist-detectable=false
 *.js linguist-detectable=false
 *.css linguist-detectable=false
-*.kt linguist-detectable=true
