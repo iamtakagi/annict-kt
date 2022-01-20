@@ -17,14 +17,24 @@ See a [this page](https://iamtakagi.github.io/annict-kt/kdoc/annict-kt)
 
 ## Installation
 
-```gradle
-repositories {
-    maven ( url = "https://dl.bintray.com/riptakagi/maven/")
-}
+### Gradle
 
+#### build.gradle.kts
+```kotlin
 dependencies {
-    implementation 'jp.annict:annict-kt:2.4.2'
+    implementation("jp.annict:annict-kt:$AnnictKtVersion")
 }
+```
+
+### Maven
+
+#### pom.xml
+```xml
+<dependency>
+  <groupId>jp.annict</groupId>
+  <artifactId>annict-kt</artifactId>
+  <version>${annictKtVersion}</version>
+</dependency>
 ```
 
 ## Example
