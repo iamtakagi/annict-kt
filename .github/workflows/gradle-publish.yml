@@ -11,7 +11,9 @@ jobs:
       contents: read
       packages: write
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew
     - name: Build
       run: ./gradlew build
     - name: Publish
