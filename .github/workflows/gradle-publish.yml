@@ -18,6 +18,6 @@ jobs:
       run: ./gradlew build
     - name: Publish
       env:
-        GITHUB_TOKEN: ${{ github.actor }}
-        GITHUB_USERNAME: ${{ github.token }}
+        GITHUB_TOKEN: ${{ github.token }}
+        GITHUB_USERNAME: ${{ github.actor }}
       run: ./gradlew publish
