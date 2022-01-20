@@ -5,7 +5,7 @@
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.4.21-blue)](https://kotlinlang.org)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/iamtakagi/annict-kt)](https://github.com/iamtakagi/annict-kt/releases)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/iamtakagi/kannict/Check)]()
+[![Publish to GitHub Package](https://github.com/iamtakagi/annict-kt/actions/workflows/gradle-publish.yml/badge.svg)](https://github.com/iamtakagi/annict-kt/actions/workflows/gradle-publish.yml)
 [![license](https://img.shields.io/github/license/iamtakagi/annict-kt)](https://github.com/iam-takagi/kannict/blob/master/LICENSE)
 [![issues](https://img.shields.io/github/issues/iamtakagi/annict-kt)](https://github.com/iam-takagi/kannict/issues)
 [![pull requests](https://img.shields.io/github/issues-pr/iamtakagi/annict-kt)](https://github.com/iamtakagi/kannict/pulls)
