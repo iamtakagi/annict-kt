@@ -4,12 +4,11 @@
 📚 [Annict API](https://github.com/annict/annict) wrapper for Kotlin Library.
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.4.21-blue)](https://kotlinlang.org)
-[![Download](https://api.bintray.com/packages/riptakagi/maven/annict-kt/images/download.svg?version=2.4.2) ](https://bintray.com/riptakagi/maven/kannict/2.4.2/link)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/iam-takagi/annict-kt)](https://github.com/iam-takagi/kannict/releases)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/iam-takagi/kannict/Check)]()
-[![license](https://img.shields.io/github/license/iam-takagi/annict-kt)](https://github.com/iam-takagi/kannict/blob/master/LICENSE)
-[![issues](https://img.shields.io/github/issues/iam-takagi/annict-kt)](https://github.com/iam-takagi/kannict/issues)
-[![pull requests](https://img.shields.io/github/issues-pr/iam-takagi/annict-kt)](https://github.com/iam-takagi/kannict/pulls)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/iamtakagi/annict-kt)](https://github.com/iamtakagi/annict-kt/releases)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/iamtakagi/kannict/Check)]()
+[![license](https://img.shields.io/github/license/iamtakagi/annict-kt)](https://github.com/iam-takagi/kannict/blob/master/LICENSE)
+[![issues](https://img.shields.io/github/issues/iamtakagi/annict-kt)](https://github.com/iam-takagi/kannict/issues)
+[![pull requests](https://img.shields.io/github/issues-pr/iamtakagi/annict-kt)](https://github.com/iamtakagi/kannict/pulls)
 
 https://annict.jp/userland/projects/61
 
