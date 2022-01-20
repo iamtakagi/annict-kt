@@ -13,7 +13,7 @@
 https://annict.jp/userland/projects/61
 
 ## Document
-See a [this page](https://iamtakagi.github.io/kannict/kdoc/annict-kt)
+See a [this page](https://iamtakagi.github.io/annict-kt/kdoc/annict-kt)
 
 ## Installation
 
